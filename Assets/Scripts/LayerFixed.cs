@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LayerFixed : MonoBehaviour {
 
-    public static float separation = 10;
+    public static float separation = 100;
 
     public int z = 0;
 
