@@ -13,7 +13,6 @@ public class EaseToTarget : MonoBehaviour {
     /// This is an ease multiplier for lerping
     /// </summary>
     public float moveEasing = 10;
-
 	/// <summary>
     /// Move!
     /// </summary>

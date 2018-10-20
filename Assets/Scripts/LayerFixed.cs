@@ -77,6 +77,7 @@ public class LayerFixed : MonoBehaviour {
     /// <returns>Whether or not this object can jump without phasing into other colliders.</returns>
     public bool CanPhase(bool isGoingBack)
     {
+        if (phaseTimer > 0) return false;
         if (allowOverlappingColliders) return true;
         Collider collider = transform.GetComponent<Collider>();
         if (collider)
@@ -111,10 +112,8 @@ public class LayerFixed : MonoBehaviour {
     /// </summary>
     void LateUpdate () {
 
-        int v = (int)Input.GetAxisRaw("Vertical");
         if (phaseTimer > 0) phaseTimer -= Time.deltaTime;
-        else if (v > 0) GoBack();
-        else if (v < 0) ComeForward();
+        
 
         transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * 10);
 	}

@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 /// This handles the player avatar behavior (physics + input)
 /// </summary>
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(LayerFixed))]
 public class PlayerController : MonoBehaviour {
 
     /// <summary>
@@ -52,7 +53,10 @@ public class PlayerController : MonoBehaviour {
     /// Reference to the alive player avatar.
     /// </summary>
     public Transform billboard;
-
+    /// <summary>
+    /// Ref to the LayerFixed object that allows the player to phase jump.
+    /// </summary>
+    private LayerFixed layerController;
     /// <summary>
     /// This is how long it will take (in seconds) for this object to realize it's not on the ground.
     /// </summary>
@@ -70,7 +74,7 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     void Start () {
         pawn = GetComponent<CharacterController>();
-        
+        layerController = GetComponent<LayerFixed>();
 	}
     /// <summary>
     /// Reloads the current level. :D
@@ -84,10 +88,21 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
 	void Update ()
     {
+        PhaseJump((int)Input.GetAxisRaw("Vertical"));
         GroundDetection();
         Move();
         if (Input.GetButtonDown("Reset")) ResetLevel();
     }
+    /// <summary>
+    /// Checks input, asks the LayerFixed script to phase jump.
+    /// </summary>
+    /// <param name="dir">If greater than 0, moves away from camera. If less than 0, comes towards camera.</param>
+    private void PhaseJump(int dir)
+    {
+        if (dir > 0) layerController.GoBack();
+        if (dir < 0) layerController.ComeForward();
+    }
+
     /// <summary>
     /// Creates a timing window for late jump presses.
     /// </summary>
