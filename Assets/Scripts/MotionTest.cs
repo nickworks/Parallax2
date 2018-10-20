@@ -6,16 +6,33 @@ using UnityEngine;
 /// </summary>
 public class MotionTest : MonoBehaviour {
 
+    /// <summary>
+    /// The world position this object oscillates around.
+    /// </summary>
     public Vector3 home { get; private set; }
+    /// <summary>
+    /// How fast to oscillate
+    /// </summary>
     [Range(0,20)] public float period = 10;
+    /// <summary>
+    /// How far to oscillate
+    /// </summary>
     [Range(0,3)] public float amplitude = 1;
-
+    /// <summary>
+    /// Whether or not to wiggle on the x axis
+    /// </summary>
     public bool wiggleX = true;
+    /// <summary>
+    /// Whether or not to wiggle on the y axis
+    /// </summary>
     public bool wiggleY = true;
+    /// <summary>
+    /// Whether or not to wiggle on the z axis
+    /// </summary>
     public bool wiggleZ = true;
     
     /// <summary>
-    /// Set home
+    /// Sets home
     /// </summary>
     void Start()
     {

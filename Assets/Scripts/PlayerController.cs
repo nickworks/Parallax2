@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// This handles the player avatar behavior (physics + input)
@@ -69,7 +70,15 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     void Start () {
         pawn = GetComponent<CharacterController>();
+        
 	}
+    /// <summary>
+    /// Reloads the current level. :D
+    /// </summary>
+    void ResetLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 	/// <summary>
     /// The game ticks forward one frame.
     /// </summary>
@@ -77,6 +86,7 @@ public class PlayerController : MonoBehaviour {
     {
         GroundDetection();
         Move();
+        if (Input.GetButtonDown("Reset")) ResetLevel();
     }
     /// <summary>
     /// Creates a timing window for late jump presses.
