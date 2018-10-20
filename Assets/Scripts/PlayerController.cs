@@ -11,10 +11,15 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour {
 
     /// <summary>
+    /// Provides easy, singleton-like access to the player.
+    /// This assumes we will only ever have one PlayerController.
+    /// If we add multiplayer, we will have to redesign this.
+    /// </summary>
+    public static PlayerController player { get; private set; }
+    /// <summary>
     /// A reference to the CharacterController component.
     /// </summary>
     CharacterController pawn;
-    
     /// <summary>
     /// Horizontal acceleration used when the user presses left or right.
     /// </summary>
@@ -73,6 +78,7 @@ public class PlayerController : MonoBehaviour {
     /// Initializes the object. Called when spawning.
     /// </summary>
     void Start () {
+        PlayerController.player = this;
         pawn = GetComponent<CharacterController>();
         layerController = GetComponent<LayerFixed>();
 	}
@@ -88,6 +94,8 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
 	void Update ()
     {
+        if (Px2.paused) return; // do nothing if game is paused...
+
         PhaseJump((int)Input.GetAxisRaw("Vertical"));
         GroundDetection();
         Move();

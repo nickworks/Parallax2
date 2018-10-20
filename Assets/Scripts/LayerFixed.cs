@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
@@ -17,9 +17,13 @@ public class LayerFixed : MonoBehaviour {
     /// </summary>
     public int z = 0;
     /// <summary>
+    /// Whether or not to snap to z-position (with full layer separation applied) in editor.
+    /// </summary>
+    public bool snapToLayerInEditor = false;
+    /// <summary>
     /// This controls whether or not this object checks for collisions when phase jumping.
     /// </summary>
-    public bool allowOverlappingColliders = false;
+    public bool ignoreCollidersWhenPhasing = false;
     /// <summary>
     /// How much time (in seconds) before the player can phase jump again.
     /// </summary>
@@ -28,7 +32,6 @@ public class LayerFixed : MonoBehaviour {
     /// How much time (in seconds) the player must wait between phase jumps.
     /// </summary>
     public float phaseCooldown = .5f;
-
     /// <summary>
     /// Gets this object's projected position.
     /// </summary>
@@ -44,7 +47,7 @@ public class LayerFixed : MonoBehaviour {
     /// </summary>
     void OnValidate()
     {
-        Snap();
+        if(snapToLayerInEditor) Snap();
     }
     /// <summary>
     /// Phase jump away from the camera (z+)
@@ -78,7 +81,7 @@ public class LayerFixed : MonoBehaviour {
     public bool CanPhase(bool isGoingBack)
     {
         if (phaseTimer > 0) return false;
-        if (allowOverlappingColliders) return true;
+        if (ignoreCollidersWhenPhasing) return true;
         Collider collider = transform.GetComponent<Collider>();
         if (collider)
         {
