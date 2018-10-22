@@ -19,6 +19,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4869365403218260}
+  - component: {fileID: 136069409110027384}
+  - component: {fileID: 54351141933615514}
   - component: {fileID: 114757667767801140}
   - component: {fileID: 143337535872060558}
   - component: {fileID: 33115414752826506}
@@ -86,7 +88,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1078176212132782}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.1, y: 4.26, z: 100}
+  m_LocalPosition: {x: 24.66, y: 25.57, z: 100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4570431233410154}
@@ -198,6 +200,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1231291699957230}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54351141933615514
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1078176212132782}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!54 &54643962503966260
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -220,7 +237,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1231291699957230}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -239,7 +256,7 @@ MonoBehaviour:
   z: 1
   snapToLayerInEditor: 0
   ignoreCollidersWhenPhasing: 0
-  phaseCooldown: 0.5
+  phaseCooldown: 0.25
 --- !u!114 &114757667767801140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -259,6 +276,19 @@ MonoBehaviour:
   ragdoll: {fileID: 4876709876488544}
   billboard: {fileID: 4570431233410154}
   groundTimeAmount: 0.2
+--- !u!136 &136069409110027384
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1078176212132782}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &143337535872060558
 CharacterController:
   m_ObjectHideFlags: 1

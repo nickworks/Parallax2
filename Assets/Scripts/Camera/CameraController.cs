@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// This class is a pseudo-singleton. 
+/// This class is a pseudo-singleton tha provides easy access to the main camera
+/// by CameraController.main. Is it a bad idea? Maybe.
 /// </summary>
 [RequireComponent(typeof(DollyZoom))]
 [RequireComponent(typeof(EaseToTarget))]

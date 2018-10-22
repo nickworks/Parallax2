@@ -85,10 +85,7 @@ public class PlayerController : MonoBehaviour {
     /// <summary>
     /// Reloads the current level. :D
     /// </summary>
-    void ResetLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+    
 	/// <summary>
     /// The game ticks forward one frame.
     /// </summary>
@@ -99,7 +96,6 @@ public class PlayerController : MonoBehaviour {
         PhaseJump((int)Input.GetAxisRaw("Vertical"));
         GroundDetection();
         Move();
-        if (Input.GetButtonDown("Reset")) ResetLevel();
     }
     /// <summary>
     /// Checks input, asks the LayerFixed script to phase jump.
@@ -205,24 +201,25 @@ public class PlayerController : MonoBehaviour {
     void Ragdoll(Vector3 fromHere)
     {
         // swap avatars:
-        pawn.enabled = false;
-        billboard.gameObject.SetActive(false);
+        ragdoll.transform.parent = transform.parent;
         ragdoll.gameObject.SetActive(true);
-
-        // turn on physics:
+        
+        // apply force to ragdoll:
         Rigidbody body = ragdoll.GetComponentInChildren<Rigidbody>();
-        body.isKinematic = false; // turn on rigidbodies in attached ragdoll
         Vector3 dis = fromHere - transform.position;
         body.AddForce(-dis.normalized * 10, ForceMode.Impulse);
         body.AddTorque(Random.onUnitSphere * 10, ForceMode.Impulse);
+
+        Destroy(gameObject);
     }
     /// <summary>
     /// FIXME: respond to collision events where this object is not the instigator.
     /// </summary>
     /// <param name="info"></param>
-    void OnCollisionEnter(Collision info)
+    void OnTriggerEnter(Collider collider)
     {
-        print("anything??");
+        //if (collider.tag == "Danger") print("danger moved into you");
+        OnHitGameObject(collider);   
     }
     /// <summary>
     /// You've run into something. This object is the instigator of the collision.
@@ -230,9 +227,14 @@ public class PlayerController : MonoBehaviour {
     /// <param name="info"></param>
     void OnControllerColliderHit(ControllerColliderHit info)
     {
-        if (info.gameObject.tag == "Danger")
+        //if (info.collider.tag == "Danger") print("you moved into danger");
+        OnHitGameObject(info.collider);
+    }
+    void OnHitGameObject(Collider obj)
+    {
+        if (obj.tag == "Danger")
         {
-            Ragdoll(info.collider.transform.position);
+            Ragdoll(obj.transform.position);
         }
     }
 }

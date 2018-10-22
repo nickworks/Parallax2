@@ -17,7 +17,7 @@ public class MotionTest : MonoBehaviour {
     /// <summary>
     /// How far to oscillate
     /// </summary>
-    [Range(0,3)] public float amplitude = 1;
+    [Range(0,10)] public float amplitude = 1;
     /// <summary>
     /// Whether or not to wiggle on the x axis
     /// </summary>
