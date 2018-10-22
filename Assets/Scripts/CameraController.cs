@@ -22,7 +22,9 @@ public class CameraController : MonoBehaviour {
     /// </summary>
     public EaseToTarget chase { get; private set; }
 
-	// Use this for initialization
+	/// <summary>
+    /// Sets up the singleton, attaches refs
+    /// </summary>
 	void Start () {
         if (main == null) // first one spawning
         {

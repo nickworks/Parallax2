@@ -118,6 +118,9 @@ public class LayerFixed : MonoBehaviour {
         if (phaseTimer > 0) phaseTimer -= Time.deltaTime;
         transform.position = Vector3.Lerp(transform.position, targetPosition, Time.unscaledDeltaTime * 10);
 	}
+    /// <summary>
+    /// Cancels the phase cooldown timer.
+    /// </summary>
     public void CancelTimer()
     {
         phaseTimer = 0;
