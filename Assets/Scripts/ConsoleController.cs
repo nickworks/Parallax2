@@ -4,10 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using System;
 
+/// <summary>
+/// A controller that handles all console state and logic.
+/// </summary>
 public class ConsoleController : MonoBehaviour {
 
-    public delegate bool CommandDelegate(string cmd);
+    /// <summary>
+    /// A delegate to handle commands in the console.
+    /// </summary>
+    /// <param name="cmd">The full command</param>
+    /// <returns>Returns true if successful.</returns>
+    public delegate void CommandDelegate(string cmd);
     /// <summary>
     /// A dictionary of commands. The keys are the one-word command identifiers. The values are delegates (anonymous functions). 
     /// </summary>
@@ -20,6 +30,10 @@ public class ConsoleController : MonoBehaviour {
     /// A reference to the input textfield
     /// </summary>
     public InputField input;
+    /// <summary>
+    /// Whether or not the input has focus currently.
+    /// </summary>
+    private bool hasFocus = false;
     /// <summary>
     /// A reference to the output text
     /// </summary>
@@ -35,14 +49,22 @@ public class ConsoleController : MonoBehaviour {
     /// <summary>
     /// Sets up a few important things.
     /// </summary>
+
+
     void Start () {
-        DontDestroyOnLoad(gameObject);
-        MakeCommands();
-        output.supportRichText = true;
-        main = this;
+        if (main == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            MakeCommands();
+            output.supportRichText = true;
+            main = this;
+        } else
+        {
+            Destroy(gameObject);
+        }
     }
     /// <summary>
-    /// This function is called when ever the text changes in the input field.
+    /// This function is called when ever the text changes in the input
     /// </summary>
     /// <param name="val">The new text in the input field</param>
 	public void TextUpdate(string val)
@@ -50,28 +72,26 @@ public class ConsoleController : MonoBehaviour {
 
     }
     /// <summary>
-    /// This function is called whenever the input field is submitted (when the user presses enter, or clicks elsewhere).
+    /// This function is called whenever the input field is submitted
+    /// (when the user presses enter, or clicks elsewhere).
+    /// Call this from Update() only. Do not use the On End Edit event in the textfield.
     /// </summary>
     /// <param name="cmd">The current text in the input field</param>
-    public void TextSubmit(string cmd)
+    private void TextSubmit(string cmd)
     {
-        cmd = cmd.Trim(new char[]{' ', '`'});
-        if (cmd.Length > 0)
+        cmd = cmd.Trim(new char[]{' ', '`'}); // split on spaces and tildes
+        // tilde's make sense, since the only time they'd be
+        // added to the textbox is when opening / closing
+
+        if (cmd.Length > 0) // if there's text in the input box:
         {
-            string name = GetCommandName(cmd);
-            logInput(cmd);
-            if (commands.ContainsKey(name))
+            logInput(cmd); // log the cmd
+            string name = GetCommandName(cmd); // get the command's name
+            if (commands.ContainsKey(name)) // if command exists:
             {
-                if (commands[name].Invoke(cmd))
-                {
-
-                }
-                else
-                {
-
-                }
+                commands[name].Invoke(cmd); // call command
             }
-            else
+            else // otherwise, log an error:
             {
                 logError("command \""+name+"\" not recognized");
             }
@@ -143,6 +163,13 @@ public class ConsoleController : MonoBehaviour {
         {
             HideConsole();
         }
+
+        // Check for [enter] to be pressed by the player:
+        if (hasFocus && Input.GetKeyDown(KeyCode.Return))
+        {
+            TextSubmit(input.text);
+        }
+        hasFocus = input.isFocused;
     }
     /// <summary>
     /// Shows the console gui.
@@ -164,19 +191,90 @@ public class ConsoleController : MonoBehaviour {
     {
         gui.gameObject.SetActive(false);
         Px2.Unpause();
+        input.text = "";
     }
     /// <summary>
     /// Create all of the commands!
     /// </summary>
     void MakeCommands()
     {
-        commands["test"] = (string str)=>{
-            
-            log("hello world");
-            return true;
+        // CREATE THE COMMANDS:
+        commands["list"] = commands["help"] = (string cmd) =>
+        {
+            string text = "commands available: ";
+            foreach (string key in commands.Keys) text += key + ", ";
+            log(text);
         };
-        string text = "commands loaded: ";
-        foreach (string k in commands.Keys) text += k + ", ";
-        log(text);
+        commands["reset"] = commands["reload"] = (string cmd) =>
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        };
+        commands["levels"] = commands["scenes"] = (string cmd) =>
+        {
+            string result = "available scenes: ";
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                Scene scene = SceneManager.GetSceneByBuildIndex(i);
+                result += scene.name + ", ";
+            }
+            log(result);
+        };
+        commands["separation"] = (string cmd) =>
+        {
+            float amt = FloatVal(CommandPart(cmd, 1));
+            if(amt != 0) LayerFixed.separation = amt;
+        };
+        commands["fov"] = (string cmd) =>
+        {
+            float amt = FloatVal(CommandPart(cmd, 1));
+            if (amt != 0)
+            {
+                if(!CameraController.main) logError("no camera found");
+                else CameraController.main.dolly.fieldOfView = amt;
+            } else
+            {
+                if (!CameraController.main) logError("no camera found");
+                else log("camera fov: " + CameraController.main.dolly.fieldOfView);
+            }
+        };
+        commands["dis"] = (string cmd) =>
+        {
+            float amt = FloatVal(CommandPart(cmd, 1));
+            if (amt != 0)
+            {
+                if (!CameraController.main) logError("no camera found");
+                else CameraController.main.dolly.distance = amt;
+            } else
+            {
+                if (!CameraController.main) logError("no camera found");
+                else log("camera distance: "+CameraController.main.dolly.distance);
+            }
+        };
+
+        commands["load"] = (string cmd)=>{
+
+            string name = CommandPart(cmd, 1).ToLower();
+            bool levelFound = false;
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                Scene scene = SceneManager.GetSceneByBuildIndex(i);
+                if (scene.name.ToLower() == name)
+                {
+                    levelFound = true;
+                    SceneManager.LoadScene(scene.name);
+                    break;
+                }
+            }
+            if (!levelFound) logError("scene \""+name+"\" not found");
+        };
+
+        // DONE LOADING COMMANDS:
+        log(commands.Count + " commands loaded\ntype <b>list</b> to see them all");
+    }
+    float FloatVal(string str)
+    {
+        float amt = 0;
+        float.TryParse(str, out amt);
+        return amt;
     }
 }

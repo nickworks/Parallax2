@@ -237,7 +237,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   z: 1
-  allowOverlappingColliders: 0
+  snapToLayerInEditor: 0
+  ignoreCollidersWhenPhasing: 0
   phaseCooldown: 0.5
 --- !u!114 &114757667767801140
 MonoBehaviour:

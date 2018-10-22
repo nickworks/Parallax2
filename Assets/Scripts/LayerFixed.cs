@@ -116,8 +116,6 @@ public class LayerFixed : MonoBehaviour {
     void LateUpdate () {
 
         if (phaseTimer > 0) phaseTimer -= Time.deltaTime;
-        
-
-        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * 10);
+        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.unscaledDeltaTime * 10);
 	}
 }
