@@ -165,9 +165,12 @@ public class ConsoleController : MonoBehaviour {
         }
 
         // Check for [enter] to be pressed by the player:
-        if (hasFocus && Input.GetKeyDown(KeyCode.Return))
+        if (hasFocus)
         {
-            TextSubmit(input.text);
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                TextSubmit(input.text);
+            }
         }
         hasFocus = input.isFocused;
     }
