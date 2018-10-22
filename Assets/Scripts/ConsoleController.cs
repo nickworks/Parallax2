@@ -223,6 +223,7 @@ public class ConsoleController : MonoBehaviour {
         {
             float amt = FloatVal(CommandPart(cmd, 1));
             if(amt != 0) LayerFixed.separation = amt;
+            else log("layer separation: " + LayerFixed.separation);
         };
         commands["fov"] = (string cmd) =>
         {

@@ -109,6 +109,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (dir > 0) layerController.GoBack();
         if (dir < 0) layerController.ComeForward();
+        if (dir == 0) layerController.CancelTimer();
     }
 
     /// <summary>
