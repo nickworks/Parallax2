@@ -51,6 +51,15 @@ public class PlayerController : MonoBehaviour {
     bool isGrounded = false;
 
     /// <summary>
+    /// How many air-jumps does the player have left?
+    /// </summary>
+    int airJumpsCount = 0;
+    /// <summary>
+    /// How many air-jumps should the player get?
+    /// </summary>
+    public int airJumpsMax = 1;
+
+    /// <summary>
     /// Reference to the dead player avatar.
     /// </summary>
     public Transform ragdoll;
@@ -117,6 +126,7 @@ public class PlayerController : MonoBehaviour {
         {
             isGrounded = true; // set our grounded flag to true
             forgetTheGroundTimer = groundTimeAmount; // start the countdown timer...
+            airJumpsCount = airJumpsMax;
         }
         else // ground is NOT detected, so do this stuff:
         {
@@ -187,11 +197,17 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetButtonDown("Jump"))
         {
-            if (isGrounded)
+            if (isGrounded) // if on the ground, jump:
             {
                 velocity.y = jumpVelocity;
                 isJumping = true;
                 isGrounded = false;   
+            }
+            else if(airJumpsCount > 0) // otherwise, if has airjumps left, do an airjump:
+            {
+                velocity.y = jumpVelocity;
+                isJumping = true;
+                airJumpsCount--;
             }
         }
     }
@@ -230,6 +246,11 @@ public class PlayerController : MonoBehaviour {
         //if (info.collider.tag == "Danger") print("you moved into danger");
         OnHitGameObject(info.collider);
     }
+    /// <summary>
+    /// What to do if colliding with another?
+    /// Checks the tag on the other collider.
+    /// </summary>
+    /// <param name="obj">The other collider</param>
     void OnHitGameObject(Collider obj)
     {
         if (obj.tag == "Danger")
