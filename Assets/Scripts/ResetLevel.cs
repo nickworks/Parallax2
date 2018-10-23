@@ -19,6 +19,7 @@ public class ResetLevel : MonoBehaviour
     /// This listens for the "Reset" input to be pressed
     /// </summary>
     void Update () {
+        if (Px2.paused) return;
         if (Input.GetButtonDown("Reset")) ReloadLevel();
     }
 }

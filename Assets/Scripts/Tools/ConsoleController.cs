@@ -46,11 +46,19 @@ public class ConsoleController : MonoBehaviour {
     /// Singleton access
     /// </summary>
     public static ConsoleController main;
+
+    /// <summary>
+    /// A history of commands submitted.
+    /// </summary>
+    private List<string> history = new List<string>();
+    /// <summary>
+    /// The index number to use for traversing the history.
+    /// </summary>
+    private int historyIndex = 0;
+
     /// <summary>
     /// Sets up a few important things.
     /// </summary>
-
-
     void Start () {
         if (main == null)
         {
@@ -62,6 +70,16 @@ public class ConsoleController : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+    }
+    private void History(int newIndex)
+    {
+
+        historyIndex = Mathf.Clamp(newIndex, 0, history.Count);
+        if (historyIndex < history.Count) input.text = history[historyIndex];
+        else input.text = "";
+        input.Select();
+        input.selectionAnchorPosition = input.text.Length;
+        input.selectionFocusPosition = input.text.Length;
     }
     /// <summary>
     /// This function is called when ever the text changes in the input
@@ -79,9 +97,10 @@ public class ConsoleController : MonoBehaviour {
     /// <param name="cmd">The current text in the input field</param>
     private void TextSubmit(string cmd)
     {
-        cmd = cmd.Trim(new char[]{' ', '`'}); // split on spaces and tildes
-        // tilde's make sense, since the only time they'd be
-        // added to the textbox is when opening / closing
+        cmd = cmd.Trim(new char[]{' ', '`'}); // trim spaces and tilde's
+
+        history.Add(cmd);
+        historyIndex = history.Count;
 
         if (cmd.Length > 0) // if there's text in the input box:
         {
@@ -171,6 +190,8 @@ public class ConsoleController : MonoBehaviour {
             {
                 TextSubmit(input.text);
             }
+            if (Input.GetKeyDown(KeyCode.UpArrow)) History(historyIndex - 1);
+            if (Input.GetKeyDown(KeyCode.DownArrow)) History(historyIndex + 1);
         }
         hasFocus = input.isFocused;
     }
@@ -202,25 +223,32 @@ public class ConsoleController : MonoBehaviour {
     void MakeCommands()
     {
         // CREATE THE COMMANDS:
+        commands["clear"] = commands["cls"] = (string cmd) =>
+        {
+            output.text = "";
+        };
         commands["list"] = commands["help"] = (string cmd) =>
         {
-            string text = "commands available: ";
-            foreach (string key in commands.Keys) text += key + ", ";
-            log(text);
+            log("commands available: ");
+            string[] cmds = new string[commands.Keys.Count];
+            commands.Keys.CopyTo(cmds,0);
+            Array.Sort(cmds);
+
+            foreach (string key in cmds) log("\t" + key);
+            
         };
         commands["reset"] = commands["reload"] = (string cmd) =>
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         };
-        commands["levels"] = commands["scenes"] = (string cmd) =>
+        commands["levels"] = commands["scenes"] = commands["maps"] = (string cmd) =>
         {
-            string result = "available scenes: ";
+            log("available scenes:");
             for (int i = 0; i < SceneManager.sceneCount; i++)
             {
                 Scene scene = SceneManager.GetSceneByBuildIndex(i);
-                result += scene.name + ", ";
+                log("\t"+scene.name);
             }
-            log(result);
         };
         commands["separation"] = (string cmd) =>
         {
@@ -254,7 +282,6 @@ public class ConsoleController : MonoBehaviour {
                 else log("camera distance: "+CameraController.main.dolly.distance);
             }
         };
-
         commands["load"] = (string cmd)=>{
 
             string name = CommandPart(cmd, 1).ToLower();
@@ -273,8 +300,14 @@ public class ConsoleController : MonoBehaviour {
         };
 
         // DONE LOADING COMMANDS:
+        
         log(commands.Count + " commands loaded\ntype <b>list</b> to see them all");
     }
+    /// <summary>
+    /// Parse a string, return a float.
+    /// </summary>
+    /// <param name="str">The string to parse</param>
+    /// <returns>The float value. If failed, returns 0.</returns>
     float FloatVal(string str)
     {
         float amt = 0;

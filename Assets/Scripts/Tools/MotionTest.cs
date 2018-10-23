@@ -7,7 +7,8 @@ using UnityEngine;
 public class MotionTest : MonoBehaviour {
 
     /// <summary>
-    /// The world position this object oscillates around.
+    /// The local position this object oscillates around. local-position is ideal so that
+    /// this object can still be controlled by a parent transform.
     /// </summary>
     public Vector3 home { get; private set; }
     /// <summary>
@@ -30,13 +31,14 @@ public class MotionTest : MonoBehaviour {
     /// Whether or not to wiggle on the z axis
     /// </summary>
     public bool wiggleZ = true;
-    
+
     /// <summary>
     /// Sets home
     /// </summary>
     void Start()
     {
-        home = transform.position;
+        home = transform.localPosition;
+        
     }
     /// <summary>
     /// Tick
@@ -50,6 +52,6 @@ public class MotionTest : MonoBehaviour {
         if (wiggleY) offset.y = val;
         if (wiggleZ) offset.z = val;
 
-        transform.position = home + offset * amplitude;
+        transform.localPosition = home + offset * amplitude;
 	}
 }
