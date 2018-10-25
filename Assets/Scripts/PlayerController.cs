@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour {
     /// <summary>
     /// the velocity applied to the player each frame they are using the jetpack.
     /// </summary>
-    public float jetpackVelocity = 10;
+    public float jetpackVelocity = 10000;
 
     /// <summary>
     /// This variable is used to adjust jump height. When true, less gravity is applied.
@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour {
     /// <summary>
     /// How many air-jumps should the player get?
     /// </summary>
-    public int airJumpsMax = 1;
+    public int airJumpsMax = 2;
     /// <summary>
     /// How much fuel should the player have by default?
     /// </summary>
@@ -102,6 +102,7 @@ public class PlayerController : MonoBehaviour {
         PlayerController.player = this;
         pawn = GetComponent<CharacterController>();
         layerController = GetComponent<LayerFixed>();
+        velocity.y = Mathf.Clamp(velocity.y, 0, 100);
 	}
     /// <summary>
     /// Reloads the current level. :D
@@ -229,9 +230,9 @@ public class PlayerController : MonoBehaviour {
             if (airJumpsCount == 0 && jetpackFuel > 0) //no jumps left, begin consuming fuel
             {
                 jetpackFuel--;
-                velocity.y = jetpackVelocity * Time.deltaTime;
+                velocity.y += jetpackVelocity * Time.deltaTime;
                 isFlying = true;
-
+                isJumping = true;
             }
         }
     }
