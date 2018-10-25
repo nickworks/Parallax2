@@ -151,7 +151,11 @@ public class PlayerController : MonoBehaviour {
 
         // collisions affect velocity:
         if ((flags & CollisionFlags.Sides) > 0) velocity.x = 0;
-        if ((flags & CollisionFlags.Above) > 0) velocity.y = 0;
+        if ((flags & CollisionFlags.Above) > 0)
+        {
+            if(velocity.y > 0) velocity.y = 0;
+            isJumping = false;
+        }
         if ((flags & CollisionFlags.Below) > 0) velocity.y = 0;
 
     }
