@@ -33,29 +33,30 @@ public class EnemyController : MonoBehaviour {
     public bool PlayerInSight(PlayerController player, EnemyController enemy)
     {
         Vector3 forward = enemy.transform.right;
-        Vector3 backward = -enemy.transform.right;
         Vector3 layerInFront = -enemy.transform.forward;
-        Vector3 layerBehind = enemy.transform.forward;
         Vector3 toPlayer = player.transform.position - enemy.transform.position;
 
         float distance = toPlayer.magnitude;
 
         float directionForward = Vector3.Dot(forward, toPlayer.normalized);
-        float directionBackward = Vector3.Dot(backward, toPlayer.normalized);
         float directionInFront = Vector3.Dot(layerInFront, toPlayer.normalized);
-        float directionBehind = Vector3.Dot(layerBehind, toPlayer.normalized);
 
-        if(directionInFront >= .5f)
+        if(directionForward > 0)
         {
 
         }
 
-        if(directionForward >= .5f || directionBackward >= .5f || directionInFront >= .5f || directionBehind >= .5f)
+        if(directionForward < 0)
+        {
+
+        }
+
+        if(directionForward >= .5f || directionInFront >= .5f)
         {
             playerIsSpotted = true;
         }
 
-        //Debug.Log(layerInFront);
+        Debug.Log(directionForward);
 
         if (distance <= 100)
         {
