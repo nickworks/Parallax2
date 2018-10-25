@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0511484c7facb7540afc38c17094f0ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  z: 1
+  z: 0
   snapToLayerInEditor: 0
   ignoreCollidersWhenPhasing: 0
   phaseCooldown: 0.25
