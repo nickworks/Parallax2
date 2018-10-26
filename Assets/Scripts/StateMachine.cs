@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStateMachine : MonoBehaviour {
+public class StateMachine : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
