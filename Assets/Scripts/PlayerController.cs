@@ -48,7 +48,10 @@ public class PlayerController : MonoBehaviour {
     /// The take-off velocity to use when the player jumps. This will be set by the DeriveJumpValues() function.
     /// </summary>
     private float jumpVelocity = 10;
-
+    /// <summary>
+    /// the velocity applied to the player each frame they are using the jetpack.
+    /// </summary>
+    private float jetpackVelocity = 10000;
     /// <summary>
     /// This variable is used to adjust jump height. When true, less gravity is applied.
     /// </summary>
@@ -57,6 +60,10 @@ public class PlayerController : MonoBehaviour {
     /// This variable tracks whether or not the player is on the ground.
     /// </summary>
     bool isGrounded = false;
+    /// <summary>
+    /// This variable tracks whether or not the player is using their jetpack.
+    /// </summary>
+    bool isFlying = false;
 
     /// <summary>
     /// How many air-jumps does the player have left?
@@ -65,7 +72,11 @@ public class PlayerController : MonoBehaviour {
     /// <summary>
     /// How many air-jumps should the player get?
     /// </summary>
-    public int airJumpsMax = 1;
+    public int airJumpsMax = 2;
+    /// <summary>
+    /// How much fuel should the player have by default?
+    /// </summary>
+    public int jetpackFuel = 100;
 
     /// <summary>
     /// Reference to the dead player avatar.
@@ -149,6 +160,7 @@ public class PlayerController : MonoBehaviour {
             isGrounded = true; // set our grounded flag to true
             forgetTheGroundTimer = groundTimeAmount; // start the countdown timer...
             airJumpsCount = airJumpsMax;
+            jetpackFuel = 100;
         }
         else // ground is NOT detected, so do this stuff:
         {
@@ -234,6 +246,17 @@ public class PlayerController : MonoBehaviour {
                 velocity.y = jumpVelocity;
                 isJumping = true;
                 airJumpsCount--;
+            }
+            
+        }
+        if (Input.GetButton("Jump"))
+        {
+            if (airJumpsCount == 0 && jetpackFuel > 0) //no jumps left, begin consuming fuel
+            {
+                jetpackFuel--;
+                velocity.y += jetpackVelocity * Time.deltaTime;
+                isFlying = true;
+                isJumping = true;
             }
         }
     }
