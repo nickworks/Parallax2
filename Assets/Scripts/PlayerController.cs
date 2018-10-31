@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// This handles the player avatar behavior (physics + input)
@@ -47,11 +48,11 @@ public class PlayerController : MonoBehaviour {
     /// <summary>
     /// The take-off velocity to use when the player jumps. This will be set by the DeriveJumpValues() function.
     /// </summary>
-    private float jumpVelocity = 10;
+    private float jumpVelocity = 1;
     /// <summary>
     /// the velocity applied to the player each frame they are using the jetpack.
     /// </summary>
-    private float jetpackVelocity = 10000;
+    private float jetpackVelocity = 10;
     /// <summary>
     /// This variable is used to adjust jump height. When true, less gravity is applied.
     /// </summary>
@@ -77,7 +78,14 @@ public class PlayerController : MonoBehaviour {
     /// How much fuel should the player have by default?
     /// </summary>
     public int jetpackFuel = 100;
-
+    /// <summary>
+    /// tracking how much current fuel the player has versus maximum fuel. Used to scale the UI fuel bar
+    /// </summary>
+    private Vector3 fuelPercent;
+    /// <summary>
+    /// fuel bar UI element
+    /// </summary>
+    public Image fuelBar;
     /// <summary>
     /// Reference to the dead player avatar.
     /// </summary>
@@ -138,6 +146,10 @@ public class PlayerController : MonoBehaviour {
         PhaseJump((int)Input.GetAxisRaw("Vertical"));
         GroundDetection();
         Move();
+        fuelPercent = new Vector3(jetpackFuel / 100, 1, 1);
+        fuelBar.rectTransform.localScale = fuelPercent;
+        jetpackFuel = Mathf.Clamp(jetpackFuel, 0, 100);
+        print(jetpackFuel);
     }
     /// <summary>
     /// Checks input, asks the LayerFixed script to phase jump.
