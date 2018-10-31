@@ -587,6 +587,21 @@ Prefab:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 136069409110027384, guid: e0d8e80fcd4552a46ae90b302a42f57f,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 136069409110027384, guid: e0d8e80fcd4552a46ae90b302a42f57f,
+        type: 2}
+      propertyPath: m_Height
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114163341244970300, guid: e0d8e80fcd4552a46ae90b302a42f57f,
+        type: 2}
+      propertyPath: respawnOnDeath
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0d8e80fcd4552a46ae90b302a42f57f, type: 2}
   m_IsPrefabAsset: 0
@@ -2214,10 +2229,11 @@ GameObject:
   - component: {fileID: 1951840627}
   - component: {fileID: 1951840626}
   - component: {fileID: 1951840625}
+  - component: {fileID: 1951840624}
   - component: {fileID: 1951840623}
   m_Layer: 0
   m_Name: DangerCube
-  m_TagString: Danger
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2237,6 +2253,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1951840624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1951840622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40740d95d632dd489335fc08ba6d176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 25
 --- !u!65 &1951840625
 BoxCollider:
   m_ObjectHideFlags: 0

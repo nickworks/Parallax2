@@ -8,7 +8,13 @@ using UnityEngine;
 public class Checkpoint : MonoBehaviour {
 
     public Vector3 spawnPosition;
-
+    public Vector3 worldSpawnPosition
+    {
+        get
+        {
+            return spawnPosition + transform.position;
+        }
+    }
 	// Use this for initialization
 	void Start () {
 		
@@ -20,7 +26,7 @@ public class Checkpoint : MonoBehaviour {
 	}
     void OnDrawGizmos()
     {
-        Gizmos.DrawCube(transform.position + spawnPosition, Vector3.one * .1f);
+        Gizmos.DrawCube(worldSpawnPosition, Vector3.one * .1f);
     }
     void OnTriggerEnter(Collider other)
     {
@@ -28,7 +34,7 @@ public class Checkpoint : MonoBehaviour {
         if (other.tag == "Player")
         {
             // checkpoint!
-            other.GetComponent<Health>().SetSpawn(spawnPosition);
+            other.GetComponent<HealthAndRespawn>().SetSpawn(worldSpawnPosition);
         }
     }
 }

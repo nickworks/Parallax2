@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Health : MonoBehaviour {
+public class HealthAndRespawn : MonoBehaviour {
 
     public Vector3 spawnPosition { get; private set; }
 
@@ -31,7 +31,7 @@ public class Health : MonoBehaviour {
             zControl.z = (int)(spawnPosition.z / LayerFixed.separation);
         }
     }
-    void TakeDamage(float amount)
+    public void TakeDamage(float amount)
     {
         hpCurrent -= amount;
         if (hpCurrent <= 0) Die();
@@ -42,5 +42,4 @@ public class Health : MonoBehaviour {
         if (respawnOnDeath) Respawn();
         else if (destroyOnDeath) Destroy(gameObject);
     }
-
 }
