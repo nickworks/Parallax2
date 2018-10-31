@@ -28,7 +28,7 @@ GameObject:
   - component: {fileID: 114835946239516474}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -284,8 +284,8 @@ MonoBehaviour:
   acceleration: 40
   deceleration: 40
   maxSpeed: 10
-  gravity: 20
-  jumpVelocity: 10
+  jumpHeight: 5
+  jumpTime: 1
   airJumpsMax: 1
   ragdoll: {fileID: 4876709876488544}
   billboard: {fileID: 4570431233410154}

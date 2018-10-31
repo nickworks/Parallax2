@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(LayerFixed))]
+[RequireComponent(typeof(Health))]
 public class PlayerController : MonoBehaviour {
 
     /// <summary>
