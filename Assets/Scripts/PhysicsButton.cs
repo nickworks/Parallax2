@@ -44,11 +44,8 @@ public class PhysicsButton : MonoBehaviour {
     /// <param name="other">The collider of the object that has entered the trigger area.</param>
     private void OnTriggerEnter(Collider other)
     {
-        try
-        {
-            onActivate.Invoke();
-        } catch (Exception e) {}
-
+        onActivate.Invoke();
+       
         if (activeMat != null)
         {
             buttonRend.material = activeMat;
@@ -61,10 +58,7 @@ public class PhysicsButton : MonoBehaviour {
     /// <param name="other">The collider of the object that has exited the trigger area.</param>
     private void OnTriggerExit(Collider other)
     {
-        try
-        {
-            onDeactivate.Invoke();
-        } catch (Exception e) {}
+        onDeactivate.Invoke();
         
         if(deactiveMat != null)
         {
