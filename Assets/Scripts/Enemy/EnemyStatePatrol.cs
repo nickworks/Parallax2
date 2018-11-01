@@ -8,9 +8,13 @@ public class EnemyStatePatrol : State<EnemyAI>
 {
     private static EnemyStatePatrol _instance;
 
+    public float t = 0.0f;
+    
+    
+
     private EnemyStatePatrol()
     {
-        if(_instance != null)
+        if (_instance != null)
         {
             return;
         }
@@ -21,7 +25,7 @@ public class EnemyStatePatrol : State<EnemyAI>
     {
         get
         {
-            if(_instance == null)
+            if (_instance == null)
             {
                 new EnemyStatePatrol();
             }
@@ -31,27 +35,34 @@ public class EnemyStatePatrol : State<EnemyAI>
         }
     }
 
+    public void Patrol(EnemyAI _owner)
+    {
+        float pointA = _owner.pointA.transform.localPosition.x;
+        float pointB = _owner.pointB.transform.localPosition.x;
+
+        float speed = _owner.walkSpeed / 2;
+
+    _owner.enemy.transform.localPosition = new Vector3(Mathf.Lerp(pointA, pointB, t), 0, 0);
+
+        t += speed * Time.deltaTime;
+
+        if (t > 1 || t < 0) speed *= -1;
 
 
-
+    }
 
     public override void EnterState(EnemyAI _owner)
     {
-
         Debug.Log("Entering Patrol State");
-        throw new NotImplementedException();
-        
     }
 
     public override void ExitState(EnemyAI _owner)
     {
-
         Debug.Log("Exiting Patrol State");
-        throw new NotImplementedException();
     }
 
     public override void UpdateState(EnemyAI _owner)
     {
-        throw new NotImplementedException();
+        Patrol(_owner);
     }
 }
