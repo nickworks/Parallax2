@@ -14,8 +14,13 @@ public class PhysicsButton : MonoBehaviour {
     /// </summary>
     //public GameObject target;
 
+    /// <summary>
+    /// This UnityEvent is called when something is on top of the button.
+    /// </summary>
     public UnityEvent onActivate;
-
+    /// <summary>
+    /// This UnityEvent is called when the button is clear of anything pushing it down.
+    /// </summary>
     public UnityEvent onDeactivate;
     /// <summary>
     /// The Button's activate Material. The button applies this material to itself when it is activated.
@@ -36,7 +41,8 @@ public class PhysicsButton : MonoBehaviour {
     /// </summary>
     private void Start()
     {
-        buttonRend = GetComponentInParent<Renderer>();
+        buttonRend = GetComponentInChildren<Renderer>();
+        
     }
     /// <summary>
     /// Activates when another Collider enters the trigger area. This sends an "Activate" message to its Target.
@@ -44,6 +50,7 @@ public class PhysicsButton : MonoBehaviour {
     /// <param name="other">The collider of the object that has entered the trigger area.</param>
     private void OnTriggerEnter(Collider other)
     {
+        print("hi");
         onActivate.Invoke();
        
         if (activeMat != null)
