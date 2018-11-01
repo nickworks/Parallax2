@@ -1,0 +1,39 @@
+****** Jump Notes *******
+these notes assume a flat plane and should not be substuituted for testing
+
+Horisontal Jumping:
+	
+	Un-Jumpable dist-	36 or greater  (to long)
+	Short Jump- 		14 or under (one jump)
+	Long Jump-		20-23 (Double Jump)
+
+Vertical Jumping:
+
+	Un-Jumpable dist-	11 or greater  (to high)
+	Short Jump- 		4 is comfortable 5 is the max (one jump)
+	Long Jump-		8 is comforatable 10 is the max (Double Jump)
+
+
+Holding down the button to jump multiple layers, I don't like it
+Enemiy blocks do not clearly exist on a specific layer
+Camera Movment? Paralax w/o Paralax
+we can jump around and over, limiting player movment while also creating puzzles is not possible at the moment 
+Platforming but obfuscated
+right now we can jump around and over problems
+Barriers/enemys that exist on all layers "cosmic obsticles"
+puzzle solving and platform ing skill
+Insert new layers into existence that change the level flow
+you stick to celings right now
+complete puzzles by alighning imajes or layers?
+
+Rebuild Everything
+Humbug
+
+
+
+
+
+
+
+
+

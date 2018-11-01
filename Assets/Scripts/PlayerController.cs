@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(LayerFixed))]
+[RequireComponent(typeof(HealthAndRespawn))]
 public class PlayerController : MonoBehaviour {
 
     /// <summary>
@@ -33,13 +34,21 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     public float maxSpeed = 10;
     /// <summary>
-    /// The acceleration to use for gravity.
+    /// The height of the player's jump, in meters.
     /// </summary>
-    public float gravity = 10;
+    public float jumpHeight = 5;
     /// <summary>
-    /// The take-off velocity to use when the player jumps.
+    /// The amount of time (in seconds) that it should take the player to reach the peak of their jump arc.
     /// </summary>
-    public float jumpVelocity = 100;
+    public float jumpTime = 1;
+    /// <summary>
+    /// The acceleration to use for gravity. This will be set by the DeriveJumpValues() function.
+    /// </summary>
+    private float gravity = 20;
+    /// <summary>
+    /// The take-off velocity to use when the player jumps. This will be set by the DeriveJumpValues() function.
+    /// </summary>
+    private float jumpVelocity = 10;
 
     /// <summary>
     /// This variable is used to adjust jump height. When true, less gravity is applied.
@@ -90,10 +99,24 @@ public class PlayerController : MonoBehaviour {
         PlayerController.player = this;
         pawn = GetComponent<CharacterController>();
         layerController = GetComponent<LayerFixed>();
-	}
+        DeriveJumpValues();
+    }
     /// <summary>
-    /// Reloads the current level. :D
+    /// This message is called when values are updated in the inspector.
     /// </summary>
+    void OnValidate()
+    {
+        DeriveJumpValues();
+    }
+    /// <summary>
+    /// Calculates the gravity and jump takeoff velocity,
+    /// based on desired jump height and jump time.
+    /// </summary>
+    void DeriveJumpValues()
+    {
+        gravity = (jumpHeight * 2) / (jumpTime * jumpTime);
+        jumpVelocity = gravity * jumpTime;
+    }
     
 	/// <summary>
     /// The game ticks forward one frame.
@@ -151,7 +174,11 @@ public class PlayerController : MonoBehaviour {
 
         // collisions affect velocity:
         if ((flags & CollisionFlags.Sides) > 0) velocity.x = 0;
-        if ((flags & CollisionFlags.Above) > 0) velocity.y = 0;
+        if ((flags & CollisionFlags.Above) > 0)
+        {
+            if(velocity.y > 0) velocity.y = 0;
+            isJumping = false;
+        }
         if ((flags & CollisionFlags.Below) > 0) velocity.y = 0;
 
     }
@@ -192,7 +219,7 @@ public class PlayerController : MonoBehaviour {
             if (velocity.y < 0) isJumping = false;
         }
 
-        float gravityMultiplier = isJumping ? .5f : 1;
+        float gravityMultiplier = isJumping ? 1 : 2;
         velocity += Time.deltaTime * new Vector3(0, -gravity, 0) * gravityMultiplier;
 
         if (Input.GetButtonDown("Jump"))
@@ -255,7 +282,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (obj.tag == "Danger")
         {
-            Ragdoll(obj.transform.position);
+            //Ragdoll(obj.transform.position);
         }
     }
 }

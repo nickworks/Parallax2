@@ -87,7 +87,7 @@ public class ConsoleController : MonoBehaviour {
     /// <param name="val">The new text in the input field</param>
 	public void TextUpdate(string val)
     {
-
+        
     }
     /// <summary>
     /// This function is called whenever the input field is submitted
@@ -97,6 +97,7 @@ public class ConsoleController : MonoBehaviour {
     /// <param name="cmd">The current text in the input field</param>
     private void TextSubmit(string cmd)
     {
+        
         cmd = cmd.Trim(new char[]{' ', '`'}); // trim spaces and tilde's
 
         history.Add(cmd);
@@ -182,10 +183,9 @@ public class ConsoleController : MonoBehaviour {
         {
             HideConsole();
         }
-
-        // Check for [enter] to be pressed by the player:
         if (hasFocus)
         {
+            // Check for [enter] to be pressed by the player:
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
             {
                 TextSubmit(input.text);
