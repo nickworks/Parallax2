@@ -18,6 +18,11 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     public static PlayerController player { get; private set; }
     /// <summary>
+    /// Float clamping maximum player upward speed.
+    /// </summary>
+    public float maxJetpackSpeed = 5;
+
+    /// <summary>
     /// A reference to the CharacterController component.
     /// </summary>
     CharacterController pawn;
@@ -57,7 +62,7 @@ public class PlayerController : MonoBehaviour {
     /// <summary>
     /// the velocity applied to the player each frame they are using the jetpack.
     /// </summary>
-    private float jetpackVelocity = 20;
+    private float jetpackAcceleration = 150;
     /// <summary>
     /// This variable is used to adjust jump height. When true, less gravity is applied.
     /// </summary>
@@ -273,8 +278,9 @@ public class PlayerController : MonoBehaviour {
             if (airJumpsCount == 0 && jetpackFuel > 0) //no jumps left, begin consuming fuel
             {
                 jetpackFumes.SetActive(true);
-                jetpackFuel -=0.4f;
-                velocity.y += jetpackVelocity * Time.deltaTime;
+                jetpackFuel -=35f* Time.deltaTime;
+                velocity.y += jetpackAcceleration * Time.deltaTime;
+                if (velocity.y > maxJetpackSpeed) velocity.y = maxJetpackSpeed; 
                 isJumping = true;
             }
         }
