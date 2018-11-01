@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO: Adjuust collider so button doesn't activate by simply being touched from the side.
+
 /// <summary>
 /// This script is meant to be used on a Trigger to signal to an object when the Trigger is activated or deactivated.
 /// </summary>
