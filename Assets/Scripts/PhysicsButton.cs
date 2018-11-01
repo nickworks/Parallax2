@@ -1,8 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-//TODO: Adjuust collider so button doesn't activate by simply being touched from the side.
+using UnityEngine.Events;
 
 /// <summary>
 /// This script is meant to be used on a Trigger to signal to an object when the Trigger is activated or deactivated.
@@ -12,13 +12,17 @@ public class PhysicsButton : MonoBehaviour {
     /// <summary>
     /// Stores a reference to the object the button is attached to.
     /// </summary>
-    public GameObject Target;
+    //public GameObject target;
+
+    public UnityEvent onActivate;
+
+    public UnityEvent onDeactivate;
     /// <summary>
-    /// The Button's activate Material.
+    /// The Button's activate Material. The button applies this material to itself when it is activated.
     /// </summary>
     public Material activeMat;
     /// <summary>
-    /// The Button's deactivate Material.
+    /// The Button's deactivate Material. The button applies this material to itself when it is deactivated.
     /// </summary>
     public Material deactiveMat;
 
@@ -40,7 +44,11 @@ public class PhysicsButton : MonoBehaviour {
     /// <param name="other">The collider of the object that has entered the trigger area.</param>
     private void OnTriggerEnter(Collider other)
     {
-        Target.BroadcastMessage("Activate");
+        try
+        {
+            onActivate.Invoke();
+        } catch (Exception e) {}
+
         if (activeMat != null)
         {
             buttonRend.material = activeMat;
@@ -53,7 +61,11 @@ public class PhysicsButton : MonoBehaviour {
     /// <param name="other">The collider of the object that has exited the trigger area.</param>
     private void OnTriggerExit(Collider other)
     {
-        Target.BroadcastMessage("Deactivate");
+        try
+        {
+            onDeactivate.Invoke();
+        } catch (Exception e) {}
+        
         if(deactiveMat != null)
         {
             buttonRend.material = deactiveMat;

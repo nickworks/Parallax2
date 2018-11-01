@@ -428,6 +428,16 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114078838461855332, guid: c4672e360178a9b468d32e06ba021cde,
+        type: 2}
+      propertyPath: onActivate.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114078838461855332, guid: c4672e360178a9b468d32e06ba021cde,
+        type: 2}
+      propertyPath: onDeactivate.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4285037533571492, guid: c4672e360178a9b468d32e06ba021cde, type: 2}
       propertyPath: m_LocalPosition.x
       value: 6.287988
@@ -468,6 +478,56 @@ Prefab:
     - target: {fileID: 1702887981535174, guid: c4672e360178a9b468d32e06ba021cde, type: 2}
       propertyPath: m_Name
       value: PhysicsButton_Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 114078838461855332, guid: c4672e360178a9b468d32e06ba021cde,
+        type: 2}
+      propertyPath: onActivate.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114078838461855332, guid: c4672e360178a9b468d32e06ba021cde,
+        type: 2}
+      propertyPath: onActivate.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114078838461855332, guid: c4672e360178a9b468d32e06ba021cde,
+        type: 2}
+      propertyPath: onActivate.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1733969541}
+    - target: {fileID: 114078838461855332, guid: c4672e360178a9b468d32e06ba021cde,
+        type: 2}
+      propertyPath: onActivate.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ButtonActivate
+      objectReference: {fileID: 0}
+    - target: {fileID: 114078838461855332, guid: c4672e360178a9b468d32e06ba021cde,
+        type: 2}
+      propertyPath: onActivate.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114078838461855332, guid: c4672e360178a9b468d32e06ba021cde,
+        type: 2}
+      propertyPath: onDeactivate.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114078838461855332, guid: c4672e360178a9b468d32e06ba021cde,
+        type: 2}
+      propertyPath: onDeactivate.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114078838461855332, guid: c4672e360178a9b468d32e06ba021cde,
+        type: 2}
+      propertyPath: onDeactivate.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1733969541}
+    - target: {fileID: 114078838461855332, guid: c4672e360178a9b468d32e06ba021cde,
+        type: 2}
+      propertyPath: onDeactivate.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ButtonDeactivate
+      objectReference: {fileID: 0}
+    - target: {fileID: 114078838461855332, guid: c4672e360178a9b468d32e06ba021cde,
+        type: 2}
+      propertyPath: onDeactivate.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4672e360178a9b468d32e06ba021cde, type: 2}
@@ -760,15 +820,20 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114078838461855332, guid: c4672e360178a9b468d32e06ba021cde,
+        type: 2}
+      propertyPath: onActivate.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 648407507}
+    - target: {fileID: 114078838461855332, guid: c4672e360178a9b468d32e06ba021cde,
+        type: 2}
+      propertyPath: onDeactivate.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 648407507}
     - target: {fileID: 1702887981535174, guid: c4672e360178a9b468d32e06ba021cde, type: 2}
       propertyPath: m_Name
       value: PhysicsButton_Door
       objectReference: {fileID: 0}
-    - target: {fileID: 114078838461855332, guid: c4672e360178a9b468d32e06ba021cde,
-        type: 2}
-      propertyPath: Target
-      value: 
-      objectReference: {fileID: 648407506}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4672e360178a9b468d32e06ba021cde, type: 2}
   m_IsPrefabAsset: 0
@@ -903,8 +968,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6870806adce88f146b2e6bfaff8a79c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeMat: {fileID: 2100000, guid: 1441e0fe7525783489b867a416abf990, type: 2}
-  deactiveMat: {fileID: 2100000, guid: 24d80b11109bde344a289b301d0dc547, type: 2}
+  litMat: {fileID: 2100000, guid: 1441e0fe7525783489b867a416abf990, type: 2}
+  unlitMat: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!135 &1733969542
 SphereCollider:
   m_ObjectHideFlags: 0

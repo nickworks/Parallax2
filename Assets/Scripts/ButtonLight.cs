@@ -7,7 +7,7 @@ using UnityEngine;
 /// It changes the material to either a set active Material when the button is pressed.
 /// When the button is not pressed, it changes the material to the set deactive Material.
 /// </summary>
-public class ActivationTest : MonoBehaviour {
+public class ButtonLight : MonoBehaviour {
     /// <summary>
     /// Stores the Renderer of the object we apply this to.
     /// </summary>
@@ -15,11 +15,11 @@ public class ActivationTest : MonoBehaviour {
     /// <summary>
     /// The material applied to the Renderer when this object is sent an "Activate" message from the button.
     /// </summary>
-    public Material activeMat;
+    public Material litMat;
     /// <summary>
     /// The material applied to the Renderer when this object is sent an "Deactivate" message from the button.
     /// </summary>
-    public Material deactiveMat;
+    public Material unlitMat;
 
     /// <summary>
     /// Stores the Renderer of the object this script is applied to as "rend".
@@ -30,23 +30,23 @@ public class ActivationTest : MonoBehaviour {
 
         if (rend != null)
         {
-            rend.material = deactiveMat;
+            rend.material = unlitMat;
         }
 	}
 
     /// <summary>
     /// Is called upon by a PhysicsButton when it has been pressed.
     /// </summary>
-    void Activate () {
-        rend.material = activeMat;
+    public void ButtonActivate () {
+        rend.material = litMat;
     }
 
     /// <summary>
     /// Is called upon by a PhysicsButton when it is released.
     /// </summary>
-    void Deactivate ()
+    public void ButtonDeactivate ()
     {
-        rend.material = deactiveMat;
+        rend.material = unlitMat;
     }
 
 }
