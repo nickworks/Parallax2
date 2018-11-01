@@ -8,6 +8,9 @@ public class EnemyStatePatrol : State<EnemyAI>
 {
     private static EnemyStatePatrol _instance;
 
+    float pointA = _owner.pointA.transform.localPosition.x;
+    float pointB = _owner.pointB.transform.localPosition.x;
+
     public float t = 0.0f;
     
     
@@ -37,8 +40,7 @@ public class EnemyStatePatrol : State<EnemyAI>
 
     public void Patrol(EnemyAI _owner)
     {
-        float pointA = _owner.pointA.transform.localPosition.x;
-        float pointB = _owner.pointB.transform.localPosition.x;
+        
 
         float speed = _owner.walkSpeed / 2;
 
@@ -46,7 +48,14 @@ public class EnemyStatePatrol : State<EnemyAI>
 
         t += speed * Time.deltaTime;
 
-        if (t > 1 || t < 0) speed *= -1;
+        if (t > 1)
+        {
+            float tempValue = pointB;
+            pointB = pointA;
+            pointA = tempValue;
+
+            t = 0;
+        }
 
 
     }
