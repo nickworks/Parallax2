@@ -764,18 +764,6 @@ Prefab:
       propertyPath: m_Name
       value: PhysicsButton_Door
       objectReference: {fileID: 0}
-    - target: {fileID: 4285037533571492, guid: c4672e360178a9b468d32e06ba021cde, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 4.0022426
-      objectReference: {fileID: 0}
-    - target: {fileID: 4285037533571492, guid: c4672e360178a9b468d32e06ba021cde, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.7010211
-      objectReference: {fileID: 0}
-    - target: {fileID: 4285037533571492, guid: c4672e360178a9b468d32e06ba021cde, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 0.55598
-      objectReference: {fileID: 0}
     - target: {fileID: 114078838461855332, guid: c4672e360178a9b468d32e06ba021cde,
         type: 2}
       propertyPath: Target
