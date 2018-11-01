@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO: Add Comments
+
 public class ActivationTest2 : MonoBehaviour {
 
 	void Activate ()
