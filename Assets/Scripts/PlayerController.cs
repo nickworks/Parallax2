@@ -22,6 +22,11 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     CharacterController pawn;
     /// <summary>
+    /// a reference to the Parent of the flame effect attached to the player object.
+    /// </summary>
+    public GameObject jetpackFumes;
+
+    /// <summary>
     /// Horizontal acceleration used when the user presses left or right.
     /// </summary>
     public float acceleration = 10;
@@ -149,7 +154,7 @@ public class PlayerController : MonoBehaviour {
         fuelPercent = new Vector3(jetpackFuel / 100, 1, 1);
         fuelBar.rectTransform.localScale = fuelPercent;
         jetpackFuel = Mathf.Clamp(jetpackFuel, 0, 100);
-        print(jetpackFuel);
+        if(jetpackFuel <= 0) jetpackFumes.SetActive(false);
     }
     /// <summary>
     /// Checks input, asks the LayerFixed script to phase jump.
@@ -173,6 +178,7 @@ public class PlayerController : MonoBehaviour {
             forgetTheGroundTimer = groundTimeAmount; // start the countdown timer...
             airJumpsCount = airJumpsMax;
             jetpackFuel = 100;
+            jetpackFumes.SetActive(false);
         }
         else // ground is NOT detected, so do this stuff:
         {
@@ -265,10 +271,18 @@ public class PlayerController : MonoBehaviour {
         {
             if (airJumpsCount == 0 && jetpackFuel > 0) //no jumps left, begin consuming fuel
             {
+                jetpackFumes.SetActive(true);
                 jetpackFuel--;
                 velocity.y += jetpackVelocity * Time.deltaTime;
                 isFlying = true;
                 isJumping = true;
+            }
+        }
+        if (Input.GetButtonUp("Jump"))
+        {
+            if (airJumpsCount == 0)
+            {
+                jetpackFumes.SetActive(false);
             }
         }
     }
