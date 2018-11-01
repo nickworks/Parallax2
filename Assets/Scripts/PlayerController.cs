@@ -9,6 +9,7 @@ using UnityEngine.UI;
 /// </summary>
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(LayerFixed))]
+[RequireComponent(typeof(HealthAndRespawn))]
 public class PlayerController : MonoBehaviour {
 
     /// <summary>
@@ -335,7 +336,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (obj.tag == "Danger")
         {
-            Ragdoll(obj.transform.position);
+            //Ragdoll(obj.transform.position);
         }
     }
 }
