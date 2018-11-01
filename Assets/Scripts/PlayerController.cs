@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour {
     /// <summary>
     /// the velocity applied to the player each frame they are using the jetpack.
     /// </summary>
-    private float jetpackVelocity = 10;
+    private float jetpackVelocity = 20;
     /// <summary>
     /// This variable is used to adjust jump height. When true, less gravity is applied.
     /// </summary>
@@ -67,10 +67,9 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     bool isGrounded = false;
     /// <summary>
-    /// This variable tracks whether or not the player is using their jetpack.
+    /// Tracking if the player is able to use the jetpack in this scene or not;
     /// </summary>
-    bool isFlying = false;
-
+    public bool isJetpackEnabled = true;
     /// <summary>
     /// How many air-jumps does the player have left?
     /// </summary>
@@ -82,7 +81,7 @@ public class PlayerController : MonoBehaviour {
     /// <summary>
     /// How much fuel should the player have by default?
     /// </summary>
-    public float jetpackFuel = 100;
+    public float jetpackFuel = 0;
     /// <summary>
     /// tracking how much current fuel the player has versus maximum fuel. Used to scale the UI fuel bar
     /// </summary>
@@ -123,6 +122,8 @@ public class PlayerController : MonoBehaviour {
         pawn = GetComponent<CharacterController>();
         layerController = GetComponent<LayerFixed>();
         DeriveJumpValues();
+        if (isJetpackEnabled) jetpackFuel = 100;
+
     }
     /// <summary>
     /// This message is called when values are updated in the inspector.
@@ -155,7 +156,6 @@ public class PlayerController : MonoBehaviour {
         fuelBar.rectTransform.localScale = fuelPercent;
         jetpackFuel = Mathf.Clamp(jetpackFuel, 0, 100);
         if(jetpackFuel <= 0) jetpackFumes.SetActive(false);
-        print(fuelPercent);
     }
     /// <summary>
     /// Checks input, asks the LayerFixed script to phase jump.
@@ -178,7 +178,7 @@ public class PlayerController : MonoBehaviour {
             isGrounded = true; // set our grounded flag to true
             forgetTheGroundTimer = groundTimeAmount; // start the countdown timer...
             airJumpsCount = airJumpsMax;
-            jetpackFuel = 100;
+            if(isJetpackEnabled)  jetpackFuel = 100;
             jetpackFumes.SetActive(false);
         }
         else // ground is NOT detected, so do this stuff:
@@ -273,9 +273,8 @@ public class PlayerController : MonoBehaviour {
             if (airJumpsCount == 0 && jetpackFuel > 0) //no jumps left, begin consuming fuel
             {
                 jetpackFumes.SetActive(true);
-                jetpackFuel--;
+                jetpackFuel -=0.4f;
                 velocity.y += jetpackVelocity * Time.deltaTime;
-                isFlying = true;
                 isJumping = true;
             }
         }
