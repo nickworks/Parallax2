@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//TODO comment what this class does
 public class KillInTheVoid : MonoBehaviour {
 
     /// <summary>

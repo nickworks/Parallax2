@@ -20,6 +20,7 @@ public class DamageDealer : MonoBehaviour {
         //print("hit damage");
         DoDamage(info.collider.gameObject);
     }
+
     /// <summary>
     /// This message is called when a collider overlaps this objects collider.
     /// </summary>
