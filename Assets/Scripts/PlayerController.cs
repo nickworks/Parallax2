@@ -18,19 +18,13 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     public static PlayerController player { get; private set; }
     /// <summary>
-    /// Float clamping maximum player upward speed.
+    /// A reference to a prefab canvas that instanciates when the player is spawned
     /// </summary>
-    public float maxJetpackSpeed = 5;
-
+    public HUDController playerUI;
     /// <summary>
     /// A reference to the CharacterController component.
     /// </summary>
     CharacterController pawn;
-    /// <summary>
-    /// a reference to the Parent of the flame effect attached to the player object.
-    /// </summary>
-    public GameObject jetpackFumes;
-
     /// <summary>
     /// Horizontal acceleration used when the user presses left or right.
     /// </summary>
@@ -60,9 +54,13 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     private float jumpVelocity = 1;
     /// <summary>
-    /// the velocity applied to the player each frame they are using the jetpack.
+    /// How many air-jumps does the player have left?
     /// </summary>
-    private float jetpackAcceleration = 150;
+    int airJumpsCount = 0;
+    /// <summary>
+    /// How many air-jumps should the player get?
+    /// </summary>
+    public int airJumpsMax = 2;
     /// <summary>
     /// This variable is used to adjust jump height. When true, less gravity is applied.
     /// </summary>
@@ -76,13 +74,13 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     public bool isJetpackEnabled = true;
     /// <summary>
-    /// How many air-jumps does the player have left?
+    /// Float clamping maximum player upward speed.
     /// </summary>
-    int airJumpsCount = 0;
+    public float maxJetpackSpeed = 5;
     /// <summary>
-    /// How many air-jumps should the player get?
+    /// the velocity applied to the player each frame they are using the jetpack.
     /// </summary>
-    public int airJumpsMax = 2;
+    private float jetpackAcceleration = 150;
     /// <summary>
     /// How much fuel should the player have by default?
     /// </summary>
@@ -90,11 +88,11 @@ public class PlayerController : MonoBehaviour {
     /// <summary>
     /// tracking how much current fuel the player has versus maximum fuel. Used to scale the UI fuel bar
     /// </summary>
-    private Vector3 fuelPercent;
+    public Vector3 fuelPercent;
     /// <summary>
-    /// fuel bar UI element
+    /// a reference to the Parent of the flame effect attached to the player object.
     /// </summary>
-    public Image fuelBar;
+    public GameObject jetpackFumes;
     /// <summary>
     /// Reference to the dead player avatar.
     /// </summary>
@@ -128,7 +126,10 @@ public class PlayerController : MonoBehaviour {
         layerController = GetComponent<LayerFixed>();
         DeriveJumpValues();
         if (isJetpackEnabled) jetpackFuel = 100;
-
+        HUDController createUI = Instantiate(playerUI);
+        createUI.pawn = this;
+        
+        
     }
     /// <summary>
     /// This message is called when values are updated in the inspector.
@@ -157,9 +158,7 @@ public class PlayerController : MonoBehaviour {
         PhaseJump((int)Input.GetAxisRaw("Vertical"));
         GroundDetection();
         Move();
-        fuelPercent = new Vector3(jetpackFuel / 100, 1, 1);
-        fuelBar.rectTransform.localScale = fuelPercent;
-        jetpackFuel = Mathf.Clamp(jetpackFuel, 0, 100);
+        
         if(jetpackFuel <= 0) jetpackFumes.SetActive(false);
     }
     /// <summary>
