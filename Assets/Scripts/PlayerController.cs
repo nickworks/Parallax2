@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour {
     /// <summary>
     /// How much fuel should the player have by default?
     /// </summary>
-    public int jetpackFuel = 100;
+    public float jetpackFuel = 100;
     /// <summary>
     /// tracking how much current fuel the player has versus maximum fuel. Used to scale the UI fuel bar
     /// </summary>
@@ -155,6 +155,7 @@ public class PlayerController : MonoBehaviour {
         fuelBar.rectTransform.localScale = fuelPercent;
         jetpackFuel = Mathf.Clamp(jetpackFuel, 0, 100);
         if(jetpackFuel <= 0) jetpackFumes.SetActive(false);
+        print(fuelPercent);
     }
     /// <summary>
     /// Checks input, asks the LayerFixed script to phase jump.
