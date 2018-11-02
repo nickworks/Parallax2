@@ -83,9 +83,9 @@ public class EnemyStatePatrol : State<EnemyAI>
     public override void UpdateState(EnemyAI _owner)
     {
         Patrol(_owner);
-        CastRay();
+        CastRay(_owner);
     }
-    public void CastRay()
+    public void CastRay(EnemyAI _owner)
     {
 
         RaycastHit hit;
@@ -110,7 +110,7 @@ public class EnemyStatePatrol : State<EnemyAI>
 
                 Debug.Log(theDistance + " " + hit.collider.gameObject.name);
 
-                hitObject = hit.collider.gameObject;
+                _owner.ChangeStateToAttack();
             }
         }
     }

@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using StateStuff;
 
 public class EnemyAI : MonoBehaviour
 {
     [HideInInspector]
-    public bool switchState = false;
     public float walkSpeed = 1;
 
 
@@ -15,6 +12,8 @@ public class EnemyAI : MonoBehaviour
 
     public GameObject enemy;
     public GameObject rayCast;
+    [HideInInspector]
+    public GameObject player;
 
     public StateMachine<EnemyAI> stateMachine { get; set; }
 
@@ -27,12 +26,16 @@ public class EnemyAI : MonoBehaviour
     {
         stateMachine.Update();
     }
-    private void ChangeStateToAttack()
+    public void ChangeStateToAttack()
     {
         stateMachine.ChangeState(EnemyStateAttack.Instance);
     }
-    private void ChangeStateToPatrol()
+    public void ChangeStateToPatrol()
     {
         stateMachine.ChangeState(EnemyStatePatrol.Instance);
+    }
+    public void SetTarget(GameObject o)
+    {
+        player = o;
     }
 }
