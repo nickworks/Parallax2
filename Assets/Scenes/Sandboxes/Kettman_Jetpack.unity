@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1260,6 +1260,7 @@ GameObject:
   - component: {fileID: 718563590}
   - component: {fileID: 718563589}
   - component: {fileID: 718563588}
+  - component: {fileID: 718563591}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Danger
@@ -1334,6 +1335,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 718563586}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &718563591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 718563586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40740d95d632dd489335fc08ba6d176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 25
 --- !u!1 &810229781
 GameObject:
   m_ObjectHideFlags: 0
@@ -1924,7 +1937,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1108646263106246, guid: 678e1e66baf777f449959628f73c04c5, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 678e1e66baf777f449959628f73c04c5, type: 2}
@@ -3264,6 +3277,31 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1769160782}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1803190174 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1078176212132782, guid: e0d8e80fcd4552a46ae90b302a42f57f,
+    type: 2}
+  m_PrefabInternal: {fileID: 514949008}
+--- !u!114 &1803190175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1803190174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06480aa894bfac540bd712fbe96bf58f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpPercent: {x: 0, y: 0, z: 0}
+  hpMax: 100
+  respawnOnDeath: 0
+  destroyOnDeath: 0
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &1855910226
 GameObject:
   m_ObjectHideFlags: 0
@@ -3445,6 +3483,7 @@ GameObject:
   - component: {fileID: 2110851860}
   - component: {fileID: 2110851859}
   - component: {fileID: 2110851858}
+  - component: {fileID: 2110851861}
   m_Layer: 0
   m_Name: Cube (11)
   m_TagString: Danger
@@ -3519,3 +3558,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2110851856}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2110851861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2110851856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40740d95d632dd489335fc08ba6d176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 25

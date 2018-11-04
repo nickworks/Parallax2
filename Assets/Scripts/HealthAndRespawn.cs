@@ -8,7 +8,7 @@ using UnityEngine.Events;
 /// at an arbitrary spawn position.
 /// </summary>
 public class HealthAndRespawn : MonoBehaviour {
-
+    HUDController UIRef;
     /// <summary>
     /// The world position this object should respawn at when it dies.
     /// </summary>
@@ -17,6 +17,7 @@ public class HealthAndRespawn : MonoBehaviour {
     /// The current health of this object. 0 is dead.
     /// </summary>
     public float hpCurrent { get; private set; }
+    public Vector3 hpPercent;
     /// <summary>
     /// The maximum health of this object.
     /// </summary>
@@ -40,6 +41,7 @@ public class HealthAndRespawn : MonoBehaviour {
     /// </summary>
     void Start () {
         SetSpawn(transform.position);
+        UIRef.playerHP = this;
 	}
     /// <summary>
     /// Sets the spawn position.
