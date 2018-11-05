@@ -4,7 +4,8 @@ using UnityEngine;
 using StateStuff;
 using System;
 
-public class EnemyStateAttack : State<EnemyAI> {
+public class EnemyStateAttack : State<EnemyAI>
+{
 
     private static EnemyStateAttack _instance;
 
@@ -31,7 +32,10 @@ public class EnemyStateAttack : State<EnemyAI> {
     }
     void Chase(EnemyAI _owner)
     {
-        if (_owner.player
+        if (_owner.player)
+        {
+
+        }
     }
     public override void EnterState(EnemyAI _owner)
     {
@@ -45,6 +49,6 @@ public class EnemyStateAttack : State<EnemyAI> {
 
     public override void UpdateState(EnemyAI _owner)
     {
-
+        Chase(_owner);
     }
 }

@@ -6,19 +6,26 @@ using System;
 
 public class EnemyStatePatrol : State<EnemyAI>
 {
+    /// <summary>
+    /// Creates an instance of the Enemy Patrol State for use in the Enemy AI State Machine.
+    /// </summary>
     private static EnemyStatePatrol _instance;
-
-    bool facingForward = true;
-
+    /// <summary>
+    /// Creates the start point for the Patrol route.
+    /// </summary>
     public Transform pointA;
+    /// <summary>
+    /// Creates the end point for the Patrol route.
+    /// </summary>
     public Transform pointB;
-
-    public GameObject hitObject;
-
-    public GameObject gameObject;
-
+    /// <summary>
+    /// A value that counts up from 0 to 1 to determine the Enemy position on its patrol lerp path.
+    /// </summary>
+    [HideInInspector]
     public float t = 0.0f;
-
+    /// <summary>
+    /// Sets the EnemyStatePatrol instance to this preexisting one if one has not already been set.
+    /// </summary>
     private EnemyStatePatrol()
     {
         if (_instance != null)
@@ -27,7 +34,9 @@ public class EnemyStatePatrol : State<EnemyAI>
         }
         _instance = this;
     }
-
+    /// <summary>
+    /// Creates a new instance of EnemyStatePatrol.
+    /// </summary>
     public static EnemyStatePatrol Instance
     {
         get
@@ -41,12 +50,13 @@ public class EnemyStatePatrol : State<EnemyAI>
 
         }
     }
-
+    /// <summary>
+    /// Lerps the Owner's billboard component between to points at a speed equal to (the owner's walk speed divided by four) per second. 
+    /// When the billboard reaches point B, points A and B are reversed and the lerp amount is reset to 0.
+    /// </summary>
+    /// <param name="_owner">Reference to an EnemyAI object</param>
     public void Patrol(EnemyAI _owner)
     {
-
-        
-
         float speed = _owner.walkSpeed / 4;
 
         _owner.enemy.transform.localPosition = new Vector3(Mathf.Lerp(pointA.transform.localPosition.x, pointB.transform.localPosition.x, t), 0, 0);
@@ -62,7 +72,7 @@ public class EnemyStatePatrol : State<EnemyAI>
 
             t = 0;
 
-            facingForward = !facingForward;
+            _owner.facingForward = !_owner.facingForward;
         }
 
     }
@@ -72,7 +82,7 @@ public class EnemyStatePatrol : State<EnemyAI>
         Debug.Log("Entering Patrol State");
         pointA = _owner.pointA;
         pointB = _owner.pointB;
-        gameObject = _owner.rayCast;
+        _owner.facingForward = true;
     }
 
     public override void ExitState(EnemyAI _owner)
@@ -83,35 +93,6 @@ public class EnemyStatePatrol : State<EnemyAI>
     public override void UpdateState(EnemyAI _owner)
     {
         Patrol(_owner);
-        CastRay(_owner);
     }
-    public void CastRay(EnemyAI _owner)
-    {
-
-        RaycastHit hit;
-
-
-        // The distance at which the other object is when hit.
-        float theDistance;
-
-        // Sets the forward of the Ray at a specified distance.
-        Vector3 forward = gameObject.transform.TransformDirection(Vector3.right) * ((facingForward) ? 5:-5);
-
-        // Sets the Ray as red in the editor during play.
-        Debug.DrawRay(gameObject.transform.position, forward, Color.red);
-
-        //If the Raycast hits an object...
-        if (Physics.Raycast(gameObject.transform.position, (forward), out hit, 10))
-        {
-            //If that object has the "Interactable" Tag...
-            if (hit.collider.gameObject.tag == "Player")
-            {
-                theDistance = hit.distance;
-
-                Debug.Log(theDistance + " " + hit.collider.gameObject.name);
-
-                _owner.ChangeStateToAttack();
-            }
-        }
-    }
+    
 }
