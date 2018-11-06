@@ -15,9 +15,11 @@ public class EnemyAI : MonoBehaviour
 
     public Transform pointA;
     public Transform pointB;
+    public Transform shootPoint;
 
     public GameObject enemy;
     public GameObject rayCast;
+    public GameObject projectile;
 
     [HideInInspector]
     public GameObject player;

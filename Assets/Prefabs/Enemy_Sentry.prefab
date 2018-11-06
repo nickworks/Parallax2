@@ -26,6 +26,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1480955636815246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4639307187793770}
+  m_Layer: 0
+  m_Name: ShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1518480572843908
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,7 +104,7 @@ GameObject:
   m_Layer: 0
   m_Name: RayCast
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -106,6 +121,7 @@ Transform:
   - {fileID: 4586471240971802}
   - {fileID: 4731849495250476}
   - {fileID: 4961794330944070}
+  - {fileID: 4639307187793770}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -122,6 +138,19 @@ Transform:
   - {fileID: 4882548322273074}
   m_Father: {fileID: 4320282469316716}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4639307187793770
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1480955636815246}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.75, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4320282469316716}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4731849495250476
 Transform:
@@ -252,12 +281,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e216662c9c8074c47b160b2cdb722fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  switchState: 0
+  gameTimer: 0
+  cooldown: 5
+  seconds: 0
   walkSpeed: 1
+  facingForward: 1
   pointA: {fileID: 4731849495250476}
   pointB: {fileID: 4961794330944070}
+  shootPoint: {fileID: 4639307187793770}
   enemy: {fileID: 1518480572843908}
   rayCast: {fileID: 1923901027797688}
+  projectile: {fileID: 1923698967969524, guid: 7fd0e9823a76bd640a189a7ee25cb817, type: 2}
+  player: {fileID: 0}
 --- !u!136 &136652927528050760
 CapsuleCollider:
   m_ObjectHideFlags: 1

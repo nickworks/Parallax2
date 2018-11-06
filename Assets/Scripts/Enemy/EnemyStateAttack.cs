@@ -7,6 +7,8 @@ using System;
 public class EnemyStateAttack : State<EnemyAI>
 {
 
+    public int shootTimer = 5;
+
     private static EnemyStateAttack _instance;
 
     private EnemyStateAttack()
@@ -30,12 +32,9 @@ public class EnemyStateAttack : State<EnemyAI>
             return _instance;
         }
     }
-    void Chase(EnemyAI _owner)
+    void Shoot(EnemyAI _owner)
     {
-        if (_owner.player)
-        {
-
-        }
+        
     }
     public override void EnterState(EnemyAI _owner)
     {
@@ -49,6 +48,6 @@ public class EnemyStateAttack : State<EnemyAI>
 
     public override void UpdateState(EnemyAI _owner)
     {
-        Chase(_owner);
+        Shoot(_owner);
     }
 }

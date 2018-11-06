@@ -54,7 +54,7 @@ public class EnemyStatePatrol : State<EnemyAI>
     /// Lerps the Owner's billboard component between to points at a speed equal to (the owner's walk speed divided by four) per second. 
     /// When the billboard reaches point B, points A and B are reversed and the lerp amount is reset to 0.
     /// </summary>
-    /// <param name="_owner">Reference to an EnemyAI object</param>
+    /// <param name="_owner"></param>
     public void Patrol(EnemyAI _owner)
     {
         float speed = _owner.walkSpeed / 4;
@@ -76,7 +76,10 @@ public class EnemyStatePatrol : State<EnemyAI>
         }
 
     }
-
+    /// <summary>
+    /// Acts as the "Start" function. Sets points A and B and sets the owner's facing direction to forward.
+    /// </summary>
+    /// <param name="_owner"></param>
     public override void EnterState(EnemyAI _owner)
     {
         Debug.Log("Entering Patrol State");
@@ -84,12 +87,18 @@ public class EnemyStatePatrol : State<EnemyAI>
         pointB = _owner.pointB;
         _owner.facingForward = true;
     }
-
+    /// <summary>
+    /// Code to be called upon exiting this state.
+    /// </summary>
+    /// <param name="_owner"></param>
     public override void ExitState(EnemyAI _owner)
     {
         Debug.Log("Exiting Patrol State");
     }
-
+    /// <summary>
+    /// Acts as the Update function. Runs the Patrol function.
+    /// </summary>
+    /// <param name="_owner"></param>
     public override void UpdateState(EnemyAI _owner)
     {
         Patrol(_owner);
