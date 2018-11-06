@@ -28,6 +28,9 @@ public class HUDController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (pawn == null) return;
+        
+        if (playerHP == null) return;
+        
         //scale stamina bar
        pawn.fuelPercent = new Vector3(pawn.jetpackFuel / 100, 1, 1);
        fuelBar.rectTransform.localScale = pawn.fuelPercent;
@@ -35,7 +38,7 @@ public class HUDController : MonoBehaviour {
         //scale health bar
        playerHP.hpPercent = new Vector3(playerHP.hpCurrent / playerHP.hpMax, 1, 1);
        healthBar.rectTransform.localScale = playerHP.hpPercent;
-
+        print(playerHP.hpCurrent);
         
     }
 }
