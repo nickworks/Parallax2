@@ -69,10 +69,10 @@ public class EnemyStatePatrol : State<EnemyAI>
             Transform tempValue = pointB;
             pointB = pointA;
             pointA = tempValue;
-
+            
             t = 0;
 
-            _owner.facingForward = !_owner.facingForward;
+            _owner.enemy.transform.localEulerAngles += new Vector3(0, 180, 0);
         }
 
     }
@@ -85,7 +85,6 @@ public class EnemyStatePatrol : State<EnemyAI>
         Debug.Log("Entering Patrol State");
         pointA = _owner.pointA;
         pointB = _owner.pointB;
-        _owner.facingForward = true;
     }
     /// <summary>
     /// Code to be called upon exiting this state.

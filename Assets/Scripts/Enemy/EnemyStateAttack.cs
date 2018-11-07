@@ -6,10 +6,12 @@ using System;
 
 public class EnemyStateAttack : State<EnemyAI>
 {
-
-    public int shootTimer = 5;
+    int spawnRate = 15;
+    int shootTimer = 0;
 
     private static EnemyStateAttack _instance;
+
+    GameObject projectile;
 
     private EnemyStateAttack()
     {
@@ -32,13 +34,10 @@ public class EnemyStateAttack : State<EnemyAI>
             return _instance;
         }
     }
-    void Shoot(EnemyAI _owner)
-    {
-        
-    }
     public override void EnterState(EnemyAI _owner)
     {
         Debug.Log("Entering Attack State.");
+        projectile = _owner.projectile;
     }
 
     public override void ExitState(EnemyAI _owner)
@@ -48,6 +47,11 @@ public class EnemyStateAttack : State<EnemyAI>
 
     public override void UpdateState(EnemyAI _owner)
     {
-        Shoot(_owner);
+        shootTimer--;
+        if(shootTimer <= 0)
+        {
+            _owner.Shoot();
+            shootTimer = spawnRate;
+        }
     }
 }

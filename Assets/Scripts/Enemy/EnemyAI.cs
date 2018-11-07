@@ -9,10 +9,7 @@ public class EnemyAI : MonoBehaviour
 
     [HideInInspector]
     public float walkSpeed = 1;
-
-    [HideInInspector]
-    public bool facingForward = true;
-
+    
     public Transform pointA;
     public Transform pointB;
     public Transform shootPoint;
@@ -77,7 +74,7 @@ public class EnemyAI : MonoBehaviour
         float theDistance;
 
         // Sets the forward of the Ray at a specified distance.
-        Vector3 forward = rayCast.transform.TransformDirection(Vector3.right) * ((facingForward) ? 5 : -5);
+        Vector3 forward = rayCast.transform.TransformDirection(Vector3.right) * 5;
 
         // Sets the Ray as red in the editor during play.
         Debug.DrawRay(rayCast.transform.position, forward, Color.red);
@@ -100,4 +97,8 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    public void Shoot()
+    {
+        Instantiate(projectile, shootPoint);
+    }
 }

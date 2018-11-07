@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour {
-    float velocity = 20;
-	// Use this for initialization
+    public float velocity = 10;
+    public float lifeTime = 15;
+	
 	void Start () {
 		
 	}
-	
-	// Update is called once per frame
 	void Update () {
-		
+        //transform.localPosition += new Vector3(velocity * Time.deltaTime, 0, 0);
+        transform.localPosition += Vector3.right * velocity * Time.deltaTime;
+        lifeTime--;
+
+        if(lifeTime <= 0)
+        {
+            Destroy(this.gameObject);
+        }
 	}
 }
