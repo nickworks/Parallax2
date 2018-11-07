@@ -64,7 +64,7 @@ public class EnemyStatePatrol : State<EnemyAI>
         t += speed * Time.deltaTime;
 
 
-        if (t > 1)
+        if (t > 1) //when the lerp reaches 100%, this swaps points A and B, then resets the lerp
         {
             Transform tempValue = pointB;
             pointB = pointA;
@@ -72,7 +72,7 @@ public class EnemyStatePatrol : State<EnemyAI>
             
             t = 0;
 
-            _owner.enemy.transform.localEulerAngles += new Vector3(0, 180, 0);
+            _owner.enemy.transform.localEulerAngles += new Vector3(0, 180, 0); //this turns the enemy billboard so that it faces the opposite direction
         }
 
     }

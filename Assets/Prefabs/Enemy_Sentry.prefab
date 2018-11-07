@@ -37,7 +37,7 @@ GameObject:
   m_Layer: 0
   m_Name: ShootPoint
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -267,10 +267,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameTimer: 0
-  cooldown: 5
+  cooldown: 2
   seconds: 0
   walkSpeed: 1
-  facingForward: 1
   pointA: {fileID: 4486715061610930}
   pointB: {fileID: 4240251567410382}
   shootPoint: {fileID: 4917718076122316}
