@@ -7,17 +7,21 @@ using UnityEngine;
 /// </summary>
 public class ButtonDoor : MonoBehaviour {
     /// <summary>
+    /// Stores how far to move the object.
+    /// </summary>
+    public int moveDistance = 0;
+    /// <summary>
     /// When called, this function moves the GameObject "up" two meters in the World Space.
     /// </summary>
 	public void ButtonActivate ()
     {
-        transform.Translate(new Vector3(0, 2, 0), Space.World);
+        transform.Translate(new Vector3(0, moveDistance, 0), Space.World);
     }
     /// <summary>
     /// When called, this function moves the GameObject "down" two meters in the World Space.
     /// </summary>
     public void ButtonDeactivate ()
     {
-        transform.Translate(new Vector3(0, -2, 0), Space.World);
+        transform.Translate(new Vector3(0, -moveDistance, 0), Space.World);
     }
 }
