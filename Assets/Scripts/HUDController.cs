@@ -38,7 +38,7 @@ public class HUDController : MonoBehaviour {
         //scale health bar
        playerHP.hpPercent = new Vector3(playerHP.hpCurrent / playerHP.hpMax, 1, 1);
        healthBar.rectTransform.localScale = playerHP.hpPercent;
-        print(playerHP.hpCurrent);
+       
         
     }
 }

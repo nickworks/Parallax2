@@ -50,6 +50,7 @@ public class HealthAndRespawn : MonoBehaviour {
     public void SetSpawn(Vector3 pos)
     {
         spawnPosition = pos;
+        hpCurrent = hpMax;
     }
     /// <summary>
     /// Respawns this object at its spawn position. This resets the health to maximum.
