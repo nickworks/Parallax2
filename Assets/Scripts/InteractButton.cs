@@ -56,6 +56,7 @@ public class InteractButton : MonoBehaviour {
             if(coolDownTimer < 0)
             {
                 print("Done cooling down!");
+                onDeactivate.Invoke();
                 isButtonCoolingDown = false;
                 if (deactiveMat != null)
                 {
