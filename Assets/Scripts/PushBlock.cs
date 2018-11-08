@@ -7,6 +7,11 @@ public class PushBlock : MonoBehaviour {
 
     // this script pushes all rigidbodies that the character touches
     float pushPower = 2.0f;
+
+    /// <summary>
+    /// This logic runs when the player is moving and collides with something. It allowes the player to push rigid bodies. https://docs.unity3d.com/ScriptReference/CharacterController.OnControllerColliderHit.html
+    /// </summary>
+    /// <param name="hit"></param>
     void OnControllerColliderHit(ControllerColliderHit hit) {
 
         Rigidbody body = hit.collider.attachedRigidbody;
