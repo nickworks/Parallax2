@@ -20,17 +20,11 @@ public class KillInTheVoid : MonoBehaviour {
     {
         if (transform.position.y < yKillThreshold)
         {
-
+            //print("fell into void...");
             HealthAndRespawn health = GetComponent<HealthAndRespawn>();
 
-            if (health)
-            {
-                health.Die();
-            } else
-            {
-                Destroy(gameObject);
-            }
-            
+            if (health)     health.Die();
+            else            Destroy(gameObject);            
         }
     } // ends Update()
 }

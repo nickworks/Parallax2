@@ -26,6 +26,8 @@ GameObject:
   - component: {fileID: 33115414752826506}
   - component: {fileID: 114600069071056934}
   - component: {fileID: 114835946239516474}
+  - component: {fileID: 114785214619441766}
+  - component: {fileID: 114744616913470610}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -330,6 +332,18 @@ MonoBehaviour:
   snapToLayerInEditor: 1
   ignoreCollidersWhenPhasing: 0
   phaseCooldown: 0.25
+--- !u!114 &114744616913470610
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1078176212132782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00f158481a19aac4a9db2f8a0b11d80a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yKillThreshold: -30
 --- !u!114 &114757667767801140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -356,6 +370,25 @@ MonoBehaviour:
   ragdoll: {fileID: 4876709876488544}
   billboard: {fileID: 4570431233410154}
   groundTimeAmount: 0.2
+--- !u!114 &114785214619441766
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1078176212132782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06480aa894bfac540bd712fbe96bf58f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpMax: 100
+  respawnOnDeath: 1
+  destroyOnDeath: 0
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114835946239516474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -377,7 +410,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 2.5
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &143337535872060558
