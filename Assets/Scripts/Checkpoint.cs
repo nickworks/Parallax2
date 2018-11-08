@@ -7,7 +7,13 @@ using UnityEngine;
 /// </summary>
 public class Checkpoint : MonoBehaviour {
 
+    /// <summary>
+    /// Where the player should respawn. This is in local-space.
+    /// </summary>
     public Vector3 spawnPosition;
+    /// <summary>
+    /// The world-space position of where objects should spawn after hitting this checkpoint.
+    /// </summary>
     public Vector3 worldSpawnPosition
     {
         get
@@ -15,26 +21,25 @@ public class Checkpoint : MonoBehaviour {
             return spawnPosition + transform.position;
         }
     }
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	/// <summary>
+    /// This draws a widget.
+    /// </summary>
     void OnDrawGizmos()
     {
-        Gizmos.DrawCube(worldSpawnPosition, Vector3.one * .1f);
+        
+        Gizmos.DrawCube(worldSpawnPosition, new Vector3(1,2,.1f));
+        Gizmos.DrawIcon(worldSpawnPosition + new Vector3(0,2.2f,0), "icon-respawn.png", true);
     }
+    /// <summary>
+    /// When a collider hits this object, set the object's respawn position in its HealthAndRespawn script.
+    /// </summary>
+    /// <param name="other">The collider that hit this object.</param>
     void OnTriggerEnter(Collider other)
     {
-        
         if (other.tag == "Player")
         {
-            // checkpoint!
-            other.GetComponent<HealthAndRespawn>().SetSpawn(worldSpawnPosition);
+            HealthAndRespawn health = other.GetComponent<HealthAndRespawn>();
+            if(health) health.SetSpawn(worldSpawnPosition);
         }
     }
 }
