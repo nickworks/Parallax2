@@ -10,6 +10,9 @@ public class HUDController : MonoBehaviour {
     /// Reference to the player's PlayerController 
     /// </summary>
     public PlayerController pawn;
+    /// <summary>
+    /// reference to the player's health and respawn script
+    /// </summary>
     public HealthAndRespawn playerHP;
     /// <summary>
     ///  fuel bar UI element
