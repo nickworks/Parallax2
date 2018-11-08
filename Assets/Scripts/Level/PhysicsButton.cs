@@ -50,7 +50,7 @@ public class PhysicsButton : MonoBehaviour {
     /// <param name="other">The collider of the object that has entered the trigger area.</param>
     private void OnTriggerEnter(Collider other)
     {
-        print("hi");
+        //print("hi");
         onActivate.Invoke();
        
         if (activeMat != null)

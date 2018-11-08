@@ -3221,7 +3221,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4869365403218260, guid: e0d8e80fcd4552a46ae90b302a42f57f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -11.1
+      value: -8.39
       objectReference: {fileID: 0}
     - target: {fileID: 4869365403218260, guid: e0d8e80fcd4552a46ae90b302a42f57f, type: 2}
       propertyPath: m_LocalPosition.y
@@ -3255,10 +3255,10 @@ Prefab:
       propertyPath: m_Name
       value: Player (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 114445559855190490, guid: e0d8e80fcd4552a46ae90b302a42f57f,
+    - target: {fileID: 114600069071056934, guid: e0d8e80fcd4552a46ae90b302a42f57f,
         type: 2}
-      propertyPath: yKillThreshold
-      value: -30
+      propertyPath: z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0d8e80fcd4552a46ae90b302a42f57f, type: 2}
