@@ -6,7 +6,10 @@ using UnityEngine;
 /// Put this script onto a collider to make a checkpoint!
 /// </summary>
 public class Checkpoint : MonoBehaviour {
-
+    /// <summary>
+    /// if true, player's hp will be filled when they reach this checkpoint
+    /// </summary>
+    public bool fillPlayerHP = true;
     /// <summary>
     /// Where the player should respawn. This is in local-space.
     /// </summary>
@@ -39,7 +42,8 @@ public class Checkpoint : MonoBehaviour {
         if (other.tag == "Player")
         {
             HealthAndRespawn health = other.GetComponent<HealthAndRespawn>();
-            if(health) health.SetSpawn(worldSpawnPosition);
+            if (health) health.SetSpawn(worldSpawnPosition);
+            if (health && fillPlayerHP) health.FillHP();
         }
     }
 }
