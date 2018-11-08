@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// this script pushes all rigidbodies that the character touches
+/// </summary>
 public class PushBlock : MonoBehaviour {
 
-
-    // this script pushes all rigidbodies that the character touches
-    float pushPower = 2.0f;
+    /// <summary>
+    /// the amount that we push the rigid body
+    /// </summary>
+    public float pushPower = 2.0f;
 
     /// <summary>
     /// This logic runs when the player is moving and collides with something. It allowes the player to push rigid bodies. https://docs.unity3d.com/ScriptReference/CharacterController.OnControllerColliderHit.html
