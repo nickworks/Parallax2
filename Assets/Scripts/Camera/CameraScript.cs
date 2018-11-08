@@ -5,24 +5,30 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class CameraScript : MonoBehaviour {
     /// <summary>
-    /// We get a reference to the shader we want to use
+    /// A reference to the shader we want to use
     /// </summary>
     public Shader shader;
-  
-    
-     void OnEnable()
+    public Color foreground;
+    public Color background;
+    Material mat;
+
+
+    void Start()
     {
-        if (shader != null)
-            //We get our camera component and use the set replacement shader function to make the camera render with the shader
-            //It takes a shader  reference and a replacement tag
-            //We can leave the tag empty and all objects in the scene are rendered with the replacement shader. If we wanted to 
-            //have some objects rendered and some not we could do some fancy stuff by specifying a tag on an objects shader and in here but since we want everything to
-            //be rendered with this shader we will not do that
-            GetComponent<Camera>().SetReplacementShader(shader, "");
+        Camera cam = GetComponent<Camera>();
+        float depthRange = cam.farClipPlane - cam.nearClipPlane;
+
+        mat = new Material(shader);
+        mat.SetColor("_TintBack", background);
+        mat.SetColor("_TintFore", foreground);
+        mat.SetFloat("_Distance", 400 / depthRange);
+        mat.SetFloat("_Separation", 100 / depthRange);
+        //GetComponent<Camera>().depthTextureMode = DepthTextureMode.Depth;
     }
-     void OnDisable()
+
+    private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        //If we disable this component then we reset the replacement shader which removes the replacement shader from the camera
-        GetComponent<Camera>().ResetReplacementShader();
+        source.wrapMode = TextureWrapMode.Repeat;
+        Graphics.Blit(source, destination, mat);
     }
 }
