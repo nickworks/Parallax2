@@ -10,9 +10,13 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour {
 
     /// <summary>
-    /// Ref to the LayerFixed object that allows the enemy to phase jump.
+    /// Ref to the LayerFixed component that allows the enemy to phase jump.
     /// </summary>
     private LayerFixed layerController;
+    /// <summary>
+    /// Ref to the LayerFixed component on teh player
+    /// </summary>
+    private LayerFixed playerLayerController;
     /// <summary>
     /// Ref to a GameObject that will be the player in the scene
     /// </summary>
@@ -22,6 +26,13 @@ public class EnemyController : MonoBehaviour {
     /// </summary>
     private PlayerController playerController;
     /// <summary>
+    /// the player's location relative to this enemy
+    /// 0 same layer 
+    /// 1 in front
+    /// -1 behind
+    /// </summary>
+    float playerDirection = 0;
+    /// <summary>
     /// A boolean that is used to identify that the player is within a certain distance from the enemy 
     /// </summary>
     private bool playerIsSpotted = false;
@@ -29,14 +40,17 @@ public class EnemyController : MonoBehaviour {
     /// A boolean that is used to identify that the player is close enough for the enemy to phase jump to the player layer.
     /// </summary>
     private bool playerIsCloseEnough = false;
+
     /// <summary>
     /// Initializes the object. Called when spawning.
     /// </summary>
 	void Start () {
+        layerController = GetComponent<LayerFixed>();
         player = GameObject.FindGameObjectWithTag("Player");
-
         playerController = player.GetComponent<PlayerController>();
-	}
+        playerLayerController = player.GetComponent<LayerFixed>();
+
+    }
 	
 	/// <summary>
     /// The Game ticks forward one frame.
@@ -44,7 +58,8 @@ public class EnemyController : MonoBehaviour {
 	void Update () {
         if(PlayerInSight(playerController, this))
         {
-            MoveToPlayer(player.transform.z);
+            print("player seen");
+            MoveToPlayer(player.transform.position.z);
         }
 	}
     /// <summary>
@@ -55,6 +70,18 @@ public class EnemyController : MonoBehaviour {
     /// <returns></returns>
     public bool PlayerInSight(PlayerController player, EnemyController enemy)
     {
+        float FOV = .25f;
+        float playerLayerDist = DeterminRelativePlayerLocation();
+        bool shouldPhase = false;
+
+
+        //check how many layers away the player is located
+        if (playerLayerDist == 0 || playerLayerDist < -1 || playerLayerDist > 1) {
+           // print("Don't phase");
+            return shouldPhase;
+        }
+
+        //check if the player is within our fov
         Vector3 forward = enemy.transform.right;//reference the vector of the enemy that is facing forward in the game window.
         Vector3 layerInFront = -enemy.transform.forward;// reference the vector that is facing towards the camera in the game window.
         Vector3 toPlayer = player.transform.position - enemy.transform.position;//subtract the player position from the enemy position.
@@ -64,60 +91,65 @@ public class EnemyController : MonoBehaviour {
         float directionForward = Vector3.Dot(forward, toPlayer.normalized);// use the dot product to get a float between 1 & -1 to determine player location along the X axis in the game window.
         float directionInFront = Vector3.Dot(layerInFront, toPlayer.normalized);// using the dot product to get a float between 1 & -1 to determine the player location along the Z axis.
 
-        if(directionForward > .25f || directionInFront > .25f)//one of the dot products is large enough so do this stuff.
+
+        if (directionForward > FOV || directionInFront > FOV)//one of the dot products is large enough so do this stuff.
         {
-            playerIsSpotted = true;
+            //print("player seen in front");
+            shouldPhase = true;
         }
 
-        if(directionForward < .25f || directionInFront < .25f)//one of the dot products is small enough so do this stuff.
+        if(directionForward < FOV || directionInFront < FOV)//one of the dot products is small enough so do this stuff.
         {
-            playerIsSpotted = false;
-            
+            //print("player seen behind");
+            shouldPhase = true;
+
         }
 
-        if(directionForward >= .5f || directionInFront >= .5f)//one of the dot products is large enough so do this stuff.
-        {
-            if(PlayerInSight) playerIsCloseEnough = true;
-        }
+        return shouldPhase;
 
-        if (directionForward >= .5f || directionInFront >= .5f)//one of the dot products is small enough so do this stuff.
-        {
-            if (PlayerInSight) playerIsCloseEnough = false;
-        }
-
-        if (distance <= 100)// if distance is smaller than a set number do this stuff.
-        {
-            if(playerIsCloseEnough)// if the player is close enough do this stuff.
-            {
-                RaycastHit hit;// send out a raycast.
-                if(Physics.Raycast(enemy.transform.position, toPlayer, out hit, Mathf.Infinity)) //if the raycast meets the requirements return true.
-                {
-                    return true;//the player is close enough so return true.
-                }
-            }
-        }
-
-        return false; // if none of the requirements are met the the player is not in sight so return flase.
     }
+
     /// <summary>
     /// Checks the player layer, determines if the player is close enough, then asks LayerFixed to jump.
     /// </summary>
     /// <param name="playerLayer">An integer to represent what layer the player is currently on.</param>
-    public void MoveToPlayer(int playerLayer)
+    public void MoveToPlayer(float playerLayer)
     {
-        if(this.layerController.z < playerLayer)// if the enemy layer is less than the player layer do this
+        //print(playerLayer / LayerFixed.separation);
+        print(playerDirection);
+        if (playerDirection == 1)// if the enemy layer is less than the player layer do this
         {
+            
+            print("forward");
             layerController.ComeForward();
         }
 
-        if(this.layerController.z > playerLayer)// if the enemy layer is larger than the player layer do this stuff.
+        if(playerDirection == -1)// if the enemy layer is larger than the player layer do this stuff.
         {
+           // print(playerDirection);
+            print("backward");
             layerController.GoBack();
         }
 
-        if(this.layerController.z == playerLayer)// if the enemy layer is equal to the player layer do this stuff.
-        {
-            layerController.CancelTimer();
-        }
+        layerController.CancelTimer();
+        
+    }
+
+    /// <summary>
+    /// this function determins whether or not the player is infront of behind or pon the same layer as this enemy
+    /// </summary>
+    /// <returns>the layer distance between the player and this enemy</returns>
+    public float DeterminRelativePlayerLocation() {
+        float playerDist = playerLayerController.z - layerController.z;
+
+        if (playerDist == 0) {
+            playerDirection = 0;
+        } else if (playerLayerController.z > layerController.z) {
+            playerDirection = -1;
+        } else if (playerLayerController.z < layerController.z) {
+            playerDirection = 1;
+        } 
+
+        return playerDist;
     }
 }
