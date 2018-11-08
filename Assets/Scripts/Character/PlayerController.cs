@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour {
     /// <summary>
     /// Initializes the object. Called when spawning.
     /// </summary>
-    void Start () {
+    void Start() {
         PlayerController.player = this;
         pawn = GetComponent<CharacterController>();
         layerController = GetComponent<LayerFixed>();
@@ -129,45 +129,44 @@ public class PlayerController : MonoBehaviour {
         if (isJetpackEnabled) jetpackFuel = 100;
         HUDController createUI = Instantiate(playerUI);
         createUI.pawn = this;
-        
-        
+
+
     }
     /// <summary>
     /// This message is called when values are updated in the inspector.
     /// </summary>
-    void OnValidate()
-    {
+    void OnValidate() {
         DeriveJumpValues();
     }
     /// <summary>
     /// Calculates the gravity and jump takeoff velocity,
     /// based on desired jump height and jump time.
     /// </summary>
-    void DeriveJumpValues()
-    {
+    void DeriveJumpValues() {
         gravity = (jumpHeight * 2) / (jumpTime * jumpTime);
         jumpVelocity = gravity * jumpTime;
     }
-    
-	/// <summary>
+
+    /// <summary>
     /// The game ticks forward one frame.
     /// </summary>
-	void Update ()
-    {
+    void Update() {
+       
+
         if (Px2.paused) return; // do nothing if game is paused...
 
         PhaseJump((int)Input.GetAxisRaw("Vertical"));
         GroundDetection();
         Move();
+
+        if (jetpackFuel <= 0) jetpackFumes.SetActive(false);
         
-        if(jetpackFuel <= 0) jetpackFumes.SetActive(false);
     }
     /// <summary>
     /// Checks input, asks the LayerFixed script to phase jump.
     /// </summary>
     /// <param name="dir">If greater than 0, moves away from camera. If less than 0, comes towards camera.</param>
-    private void PhaseJump(int dir)
-    {
+    private void PhaseJump(int dir) {
         if (dir > 0) layerController.GoBack();
         if (dir < 0) layerController.ComeForward();
         if (dir == 0) layerController.CancelTimer();
@@ -176,18 +175,16 @@ public class PlayerController : MonoBehaviour {
     /// <summary>
     /// Creates a timing window for late jump presses.
     /// </summary>
-    private void GroundDetection()
-    {
+    private void GroundDetection() {
         if (pawn.isGrounded) // ground is detected, so do this stuff:
         {
             isGrounded = true; // set our grounded flag to true
             forgetTheGroundTimer = groundTimeAmount; // start the countdown timer...
             airJumpsCount = airJumpsMax;
-            if(isJetpackEnabled)  jetpackFuel = 100;
+            if (isJetpackEnabled) jetpackFuel = 100;
             jetpackFumes.SetActive(false);
-        }
-        else // ground is NOT detected, so do this stuff:
-        {
+        } else // ground is NOT detected, so do this stuff:
+          {
             if (forgetTheGroundTimer > 0) // if there is a countdown timer...
             {
                 forgetTheGroundTimer -= Time.deltaTime; // count down
@@ -195,11 +192,12 @@ public class PlayerController : MonoBehaviour {
             }
         }
     }
+
+
     /// <summary>
     /// Handles all player movement physics: calculating velocity, moving, collision detection / response
     /// </summary>
-    private void Move()
-    {
+    private void Move() {
         // calculate total velocity:
         MoveHorizontal();
         MoveVertical();
@@ -209,47 +207,43 @@ public class PlayerController : MonoBehaviour {
 
         // collisions affect velocity:
         if ((flags & CollisionFlags.Sides) > 0) velocity.x = 0;
-        if ((flags & CollisionFlags.Above) > 0)
-        {
-            if(velocity.y > 0) velocity.y = 0;
+        
+        if ((flags & CollisionFlags.Above) > 0) {
+            if (velocity.y > 0) velocity.y = 0;
             isJumping = false;
         }
         if ((flags & CollisionFlags.Below) > 0) velocity.y = 0;
 
     }
+
     /// <summary>
     /// Handles horizontal player movement: acceleration, deceleration, maxspeed
     /// </summary>
-    private void MoveHorizontal()
-    {
+    private void MoveHorizontal() {
         // acceleration:
         float h = Input.GetAxisRaw("Horizontal");
         velocity += Time.deltaTime * new Vector3(h, 0, 0) * acceleration;
         // decleration:
-        if (h == 0)
-        {
-            if (velocity.x > 0)
-            {
+        if (h == 0) {
+            if (velocity.x > 0) {
                 velocity.x -= deceleration * Time.deltaTime;
                 if (velocity.x < 0) velocity.x = 0;
             }
-            if (velocity.x < 0)
-            {
+            if (velocity.x < 0) {
                 velocity.x += deceleration * Time.deltaTime;
                 if (velocity.x > 0) velocity.x = 0;
             }
         }
         // clamp to maxSpeed:
         if (velocity.x > maxSpeed) velocity.x = maxSpeed;
-        if (velocity.x <-maxSpeed) velocity.x = -maxSpeed;
+        if (velocity.x < -maxSpeed) velocity.x = -maxSpeed;
     }
+
     /// <summary>
     /// Handles vertical player movement: gravity, jumping 
     /// </summary>
-    private void MoveVertical()
-    {
-        if (isJumping)
-        {
+    private void MoveVertical() {
+        if (isJumping) {
             if (!Input.GetButton("Jump")) isJumping = false; // cancel jump
             if (velocity.y < 0) isJumping = false;
         }
@@ -257,50 +251,45 @@ public class PlayerController : MonoBehaviour {
         float gravityMultiplier = isJumping ? 1 : 2;
         velocity += Time.deltaTime * new Vector3(0, -gravity, 0) * gravityMultiplier;
 
-        if (Input.GetButtonDown("Jump"))
-        {
+        if (Input.GetButtonDown("Jump")) {
             if (isGrounded) // if on the ground, jump:
             {
                 velocity.y = jumpVelocity;
                 isJumping = true;
-                isGrounded = false;   
-            }
-            else if(airJumpsCount > 0) // otherwise, if has airjumps left, do an airjump:
-            {
+                isGrounded = false;
+            } else if (airJumpsCount > 0) // otherwise, if has airjumps left, do an airjump:
+              {
                 velocity.y = jumpVelocity;
                 isJumping = true;
                 airJumpsCount--;
             }
-            
+
         }
-        if (Input.GetButton("Jump"))
-        {
+        if (Input.GetButton("Jump")) {
             if (airJumpsCount == 0 && jetpackFuel > 0) //no jumps left, begin consuming fuel
             {
                 jetpackFumes.SetActive(true);
-                jetpackFuel -=35f* Time.deltaTime;
+                jetpackFuel -= 35f * Time.deltaTime;
                 velocity.y += jetpackAcceleration * Time.deltaTime;
-                if (velocity.y > maxJetpackSpeed) velocity.y = maxJetpackSpeed; 
+                if (velocity.y > maxJetpackSpeed) velocity.y = maxJetpackSpeed;
                 isJumping = true;
             }
         }
-        if (Input.GetButtonUp("Jump"))
-        {
-            if (airJumpsCount == 0)
-            {
+        if (Input.GetButtonUp("Jump")) {
+            if (airJumpsCount == 0) {
                 jetpackFumes.SetActive(false);
             }
         }
     }
+
     /// <summary>
     /// Activates the ragdoll physics.
     /// </summary>
-    void Ragdoll(Vector3 fromHere)
-    {
+    void Ragdoll(Vector3 fromHere) {
         // swap avatars:
         ragdoll.transform.parent = transform.parent;
         ragdoll.gameObject.SetActive(true);
-        
+
         // apply force to ragdoll:
         Rigidbody body = ragdoll.GetComponentInChildren<Rigidbody>();
         Vector3 dis = fromHere - transform.position;
@@ -309,34 +298,35 @@ public class PlayerController : MonoBehaviour {
 
         Destroy(gameObject);
     }
+
     /// <summary>
     /// FIXME: respond to collision events where this object is not the instigator.
     /// </summary>
     /// <param name="info"></param>
-    void OnTriggerEnter(Collider collider)
-    {
+    void OnTriggerEnter(Collider collider) {
         //if (collider.tag == "Danger") print("danger moved into you");
-        OnHitGameObject(collider);   
+        OnHitGameObject(collider);
     }
+
     /// <summary>
     /// You've run into something. This object is the instigator of the collision.
     /// </summary>
     /// <param name="info"></param>
-    void OnControllerColliderHit(ControllerColliderHit info)
-    {
+    void OnControllerColliderHit(ControllerColliderHit info) {
         //if (info.collider.tag == "Danger") print("you moved into danger");
         OnHitGameObject(info.collider);
     }
+
     /// <summary>
     /// What to do if colliding with another?
     /// Checks the tag on the other collider.
     /// </summary>
     /// <param name="obj">The other collider</param>
-    void OnHitGameObject(Collider obj)
-    {
-        if (obj.tag == "Danger")
-        {
+    void OnHitGameObject(Collider obj) {
+        if (obj.tag == "Danger") {
             //Ragdoll(obj.transform.position);
         }
+
+        
     }
 }
