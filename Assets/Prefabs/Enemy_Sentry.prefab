@@ -22,7 +22,7 @@ GameObject:
   m_Layer: 0
   m_Name: Patrol Point B
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -37,7 +37,7 @@ GameObject:
   m_Layer: 0
   m_Name: ShootPoint
   m_TagString: Untagged
-  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -51,7 +51,6 @@ GameObject:
   - component: {fileID: 4461354487118092}
   - component: {fileID: 54966227481251362}
   - component: {fileID: 33589800962752182}
-  - component: {fileID: 114182743215789186}
   - component: {fileID: 114116121128867750}
   m_Layer: 0
   m_Name: Enemy_Sentry
@@ -89,7 +88,7 @@ GameObject:
   m_Layer: 0
   m_Name: Patrol Point A
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -104,7 +103,7 @@ GameObject:
   m_Layer: 0
   m_Name: RayCast
   m_TagString: Untagged
-  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -128,7 +127,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1709619382197854}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.287, z: 0}
   m_LocalScale: {x: 1, y: 2, z: 0.1}
   m_Children:
   - {fileID: 4156306623434744}
@@ -143,7 +142,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1556604391350220}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4, y: 0, z: 0}
+  m_LocalPosition: {x: 5.29, y: 1.348, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4461354487118092}
@@ -156,7 +155,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1658079432662060}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.23, y: 6.1, z: 100}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4215390765320932}
@@ -172,7 +171,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1847913327068382}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: 0, z: 0}
+  m_LocalPosition: {x: -4.02, y: 1.348, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4461354487118092}
@@ -266,9 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e216662c9c8074c47b160b2cdb722fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTimer: 0
   cooldown: 2
-  seconds: 0
   walkSpeed: 1
   pointA: {fileID: 4486715061610930}
   pointB: {fileID: 4240251567410382}
@@ -276,22 +273,6 @@ MonoBehaviour:
   enemy: {fileID: 1709619382197854}
   rayCast: {fileID: 1890556104940978}
   projectile: {fileID: 1923698967969524, guid: 7fd0e9823a76bd640a189a7ee25cb817, type: 2}
-  player: {fileID: 0}
---- !u!114 &114182743215789186
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1658079432662060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0511484c7facb7540afc38c17094f0ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  z: 1
-  snapToLayerInEditor: 1
-  ignoreCollidersWhenPhasing: 0
-  phaseCooldown: 0.25
 --- !u!136 &136607697060055024
 CapsuleCollider:
   m_ObjectHideFlags: 1

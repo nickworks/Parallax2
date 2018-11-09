@@ -13,11 +13,11 @@ public class EnemyStatePatrol : State<EnemyAI>
     /// <summary>
     /// Creates the start point for the Patrol route.
     /// </summary>
-    public Transform pointA;
+    public float pointA;
     /// <summary>
     /// Creates the end point for the Patrol route.
     /// </summary>
-    public Transform pointB;
+    public float pointB;
     /// <summary>
     /// A value that counts up from 0 to 1 to determine the Enemy position on its patrol lerp path.
     /// </summary>
@@ -28,10 +28,7 @@ public class EnemyStatePatrol : State<EnemyAI>
     /// </summary>
     private EnemyStatePatrol()
     {
-        if (_instance != null)
-        {
-            return;
-        }
+        
         _instance = this;
     }
     /// <summary>
@@ -41,10 +38,8 @@ public class EnemyStatePatrol : State<EnemyAI>
     {
         get
         {
-            if (_instance == null)
-            {
-                new EnemyStatePatrol();
-            }
+
+            new EnemyStatePatrol();
 
             return _instance;
 
@@ -57,19 +52,19 @@ public class EnemyStatePatrol : State<EnemyAI>
     /// <param name="_owner"></param>
     public void Patrol(EnemyAI _owner)
     {
-        float speed = _owner.walkSpeed / 4;
+        float speed = _owner.walkSpeed;
 
-        _owner.enemy.transform.localPosition = new Vector3(Mathf.Lerp(pointA.transform.localPosition.x, pointB.transform.localPosition.x, t), 0, 0);
+        _owner.enemy.transform.localPosition = new Vector3(Mathf.Lerp(pointA, pointB, t), _owner.enemy.transform.localPosition.y, _owner.enemy.transform.localPosition.z);
 
-        t += speed * Time.deltaTime;
+        t += (speed * Time.deltaTime) / (Mathf.Abs(pointB) + Mathf.Abs(pointA));
 
 
         if (t > 1) //when the lerp reaches 100%, this swaps points A and B, then resets the lerp
         {
-            Transform tempValue = pointB;
+            float tempValue = pointB;
             pointB = pointA;
             pointA = tempValue;
-            
+
             t = 0;
 
             _owner.enemy.transform.localEulerAngles += new Vector3(0, 180, 0); //this turns the enemy billboard so that it faces the opposite direction
@@ -83,8 +78,9 @@ public class EnemyStatePatrol : State<EnemyAI>
     public override void EnterState(EnemyAI _owner)
     {
         Debug.Log("Entering Patrol State");
-        pointA = _owner.pointA;
-        pointB = _owner.pointB;
+        pointA = _owner.pointA.transform.localPosition.x;
+        pointB = _owner.pointB.transform.localPosition.x;
+        Debug.Log(pointA + " " + pointB);
     }
     /// <summary>
     /// Code to be called upon exiting this state.
@@ -102,5 +98,5 @@ public class EnemyStatePatrol : State<EnemyAI>
     {
         Patrol(_owner);
     }
-    
+
 }
