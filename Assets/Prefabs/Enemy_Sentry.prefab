@@ -272,6 +272,7 @@ MonoBehaviour:
   rayCast: {fileID: 1890556104940978}
   prefabProjectile: {fileID: 1923698967969524, guid: 7fd0e9823a76bd640a189a7ee25cb817,
     type: 2}
+  enemyBody: {fileID: 1709619382197854}
 --- !u!136 &136607697060055024
 CapsuleCollider:
   m_ObjectHideFlags: 1
