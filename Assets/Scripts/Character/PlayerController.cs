@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour {
     /// If we add multiplayer, we will have to redesign this.
     /// </summary>
     public static PlayerController player { get; private set; }
+
+    private PlayerState state;
+
+
     /// <summary>
     /// A reference to a prefab canvas that instanciates when the player is spawned
     /// </summary>
@@ -146,20 +150,31 @@ public class PlayerController : MonoBehaviour {
         gravity = (jumpHeight * 2) / (jumpTime * jumpTime);
         jumpVelocity = gravity * jumpTime;
     }
-
+    /// <summary>
+    /// Changes the player state.
+    /// </summary>
+    /// <param name="nextState">The state to change to.</param>
+    void ChangeState(PlayerState nextState)
+    {
+        if (nextState == null) return;
+        if (state != null) state.Exit();
+        state = nextState;
+        state.Enter(this);
+    }
     /// <summary>
     /// The game ticks forward one frame.
     /// </summary>
     void Update() {
-       
 
         if (Px2.paused) return; // do nothing if game is paused...
 
-        PhaseJump((int)Input.GetAxisRaw("Vertical"));
-        GroundDetection();
-        Move();
+        if (state != null) ChangeState(state.Update());
 
-        if (jetpackFuel <= 0) jetpackFumes.SetActive(false);
+
+        //PhaseJump((int)Input.GetAxisRaw("Vertical"));
+        //GroundDetection();
+        //Move();
+        //if (jetpackFuel <= 0) jetpackFumes.SetActive(false);
         
     }
     /// <summary>
