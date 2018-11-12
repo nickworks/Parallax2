@@ -1,63 +1,46 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using StateStuff;
 using System;
 
-public class EnemyStatePatrol : State<EnemyAI>
+public class EnemyStatePatrol : EnemyState
 {
-    /// <summary>
-    /// Creates an instance of the Enemy Patrol State for use in the Enemy AI State Machine.
-    /// </summary>
-    private static EnemyStatePatrol _instance;
-    /// <summary>
-    /// Creates the start point for the Patrol route.
-    /// </summary>
-    public float pointA;
-    /// <summary>
-    /// Creates the end point for the Patrol route.
-    /// </summary>
-    public float pointB;
     /// <summary>
     /// A value that counts up from 0 to 1 to determine the Enemy position on its patrol lerp path.
     /// </summary>
     [HideInInspector]
     public float t = 0.0f;
+    
     /// <summary>
-    /// Sets the EnemyStatePatrol instance to this preexisting one if one has not already been set.
+    /// Acts as the Update function. Runs the Patrol function.
     /// </summary>
-    private EnemyStatePatrol()
+    /// <param name="controller"></param>
+    public override EnemyState UpdateState()
     {
-        
-        _instance = this;
+        // BEHAVIOR:
+        Patrol();
+
+        // TRANSITIONS:
+        if (controller.CanSeePlayer()) return new EnemyStateAttack();
+
+        return null;
     }
-    /// <summary>
-    /// Creates a new instance of EnemyStatePatrol.
-    /// </summary>
-    public static EnemyStatePatrol Instance
-    {
-        get
-        {
 
-            new EnemyStatePatrol();
-
-            return _instance;
-
-        }
-    }
     /// <summary>
     /// Lerps the Owner's billboard component between to points at a speed equal to (the owner's walk speed divided by four) per second. 
     /// When the billboard reaches point B, points A and B are reversed and the lerp amount is reset to 0.
     /// </summary>
-    /// <param name="_owner"></param>
-    public void Patrol(EnemyAI _owner)
+    /// <param name="owner"></param>
+    public void Patrol()
     {
-        float speed = _owner.walkSpeed;
+        float speed = controller.walkSpeed;
 
-        _owner.enemy.transform.localPosition = new Vector3(Mathf.Lerp(pointA, pointB, t), _owner.enemy.transform.localPosition.y, _owner.enemy.transform.localPosition.z);
+        float pointA = controller.pointA.transform.localPosition.x;
+        float pointB = controller.pointB.transform.localPosition.x;
+
+        controller.transform.localPosition = new Vector3(Mathf.Lerp(pointA, pointB, t), controller.transform.localPosition.y, controller.transform.localPosition.z);
 
         t += (speed * Time.deltaTime) / (Mathf.Abs(pointB) + Mathf.Abs(pointA));
-
 
         if (t > 1) //when the lerp reaches 100%, this swaps points A and B, then resets the lerp
         {
@@ -67,36 +50,8 @@ public class EnemyStatePatrol : State<EnemyAI>
 
             t = 0;
 
-            _owner.enemy.transform.localEulerAngles += new Vector3(0, 180, 0); //this turns the enemy billboard so that it faces the opposite direction
+            controller.transform.localEulerAngles += new Vector3(0, 180, 0); //this turns the enemy billboard so that it faces the opposite direction
         }
 
     }
-    /// <summary>
-    /// Acts as the "Start" function. Sets points A and B and sets the owner's facing direction to forward.
-    /// </summary>
-    /// <param name="_owner"></param>
-    public override void EnterState(EnemyAI _owner)
-    {
-        Debug.Log("Entering Patrol State");
-        pointA = _owner.pointA.transform.localPosition.x;
-        pointB = _owner.pointB.transform.localPosition.x;
-        Debug.Log(pointA + " " + pointB);
-    }
-    /// <summary>
-    /// Code to be called upon exiting this state.
-    /// </summary>
-    /// <param name="_owner"></param>
-    public override void ExitState(EnemyAI _owner)
-    {
-        Debug.Log("Exiting Patrol State");
-    }
-    /// <summary>
-    /// Acts as the Update function. Runs the Patrol function.
-    /// </summary>
-    /// <param name="_owner"></param>
-    public override void UpdateState(EnemyAI _owner)
-    {
-        Patrol(_owner);
-    }
-
 }

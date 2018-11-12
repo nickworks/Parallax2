@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using StateStuff;
 using System;
 
-public class EnemyStateAttack : State<EnemyAI>
+public class EnemyStateAttack : EnemyState
 {
     /// <summary>
     /// The rate, in frames, at which projectiles are spawned
@@ -14,65 +13,57 @@ public class EnemyStateAttack : State<EnemyAI>
     /// The starting amount of time, in frames, before the first projectile is spawned.
     /// </summary>
     int shootTimer = 20;
-    /// <summary>
-    /// A usable instance of this Enemy State.
-    /// </summary>
-    private static EnemyStateAttack _instance;
-    /// <summary>
-    /// Sets the instance of this State if it hasn't been done yet.
-    /// </summary>
-    private EnemyStateAttack()
-    {
-        if (_instance != null)
-        {
-            return;
-        }
-        _instance = this;
-    }
-    /// <summary>
-    /// Creates an instance of this state if one hasn't already been created.
-    /// </summary>
-    public static EnemyStateAttack Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                new EnemyStateAttack();
-            }
 
-            return _instance;
-        }
-    }
     /// <summary>
-    /// Acts as the "Start" method
+    /// Used to track how much time the enemy should wait before returning to Patrolling.
     /// </summary>
-    /// <param name="_owner"></param>
-    public override void EnterState(EnemyAI _owner)
-    {
-        Debug.Log("Entering Attack State.");
-    }
-    /// <summary>
-    /// Acts as the "Exit" Method
-    /// </summary>
-    /// <param name="_owner"></param>
-    public override void ExitState(EnemyAI _owner)
-    {
-        Debug.Log("Exiting Attack State.");
-    }
+    float timeUntilGiveup;
+
     /// <summary>
     /// Acts as the "Update" Method
     /// </summary>
-    /// <param name="_owner"></param>
-    public override void UpdateState(EnemyAI _owner)
+    public override EnemyState UpdateState()
     {
-        //Decrement the shootTimer 
-        shootTimer--;
+        // BEHAVIOR:
+        Shoot();
+
+        // TRANSITIONS:
+        if (ShouldGiveup()) return new EnemyStatePatrol();
+        
+        return null;
+    }
+    /// <summary>
+    /// This method countsdown a timer and then shoots a projectile.
+    /// </summary>
+    private void Shoot()
+    {
+        //FIXME: use delta-time (seconds) instead of frames for countdown timers
+        shootTimer--; // Decrement the shootTimer 
+
         //If the shootTimer is less than or equal to 0, call the Shoot Method and set the shootTimer to the spawn rate.
-        if(shootTimer <= 0)
+        if (shootTimer <= 0)
         {
-            _owner.Shoot();
+            controller.Shoot();
             shootTimer = spawnRate;
         }
     }
+
+    /// <summary>
+    /// Runs a timer set to a specied amount of seconds while the Enemy is in the Attack State.
+    /// Once the timer reaches 0, the enemy state switches back to patrol.
+    /// </summary>
+    private bool ShouldGiveup()
+    {
+        timeUntilGiveup -= Time.deltaTime; // countdown
+
+        if (controller.CanSeePlayer()) // if we can see the player
+        {
+            timeUntilGiveup = .5f; // set our giveup timer
+            // TODO: make this a variable... maybe something we can set in the inspector?
+        }
+
+        if(timeUntilGiveup <= 0) return true;
+        return false;
+    }
+
 }

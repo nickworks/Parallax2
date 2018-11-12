@@ -1,20 +1,10 @@
 ﻿using UnityEngine;
-using StateStuff;
 
 public class EnemyAI : MonoBehaviour
 {
-    /// <summary>
-    /// Used to track and compare the Time.time variable for the AlertCoolDown.
-    /// </summary>
-    float gameTimer;
-    /// <summary>
-    /// The amount of time, in seconds, that the enemy will wait before switching back to the patrol state.
-    /// </summary>
-    public int cooldown = 2;
-    /// <summary>
-    /// Incremental value that is used to check against the cooldown variable.
-    /// </summary>
-    int seconds = 0;
+
+    EnemyState state;
+
     /// <summary>
     /// The enemies walking speed.
     /// </summary>
@@ -32,108 +22,64 @@ public class EnemyAI : MonoBehaviour
     /// </summary>
     public Transform shootPoint;
     /// <summary>
-    /// The visible component of the Sentry prefab.
-    /// </summary>
-    public GameObject enemy;
-    /// <summary>
     /// Acts as the origin for the CastRay method.
     /// </summary>
     public GameObject rayCast;
     /// <summary>
     /// The object to be used as the enemy projectile.
     /// </summary>
-    public GameObject projectile;
-    /// <summary>
-    /// The state machine that controls all of the state switching for EnemyAI.
-    /// </summary>
-    public StateMachine<EnemyAI> stateMachine { get; set; }
+    public GameObject prefabProjectile;
 
     private void Start()
     {
-        stateMachine = new StateMachine<EnemyAI>(this);
-        ChangeStateToPatrol();
-        gameTimer = Time.time;
+        ChangeToState(new EnemyStatePatrol());
     }
     private void Update()
     {
-        CastRay();
-        if (stateMachine.currentState == EnemyStateAttack.Instance) AlertCooldown(); //If the Enemy Attack State is Active, call the AlertCooldown method
-        stateMachine.Update();
+        if (state != null) ChangeToState(state.UpdateState());
     }
+
     /// <summary>
-    /// Runs a timer set to a specied amount of seconds while the Enemy is in the Attack State.
-    /// Once the timer reaches 0, the enemy state switches back to patrol.
+    /// This method changes the state machine to a different state. Typically, this
+    /// should be automagically called from this class's Update() method.
     /// </summary>
-    private void AlertCooldown()
+    /// <param name="nextState"></param>
+    private void ChangeToState(EnemyState nextState)
     {
-        if (Time.time > gameTimer + 1)
-        {
-            gameTimer = Time.time;
-            seconds++;
-            Debug.Log(seconds);
-        }
-        if (seconds == cooldown)
-        {
-            ChangeStateToPatrol();
-            seconds = 0;
-        }
-
+        if (nextState == null) return;
+        if (state != null) state.ExitState();
+        state = nextState;
+        state.EnterState(this);
     }
-    /// <summary>
-    /// Switch Enemy state to the active instance of the Attack State.
-    /// </summary>
-    public void ChangeStateToAttack()
-    {
-        stateMachine.ChangeState(EnemyStateAttack.Instance);
-    }
-    /// <summary>
-    /// Switch Enemy state to the active instance of the Patrol State.
-    /// </summary>
-    public void ChangeStateToPatrol()
-    {
-        stateMachine.ChangeState(EnemyStatePatrol.Instance);
-    }
-    /// <summary>
-    /// Shoots a Ray Cast from a specified point on the Enemy.
-    /// Upon hitting something, it checks to see if that thing has the "Player" tag.
-    /// If the hit object has the "Player Tag" it switched the Enemy state to Attack and sets the AlertCoolDown timer to 0;
-    /// </summary>
-    public void CastRay()
-    {
-
-        RaycastHit hit;
-
-        // The distance at which the other object is when hit.
-        float theDistance;
-
-        // Sets the forward of the Ray at a specified distance.
-        Vector3 forward = rayCast.transform.TransformDirection(Vector3.right) * 5;
-
-        // Sets the Ray as red in the editor during play.
-        Debug.DrawRay(rayCast.transform.position, forward, Color.red);
-
-        //If the Raycast hits an object...
-
-        if (Physics.Raycast(rayCast.transform.position, (forward), out hit, 5))
-        {
-            //If that object has the "Player" Tag...
-            if (hit.collider.gameObject.tag == "Player")
-            {
-                theDistance = hit.distance;
-
-                Debug.Log(theDistance + " " + hit.collider.gameObject.name);
-
-                
-                if (stateMachine.currentState != EnemyStateAttack.Instance) ChangeStateToAttack(); //Only call the method if the Enemy State isn't already Attack.
-                seconds = 0;
-            }
-        }
-    }
+    
     /// <summary>
     /// Shoots a projectile from a specified point.
     /// </summary>
     public void Shoot()
     {
-        Instantiate(projectile, shootPoint);
+        Instantiate(prefabProjectile, shootPoint);
+    }
+
+    /// <summary>
+    /// Shoots a Ray Cast from a specified point on the Enemy.
+    /// Upon hitting something, it checks to see if that thing has the "Player" tag.
+    /// If the hit object has the "Player Tag" it switched the Enemy state to Attack and sets the AlertCoolDown timer to 0;
+    /// </summary>
+    public bool CanSeePlayer()
+    {
+        Vector3 forward = rayCast.transform.TransformDirection(Vector3.right); // Sets the forward of the Ray at a specified distance.
+        float distance = 5;
+
+        Debug.DrawRay(rayCast.transform.position, forward * distance, Color.red); // Draws the Ray as red in the editor during play.
+
+        RaycastHit hit;
+        if (Physics.Raycast(rayCast.transform.position, forward, out hit, distance)) // If the Raycast hits an object...
+        {
+            if (hit.collider.gameObject.tag == "Player") // If that object has the "Player" Tag...
+            {
+                return true; // can see player
+            }
+        }
+        return false; // cannot see player
     }
 }
