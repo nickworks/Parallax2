@@ -30,6 +30,8 @@ public class EnemyAI : MonoBehaviour
     /// </summary>
     public GameObject prefabProjectile;
 
+    public GameObject enemyBody;
+
     private void Start()
     {
         ChangeToState(new EnemyStatePatrol());

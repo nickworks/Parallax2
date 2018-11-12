@@ -10,7 +10,19 @@ public class EnemyStatePatrol : EnemyState
     /// </summary>
     [HideInInspector]
     public float t = 0.0f;
-    
+
+    float pointA;
+    float pointB;
+
+
+    public override void EnterState(EnemyAI controller)
+    {
+        base.EnterState(controller);
+
+        pointA = controller.pointA.transform.localPosition.x;
+        pointB = controller.pointB.transform.localPosition.x;
+    }
+
     /// <summary>
     /// Acts as the Update function. Runs the Patrol function.
     /// </summary>
@@ -35,10 +47,7 @@ public class EnemyStatePatrol : EnemyState
     {
         float speed = controller.walkSpeed;
 
-        float pointA = controller.pointA.transform.localPosition.x;
-        float pointB = controller.pointB.transform.localPosition.x;
-
-        controller.transform.localPosition = new Vector3(Mathf.Lerp(pointA, pointB, t), controller.transform.localPosition.y, controller.transform.localPosition.z);
+        controller.enemyBody.transform.localPosition = new Vector3(Mathf.Lerp(pointA, pointB, t), controller.enemyBody.transform.localPosition.y, controller.enemyBody.transform.localPosition.z);
 
         t += (speed * Time.deltaTime) / (Mathf.Abs(pointB) + Mathf.Abs(pointA));
 
@@ -50,7 +59,7 @@ public class EnemyStatePatrol : EnemyState
 
             t = 0;
 
-            controller.transform.localEulerAngles += new Vector3(0, 180, 0); //this turns the enemy billboard so that it faces the opposite direction
+            controller.enemyBody.transform.localEulerAngles += new Vector3(0, 180, 0); //this turns the enemy billboard so that it faces the opposite direction
         }
 
     }

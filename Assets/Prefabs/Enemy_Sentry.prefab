@@ -55,7 +55,7 @@ GameObject:
   m_Layer: 0
   m_Name: Enemy_Sentry
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -142,7 +142,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1556604391350220}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.29, y: 1.348, z: 0}
+  m_LocalPosition: {x: 4, y: 1.348, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4461354487118092}
@@ -155,7 +155,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1658079432662060}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2.46, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4215390765320932}
@@ -171,7 +171,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1847913327068382}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.02, y: 1.348, z: 0}
+  m_LocalPosition: {x: -4, y: 1.348, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4461354487118092}
@@ -265,14 +265,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e216662c9c8074c47b160b2cdb722fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 2
   walkSpeed: 1
   pointA: {fileID: 4486715061610930}
   pointB: {fileID: 4240251567410382}
   shootPoint: {fileID: 4917718076122316}
-  enemy: {fileID: 1709619382197854}
   rayCast: {fileID: 1890556104940978}
-  projectile: {fileID: 1923698967969524, guid: 7fd0e9823a76bd640a189a7ee25cb817, type: 2}
+  prefabProjectile: {fileID: 1923698967969524, guid: 7fd0e9823a76bd640a189a7ee25cb817,
+    type: 2}
 --- !u!136 &136607697060055024
 CapsuleCollider:
   m_ObjectHideFlags: 1
