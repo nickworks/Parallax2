@@ -568,24 +568,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 4570431233410154, guid: e0d8e80fcd4552a46ae90b302a42f57f, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4570431233410154, guid: e0d8e80fcd4552a46ae90b302a42f57f, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 136069409110027384, guid: e0d8e80fcd4552a46ae90b302a42f57f,
-        type: 2}
-      propertyPath: m_Height
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 143337535872060558, guid: e0d8e80fcd4552a46ae90b302a42f57f,
-        type: 2}
-      propertyPath: m_Height
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0d8e80fcd4552a46ae90b302a42f57f, type: 2}
   m_IsPrefabAsset: 0
@@ -1167,6 +1149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d04466d5734a154587311bcbac144d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fillPlayerHP: 1
   spawnPosition: {x: -0.31947112, y: -1.3479877, z: 0}
 --- !u!1 &1004795498
 GameObject:
@@ -1351,6 +1334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae31d2bbf69eb1e45bb3e39c3213ff33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveDistance: 0
 --- !u!54 &1053669199
 Rigidbody:
   m_ObjectHideFlags: 0
