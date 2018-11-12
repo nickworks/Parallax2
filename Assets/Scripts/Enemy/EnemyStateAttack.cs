@@ -32,6 +32,7 @@ public class EnemyStateAttack : EnemyState
         
         return null;
     }
+
     /// <summary>
     /// This method countsdown a timer and then shoots a projectile.
     /// </summary>
