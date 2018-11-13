@@ -7,6 +7,9 @@ using UnityEngine.Events;
 /// This object can be used to activate or deactivate a number of objects,
 /// when the player interacts with this object.
 /// </summary>
+
+
+//TODO: Make two seperate levers for the on/off position, and hide/unhide when swapping. 
 public class InteractLever : MonoBehaviour {
     /// <summary>
     /// This UnityEvent is called when something is on top of the button.
@@ -40,8 +43,6 @@ public class InteractLever : MonoBehaviour {
     /// Stores whether or not the button is cooling down from use.
     /// </summary>
     private bool isButtonCoolingDown = false;
-
-    public Transform RotationPoint;
     // Use this for initialization
     void Start() {
         buttonRend = GetComponentInChildren<Renderer>();
@@ -57,7 +58,6 @@ public class InteractLever : MonoBehaviour {
             if (coolDownTimer < 0)
             {
                 onDeactivate.Invoke();
-                RotationPoint.Rotate(new Vector3(0, 0, -45));
                 isButtonCoolingDown = false;
                 if (deactiveMat != null)
                 {
@@ -83,7 +83,6 @@ public class InteractLever : MonoBehaviour {
             onActivate.Invoke();
             isButtonCoolingDown = true;
             SetCoolDownTimer();
-            RotationPoint.Rotate(new Vector3(0, 0, 45));
 
             if (activeMat != null)
             {
