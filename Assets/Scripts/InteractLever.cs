@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
 /// <summary>
-/// This script is used to control an InteractButton object. 
-/// These buttons are activated when the player is within range and they press the "Interact" button.
+/// This class is used to control an InteractLever object. 
+/// This object can be used to activate or deactivate a number of objects,
+/// when the player interacts with this object.
 /// </summary>
-public class InteractButton : MonoBehaviour {
+public class InteractLever : MonoBehaviour {
     /// <summary>
     /// This UnityEvent is called when something is on top of the button.
     /// </summary>
@@ -41,31 +41,32 @@ public class InteractButton : MonoBehaviour {
     /// </summary>
     private bool isButtonCoolingDown = false;
 
+    public Transform RotationPoint;
     // Use this for initialization
-    void Start () {
+    void Start() {
         buttonRend = GetComponentInChildren<Renderer>();
         buttonRend.material = deactiveMat;
-	}
-    void Update ()
-    {
+    }
+	// Update is called once per frame
+	void Update () {
         if (isButtonCoolingDown)
         {
             coolDownTimer -= Time.deltaTime;
             print("Cooling down: " + coolDownTimer + " seconds remaining.");
 
-            if(coolDownTimer < 0)
+            if (coolDownTimer < 0)
             {
                 onDeactivate.Invoke();
+                RotationPoint.Rotate(new Vector3(0, 0, -45));
                 isButtonCoolingDown = false;
                 if (deactiveMat != null)
                 {
                     buttonRend.material = deactiveMat;
                 }
             }
-            
+
         }
     }
-
     /// <summary>
     /// Activates when another Collider stays within the trigger area.
     /// </summary>
@@ -76,11 +77,13 @@ public class InteractButton : MonoBehaviour {
 
         //if player interacts with the button...
         float interact = Input.GetAxis("Submit");
-        
-        if(interact > 0 && !isButtonCoolingDown) {
+
+        if (interact > 0 && !isButtonCoolingDown)
+        {
             onActivate.Invoke();
             isButtonCoolingDown = true;
             SetCoolDownTimer();
+            RotationPoint.Rotate(new Vector3(0, 0, 45));
 
             if (activeMat != null)
             {
