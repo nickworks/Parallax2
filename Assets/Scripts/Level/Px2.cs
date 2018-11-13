@@ -6,7 +6,8 @@ using UnityEngine;
 /// Our top-level game state for Parallax2.
 /// </summary>
 public static class Px2 {
-
+    static public int numKeys = 0;
+    static public int numCollect = 0;
     /// <summary>
     /// Whether or not the game is paused.
     /// </summary>
