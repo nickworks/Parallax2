@@ -1105,6 +1105,11 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a714d7e1716ce3439496c5121490495, type: 2}
   m_IsPrefabAsset: 0
+--- !u!20 &945995887 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 20561428443582006, guid: 1a714d7e1716ce3439496c5121490495,
+    type: 2}
+  m_PrefabInternal: {fileID: 945995886}
 --- !u!1 &1205532183
 GameObject:
   m_ObjectHideFlags: 0
@@ -1280,7 +1285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55c1638e51027e4093b95903f98e5a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerUI: {fileID: 114697989399649816, guid: 78213af8883429f4a8edf66d73f427af, type: 2}
+  prefabHUD: {fileID: 0}
   acceleration: 40
   deceleration: 40
   maxSpeed: 10
@@ -1336,6 +1341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bda9c4751349d642b0711efecf2f821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pushPower: 2
 --- !u!1 &1256353094
 GameObject:
   m_ObjectHideFlags: 0
@@ -6360,6 +6366,35 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d958d836912809441ae865b00d57c1d1, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &1612483058 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1183087433783224, guid: d958d836912809441ae865b00d57c1d1,
+    type: 2}
+  m_PrefabInternal: {fileID: 1612483057}
+--- !u!114 &1612483059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1612483058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e445e1a2d67b4543ad21eecd5e0b52f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneCam: {fileID: 945995887}
+--- !u!114 &1612483060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1612483058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e445e1a2d67b4543ad21eecd5e0b52f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneCam: {fileID: 0}
 --- !u!1 &1698591433
 GameObject:
   m_ObjectHideFlags: 0
