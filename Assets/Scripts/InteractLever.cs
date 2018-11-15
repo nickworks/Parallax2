@@ -43,10 +43,16 @@ public class InteractLever : MonoBehaviour {
     /// Stores whether or not the button is cooling down from use.
     /// </summary>
     private bool isButtonCoolingDown = false;
+    
+    public Renderer activeLever;
+
+    public Renderer deactiveLever;
     // Use this for initialization
     void Start() {
         buttonRend = GetComponentInChildren<Renderer>();
         buttonRend.material = deactiveMat;
+        activeLever.enabled = false;
+        deactiveLever.enabled = true;
     }
 	// Update is called once per frame
 	void Update () {
@@ -59,6 +65,8 @@ public class InteractLever : MonoBehaviour {
             {
                 onDeactivate.Invoke();
                 isButtonCoolingDown = false;
+                activeLever.enabled = false;
+                deactiveLever.enabled = true;
                 if (deactiveMat != null)
                 {
                     buttonRend.material = deactiveMat;
@@ -82,6 +90,8 @@ public class InteractLever : MonoBehaviour {
         {
             onActivate.Invoke();
             isButtonCoolingDown = true;
+            activeLever.enabled = true;
+            deactiveLever.enabled = false;
             SetCoolDownTimer();
 
             if (activeMat != null)
