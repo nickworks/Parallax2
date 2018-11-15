@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 65035103229435086}
   - component: {fileID: 114201449341011602}
   m_Layer: 0
-  m_Name: InteractLever
+  m_Name: Interact Lever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -331,5 +331,6 @@ MonoBehaviour:
   activeMat: {fileID: 2100000, guid: d986f31364728c34a8e9a25c743aca47, type: 2}
   deactiveMat: {fileID: 2100000, guid: 4f0b60966912a9e46b788df679917df1, type: 2}
   coolDownTimerMax: 2
+  isTimed: 0
   activeLever: {fileID: 23664794469050486}
   deactiveLever: {fileID: 23504504371173298}

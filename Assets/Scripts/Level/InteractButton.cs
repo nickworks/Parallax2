@@ -31,6 +31,7 @@ public class InteractButton : MonoBehaviour {
     /// <summary>
     /// Stores the amount of time that passes (in seconds) before the button can be used again.
     /// </summary>
+    [Range(0, 10)]
     public float coolDownTimerMax = 2;
     /// <summary>
     /// Stores the current time the button has left to cool down.
