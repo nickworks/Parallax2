@@ -152,7 +152,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1078176212132782}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14, y: 3.7, z: 0}
+  m_LocalPosition: {x: -5.47, y: 1.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4570431233410154}
@@ -355,7 +355,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55c1638e51027e4093b95903f98e5a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerUI: {fileID: 114697989399649816, guid: 78213af8883429f4a8edf66d73f427af, type: 2}
+  prefabHUD: {fileID: 114697989399649816, guid: 78213af8883429f4a8edf66d73f427af,
+    type: 2}
   acceleration: 40
   deceleration: 40
   maxSpeed: 10
@@ -381,6 +382,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06480aa894bfac540bd712fbe96bf58f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpCurrent: 100
+  hpPercent: {x: 0, y: 0, z: 0}
   hpMax: 100
   respawnOnDeath: 1
   destroyOnDeath: 0
