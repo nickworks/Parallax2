@@ -14,15 +14,6 @@ public class CollectableItem : MonoBehaviour {
     /// </summary>
     public bool isCoin = false;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
     /// <summary>
     /// </summary>
     /// <param name="info"></param>
