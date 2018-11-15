@@ -9,10 +9,6 @@ using UnityEngine.Events;
 /// </summary>
 public class HealthAndRespawn : MonoBehaviour {
     /// <summary>
-    /// reference to the player's UI
-    /// </summary>
-    public HUDController UIRef;
-    /// <summary>
     /// The world position this object should respawn at when it dies.
     /// </summary>
     public Vector3 spawnPosition { get; private set; }
@@ -47,7 +43,7 @@ public class HealthAndRespawn : MonoBehaviour {
     /// </summary>
     void Start () {
         SetSpawn(transform.position);
-        UIRef.playerHP = this;
+        
 	}
     /// <summary>
     /// Sets the spawn position.

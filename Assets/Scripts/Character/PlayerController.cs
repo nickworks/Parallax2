@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour {
     /// <summary>
     /// A reference to a prefab canvas that instanciates when the player is spawned
     /// </summary>
-    public HUDController playerUI;
+    public HUDController prefabHUD;
     /// <summary>
     /// A reference to the CharacterController component.
     /// </summary>
@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour {
         layerController = GetComponent<LayerFixed>();
         DeriveJumpValues();
         if (isJetpackEnabled) jetpackFuel = 100;
-        HUDController createUI = Instantiate(playerUI);
+        HUDController createUI = Instantiate(prefabHUD);
         createUI.pawn = this;
 
 
@@ -326,7 +326,7 @@ public class PlayerController : MonoBehaviour {
         if (obj.tag == "Danger") {
             //Ragdoll(obj.transform.position);
         }
-
+        
         
     }
 }
