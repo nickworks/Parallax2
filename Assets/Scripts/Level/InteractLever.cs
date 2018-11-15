@@ -33,10 +33,12 @@ public class InteractLever : MonoBehaviour
     /// </summary>
     Renderer buttonRend;
     /// <summary>
-    /// Stores the amount of time that passes (in seconds) before the button can be used again.
+    /// Stores the amount of time that passes (in seconds)
+    /// before the button automatically deactivates itself.
+    /// Useful for timed puzzles!
     /// </summary>
     [Range(0, 10)]
-    public float coolDownTimerMax = 2;
+    public float deactivateTimerMax = 2;
     /// <summary>
     /// Is this meant to be a button on a timer or not?
     /// </summary>
@@ -44,7 +46,7 @@ public class InteractLever : MonoBehaviour
     /// <summary>
     /// Stores the current time the button has left to cool down.
     /// </summary>
-    float coolDownTimer = -1;
+    float deactivateTimerAmount = -1;
     /// <summary>
     /// Stores whether or not the button is cooling down from use.
     /// </summary>
@@ -57,6 +59,9 @@ public class InteractLever : MonoBehaviour
     /// Stores the Renderer of the Lever in it's deactive position.
     /// </summary>
     public Renderer deactiveLever;
+
+    bool listenForInput = false;
+
     /// <summary>
     /// Grabs the Renderer for the base of the switch and
     /// sets the switch to its deactive position without using "OnDeactivate.Invoke()".
@@ -74,46 +79,41 @@ public class InteractLever : MonoBehaviour
     /// </summary>
     void Update()
     {
+        //TODO: prompt the player to press the interact button...
+
+        //if player interacts with the button...
+
+        if (listenForInput && Input.GetButtonDown("Interact"))
+        {
+            if (isButtonActive)
+            {
+                Deactivate();
+            } else {
+                Activate();
+                StartCoolDownTimer();
+            }
+        }
         CoolDownCountdown();
     }
     /// <summary>
     /// Activates when another Collider stays within the trigger area.
     /// </summary>
     /// <param name="other">The collider of the object that is in the trigger area.</param>
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        //TODO: prompt the player to press the interact button...
+        if (other.tag == "Player") listenForInput = true;
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player") listenForInput = false;
 
-        //if player interacts with the button...
-        float interact = Input.GetAxis("Submit");
-
-        if (interact > 0 && coolDownTimer < 0)
-        {
-            switch (isButtonActive)
-            {
-                case true:
-                    Deactivate();
-                    SetCoolDownTimer();
-                    break;
-
-                case false:
-                    Activate();
-                    SetCoolDownTimer();
-                    break;
-            }
-        }
-
-        if (isTimed)
-        {
-            if (coolDownTimer < 0 && isButtonActive) Deactivate();
-        }
     }
     /// <summary>
     /// This is called to set the CoolDownTimer to the same value as CoolDownTimerMax.
     /// </summary>
-    private void SetCoolDownTimer()
+    private void StartCoolDownTimer()
     {
-        coolDownTimer = coolDownTimerMax;
+        deactivateTimerAmount = deactivateTimerMax;
     }
     /// <summary>
     /// This is called every frame to count down coolDownTimer if it is 
@@ -121,10 +121,10 @@ public class InteractLever : MonoBehaviour
     /// </summary>
     private void CoolDownCountdown()
     {
-        if (coolDownTimer >= 0)
+        if (isTimed && deactivateTimerAmount >= 0)
         {
-            coolDownTimer -= Time.deltaTime;
-            //print("Cooling down: " + coolDownTimer + " seconds remaining.");
+            deactivateTimerAmount -= Time.deltaTime;
+            if (deactivateTimerAmount <= 0 && isButtonActive) Deactivate();
         }
 
     }
