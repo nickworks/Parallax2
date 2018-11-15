@@ -5,7 +5,6 @@ using UnityEngine;
 public class FrPVertLocaton : MonoBehaviour {
 
     public Camera sceneCam;
-
     
     /// <summary>
     /// the locations of the front four verticies
@@ -21,8 +20,6 @@ public class FrPVertLocaton : MonoBehaviour {
     /// The color of the wireframe applied to the mesh 
     /// </summary>
     public Color color = Color.cyan;
-
-    // Mesh 
 
     /// <summary>
     /// get's the mesh when mesh is refrenced
@@ -40,7 +37,7 @@ public class FrPVertLocaton : MonoBehaviour {
     /// </summary>
     void Start()
     {
-       //mesh = GetComponent<Mesh> 
+       
     }
 
 
@@ -50,6 +47,9 @@ public class FrPVertLocaton : MonoBehaviour {
 	void Update () {
 		
 	}
+
+   // public stat
+
 
 
 }

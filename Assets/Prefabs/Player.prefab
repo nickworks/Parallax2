@@ -25,9 +25,8 @@ GameObject:
   - component: {fileID: 143337535872060558}
   - component: {fileID: 33115414752826506}
   - component: {fileID: 114600069071056934}
+  - component: {fileID: 114500598825115964}
   - component: {fileID: 114835946239516474}
-  - component: {fileID: 114785214619441766}
-  - component: {fileID: 114744616913470610}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -152,7 +151,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1078176212132782}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.47, y: 1.7, z: 0}
+  m_LocalPosition: {x: -28.62, y: 4.2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4570431233410154}
@@ -271,11 +270,11 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1078176212132782}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -317,6 +316,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 187bc1d186b4d374db0df927ae707ce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114500598825115964
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1078176212132782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bda9c4751349d642b0711efecf2f821, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pushPower: 2
 --- !u!114 &114600069071056934
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -328,22 +339,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0511484c7facb7540afc38c17094f0ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  z: 0
-  snapToLayerInEditor: 1
+  z: 1
+  snapToLayerInEditor: 0
   ignoreCollidersWhenPhasing: 0
   phaseCooldown: 0.25
---- !u!114 &114744616913470610
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1078176212132782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00f158481a19aac4a9db2f8a0b11d80a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  yKillThreshold: -30
 --- !u!114 &114757667767801140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -371,27 +370,6 @@ MonoBehaviour:
   ragdoll: {fileID: 4876709876488544}
   billboard: {fileID: 4570431233410154}
   groundTimeAmount: 0.2
---- !u!114 &114785214619441766
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1078176212132782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06480aa894bfac540bd712fbe96bf58f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hpCurrent: 100
-  hpPercent: {x: 0, y: 0, z: 0}
-  hpMax: 100
-  respawnOnDeath: 1
-  destroyOnDeath: 0
-  onDeath:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114835946239516474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -413,7 +391,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2.5
+  m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &143337535872060558
