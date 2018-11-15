@@ -9,11 +9,15 @@ public class HUDController : MonoBehaviour {
     /// <summary>
     /// Reference to the player's PlayerController 
     /// </summary>
-    public PlayerController pawn;
+    public PlayerController player;
     /// <summary>
     /// reference to the player's health and respawn script
     /// </summary>
     public HealthAndRespawn playerHP;
+    /// <summary>
+    /// reference to the player's jetpack
+    /// </summary>
+    public Jetpack jetpack;
     /// <summary>
     ///  fuel bar UI element
     /// </summary>
@@ -27,21 +31,21 @@ public class HUDController : MonoBehaviour {
 	void Start () {
         
     }
+    public void SetPlayer(PlayerController player)
+    {
+        this.player = player;
+        this.playerHP = player.GetComponent<HealthAndRespawn>();
+        this.jetpack = player.GetComponent<Jetpack>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        if (pawn == null) return;
-        
-        if (playerHP == null) return;
-        
+
         //scale stamina bar
-       pawn.fuelPercent = new Vector3(pawn.jetpackFuel / 100, 1, 1);
-       fuelBar.rectTransform.localScale = pawn.fuelPercent;
-       pawn.jetpackFuel = Mathf.Clamp(pawn.jetpackFuel, 0, 100);
+        if(jetpack) fuelBar.rectTransform.localScale = new Vector3(jetpack.fuelPercent, 1, 1);
+
         //scale health bar
-       playerHP.hpPercent = new Vector3(playerHP.hpCurrent / playerHP.hpMax, 1, 1);
-       healthBar.rectTransform.localScale = playerHP.hpPercent;
-       
-        
+        if(playerHP) healthBar.rectTransform.localScale = new Vector3(playerHP.hpPercent, 1, 1);
+
     }
 }

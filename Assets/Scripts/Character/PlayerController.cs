@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour {
 
     private PlayerState state;
 
-
     /// <summary>
     /// A reference to a prefab canvas that instanciates when the player is spawned
     /// </summary>
@@ -41,7 +40,11 @@ public class PlayerController : MonoBehaviour {
     /// <summary>
     /// Maximum horizontal speed.
     /// </summary>
-    public float maxSpeed = 10;
+    public float maxSpeedHorizontal = 10;
+    /// <summary>
+    /// Maximum vertical speed.
+    /// </summary>
+    public float maxSpeedVertical = 10;
     /// <summary>
     /// The height of the player's jump, in meters.
     /// </summary>
@@ -61,7 +64,7 @@ public class PlayerController : MonoBehaviour {
     /// <summary>
     /// How many air-jumps does the player have left?
     /// </summary>
-    int airJumpsCount = 0;
+    public int airJumpsCount { private set; get; }
     /// <summary>
     /// How many air-jumps should the player get?
     /// </summary>
@@ -73,31 +76,7 @@ public class PlayerController : MonoBehaviour {
     /// <summary>
     /// This variable tracks whether or not the player is on the ground.
     /// </summary>
-    bool isGrounded = false;
-    /// <summary>
-    /// Tracking if the player is able to use the jetpack in this scene or not;
-    /// </summary>
-    public bool isJetpackEnabled = true;
-    /// <summary>
-    /// Float clamping maximum player upward speed.
-    /// </summary>
-    public float maxJetpackSpeed = 5;
-    /// <summary>
-    /// the velocity applied to the player each frame they are using the jetpack.
-    /// </summary>
-    private float jetpackAcceleration = 150;
-    /// <summary>
-    /// How much fuel should the player have by default?
-    /// </summary>
-    public float jetpackFuel = 0;
-    /// <summary>
-    /// tracking how much current fuel the player has versus maximum fuel. Used to scale the UI fuel bar
-    /// </summary>
-    public Vector3 fuelPercent;
-    /// <summary>
-    /// a reference to the Parent of the flame effect attached to the player object.
-    /// </summary>
-    public GameObject jetpackFumes;
+    public bool isGrounded { get; private set; }
     /// <summary>
     /// Reference to the dead player avatar.
     /// </summary>
@@ -121,7 +100,7 @@ public class PlayerController : MonoBehaviour {
     /// <summary>
     /// The velocity we want to move the player. This is calculated each frame.
     /// </summary>
-    Vector3 velocity = Vector3.zero;
+    private Vector3 velocity;
     /// <summary>
     /// Initializes the object. Called when spawning.
     /// </summary>
@@ -130,11 +109,11 @@ public class PlayerController : MonoBehaviour {
         pawn = GetComponent<CharacterController>();
         layerController = GetComponent<LayerFixed>();
         DeriveJumpValues();
-        if (isJetpackEnabled) jetpackFuel = 100;
-        HUDController createUI = Instantiate(prefabHUD);
-        createUI.pawn = this;
-
-
+        if (prefabHUD)
+        {
+            HUDController playerHUD = Instantiate(prefabHUD);
+            playerHUD.SetPlayer(this);
+        }
     }
     /// <summary>
     /// This message is called when values are updated in the inspector.
@@ -168,12 +147,11 @@ public class PlayerController : MonoBehaviour {
 
         if (Px2.paused) return; // do nothing if game is paused...
 
-        if (state != null) ChangeState(state.Update());
+        //if (state != null) ChangeState(state.Update());
 
-
-        //PhaseJump((int)Input.GetAxisRaw("Vertical"));
-        //GroundDetection();
-        //Move();
+        PhaseJump((int)Input.GetAxisRaw("Vertical"));
+        GroundDetection();
+        Move();
         //if (jetpackFuel <= 0) jetpackFumes.SetActive(false);
         
     }
@@ -196,8 +174,6 @@ public class PlayerController : MonoBehaviour {
             isGrounded = true; // set our grounded flag to true
             forgetTheGroundTimer = groundTimeAmount; // start the countdown timer...
             airJumpsCount = airJumpsMax;
-            if (isJetpackEnabled) jetpackFuel = 100;
-            jetpackFumes.SetActive(false);
         } else // ground is NOT detected, so do this stuff:
           {
             if (forgetTheGroundTimer > 0) // if there is a countdown timer...
@@ -250,8 +226,8 @@ public class PlayerController : MonoBehaviour {
             }
         }
         // clamp to maxSpeed:
-        if (velocity.x > maxSpeed) velocity.x = maxSpeed;
-        if (velocity.x < -maxSpeed) velocity.x = -maxSpeed;
+        if (velocity.x > maxSpeedHorizontal) velocity.x = maxSpeedHorizontal;
+        if (velocity.x < -maxSpeedHorizontal) velocity.x = -maxSpeedHorizontal;
     }
 
     /// <summary>
@@ -278,23 +254,10 @@ public class PlayerController : MonoBehaviour {
                 isJumping = true;
                 airJumpsCount--;
             }
-
         }
-        if (Input.GetButton("Jump")) {
-            if (airJumpsCount == 0 && jetpackFuel > 0) //no jumps left, begin consuming fuel
-            {
-                jetpackFumes.SetActive(true);
-                jetpackFuel -= 35f * Time.deltaTime;
-                velocity.y += jetpackAcceleration * Time.deltaTime;
-                if (velocity.y > maxJetpackSpeed) velocity.y = maxJetpackSpeed;
-                isJumping = true;
-            }
-        }
-        if (Input.GetButtonUp("Jump")) {
-            if (airJumpsCount == 0) {
-                jetpackFumes.SetActive(false);
-            }
-        }
+        // clamp to maxSpeed:
+        if (velocity.y > maxSpeedVertical) velocity.y = maxSpeedVertical;
+        if (velocity.y < -maxSpeedVertical) velocity.y = -maxSpeedVertical;
     }
 
     /// <summary>
@@ -312,6 +275,16 @@ public class PlayerController : MonoBehaviour {
         body.AddTorque(Random.onUnitSphere * 10, ForceMode.Impulse);
 
         Destroy(gameObject);
+    }
+    /// <summary>
+    /// Accelerates the player by adding to the velocity.
+    /// </summary>
+    /// <param name="amount">The amount to add to velocity.</param>
+    /// <param name="applyDeltaTime">Whether or not to apply delta-time to the amount.</param>
+    public void Impulse(Vector3 amount, bool applyDeltaTime = false)
+    {
+        if (applyDeltaTime) amount *= Time.deltaTime;
+        velocity += amount;
     }
 
     /// <summary>
@@ -341,7 +314,10 @@ public class PlayerController : MonoBehaviour {
         if (obj.tag == "Danger") {
             //Ragdoll(obj.transform.position);
         }
+    }
 
-        
+    public Vector3 GetVelocity()
+    {
+        return velocity;
     }
 }
