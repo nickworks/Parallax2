@@ -279,6 +279,16 @@ Prefab:
       propertyPath: m_Name
       value: InteractLever - Door
       objectReference: {fileID: 0}
+    - target: {fileID: 114201449341011602, guid: 530985d453a8b2d4e938b0a4dae91e59,
+        type: 2}
+      propertyPath: coolDownTimerMax
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114201449341011602, guid: 530985d453a8b2d4e938b0a4dae91e59,
+        type: 2}
+      propertyPath: isTimed
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 530985d453a8b2d4e938b0a4dae91e59, type: 2}
   m_IsPrefabAsset: 0
@@ -660,6 +670,16 @@ Prefab:
       propertyPath: m_Name
       value: Interact Button - Door
       objectReference: {fileID: 0}
+    - target: {fileID: 114550060138004840, guid: 3d4efc0c0bfc8a74e9ee182305f77d08,
+        type: 2}
+      propertyPath: coolDownTimerMax
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114550060138004840, guid: 3d4efc0c0bfc8a74e9ee182305f77d08,
+        type: 2}
+      propertyPath: isTimed
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d4efc0c0bfc8a74e9ee182305f77d08, type: 2}
   m_IsPrefabAsset: 0
@@ -916,7 +936,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   litMat: {fileID: 2100000, guid: 1441e0fe7525783489b867a416abf990, type: 2}
-  unlitMat: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  unlitMat: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 3}
 --- !u!135 &1733969542
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -37,33 +37,28 @@ public class InteractButton : MonoBehaviour {
     /// </summary>
     float coolDownTimer;
     /// <summary>
+    /// Is this meant to be a button on a timer or not?
+    /// </summary>
+    public bool isTimed;
+    /// <summary>
     /// Stores whether or not the button is cooling down from use.
     /// </summary>
-    private bool isButtonCoolingDown = false;
+    private bool isButtonActive = false;
 
-    // Use this for initialization
+    /// <summary>
+    /// Grabs the Renderer for the base of the switch and
+    /// sets the switch to its deactive position without using "OnDeactivate.Invoke()".
+    /// </summary>
     void Start () {
         buttonRend = GetComponentInChildren<Renderer>();
         buttonRend.material = deactiveMat;
 	}
+    /// <summary>
+    /// Update is used to keep track of the cool down time for the switch.
+    /// </summary>
     void Update ()
     {
-        if (isButtonCoolingDown)
-        {
-            coolDownTimer -= Time.deltaTime;
-            print("Cooling down: " + coolDownTimer + " seconds remaining.");
-
-            if(coolDownTimer < 0)
-            {
-                onDeactivate.Invoke();
-                isButtonCoolingDown = false;
-                if (deactiveMat != null)
-                {
-                    buttonRend.material = deactiveMat;
-                }
-            }
-            
-        }
+        CoolDownCountdown();
     }
 
     /// <summary>
@@ -76,20 +71,72 @@ public class InteractButton : MonoBehaviour {
 
         //if player interacts with the button...
         float interact = Input.GetAxis("Submit");
-        
-        if(interact > 0 && !isButtonCoolingDown) {
-            onActivate.Invoke();
-            isButtonCoolingDown = true;
-            SetCoolDownTimer();
 
-            if (activeMat != null)
+        if (interact > 0 && coolDownTimer < 0)
+        {
+            switch (isButtonActive)
             {
-                buttonRend.material = activeMat;
+                case true:
+                    Deactivate();
+                    SetCoolDownTimer();
+                    break;
+
+                case false:
+                    Activate();
+                    SetCoolDownTimer();
+                    break;
             }
         }
+
+        if (isTimed)
+        {
+            if (coolDownTimer < 0 && isButtonActive) Deactivate();
+        }
     }
+    /// <summary>
+    /// This is called to set the CoolDownTimer to the same value as CoolDownTimerMax.
+    /// </summary>
     private void SetCoolDownTimer()
     {
         coolDownTimer = coolDownTimerMax;
+    }
+    /// <summary>
+    /// This is called every frame to count down coolDownTimer if it is 
+    /// set to be higher than 0.
+    /// </summary>
+    private void CoolDownCountdown()
+    {
+        if (coolDownTimer >= 0)
+        {
+            coolDownTimer -= Time.deltaTime;
+            //print("Cooling down: " + coolDownTimer + " seconds remaining.");
+        }
+
+    }
+    /// <summary>
+    /// This invokes OnActivate and sets the switch to its Activate position.
+    /// </summary>
+    private void Activate()
+    {
+        onActivate.Invoke();
+        isButtonActive = true;
+
+        if (activeMat != null)
+        {
+            buttonRend.material = activeMat;
+        }
+    }
+    /// <summary>
+    /// This invokes OnDeactivate and sets the switch to its Deactivate position.
+    /// </summary>
+    private void Deactivate()
+    {
+        onDeactivate.Invoke();
+        isButtonActive = false;
+
+        if (deactiveMat != null)
+        {
+            buttonRend.material = deactiveMat;
+        }
     }
 }

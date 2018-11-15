@@ -6,11 +6,9 @@ using UnityEngine.Events;
 /// This class is used to control an InteractLever object. 
 /// This object can be used to activate or deactivate a number of objects,
 /// when the player interacts with this object.
-/// </summary>
-
-
-//TODO: Make two seperate levers for the on/off position, and hide/unhide when swapping. 
-public class InteractLever : MonoBehaviour {
+/// </summary> 
+public class InteractLever : MonoBehaviour
+{
     /// <summary>
     /// This UnityEvent is called when something is on top of the button.
     /// </summary>
@@ -20,60 +18,63 @@ public class InteractLever : MonoBehaviour {
     /// </summary>
     public UnityEvent onDeactivate;
     /// <summary>
-    /// The Button's activate Material. The button applies this material to itself when it is activated.
+    /// The Button's activate Material. 
+    /// The button applies this material to itself when it is activated.
     /// </summary>
     public Material activeMat;
     /// <summary>
-    /// The Button's deactivate Material. The button applies this material to itself when it is deactivated.
+    /// The Button's deactivate Material. 
+    /// The button applies this material to itself when it is deactivated.
     /// </summary>
     public Material deactiveMat;
     /// <summary>
-    /// Stores the Renderer of the button so that when activated/deactivated, it can change materials to reflect beign active/deactive.
+    /// Stores the Renderer of the button so that when activated/deactivated, 
+    /// it can change materials to reflect beign active/deactive.
     /// </summary>
     Renderer buttonRend;
     /// <summary>
     /// Stores the amount of time that passes (in seconds) before the button can be used again.
     /// </summary>
+    [Range(0, 10)]
     public float coolDownTimerMax = 2;
+    /// <summary>
+    /// Is this meant to be a button on a timer or not?
+    /// </summary>
+    public bool isTimed;
     /// <summary>
     /// Stores the current time the button has left to cool down.
     /// </summary>
-    float coolDownTimer;
+    float coolDownTimer = -1;
     /// <summary>
     /// Stores whether or not the button is cooling down from use.
     /// </summary>
-    private bool isButtonCoolingDown = false;
-    
+    private bool isButtonActive = false;
+    /// <summary>
+    /// Stores the Renderer of the Lever in it's active position.
+    /// </summary>
     public Renderer activeLever;
-
+    /// <summary>
+    /// Stores the Renderer of the Lever in it's deactive position.
+    /// </summary>
     public Renderer deactiveLever;
-    // Use this for initialization
-    void Start() {
+    /// <summary>
+    /// Grabs the Renderer for the base of the switch and
+    /// sets the switch to its deactive position without using "OnDeactivate.Invoke()".
+    /// </summary>
+    void Start()
+    {
         buttonRend = GetComponentInChildren<Renderer>();
         buttonRend.material = deactiveMat;
+        isButtonActive = false;
         activeLever.enabled = false;
         deactiveLever.enabled = true;
     }
-	// Update is called once per frame
-	void Update () {
-        if (isButtonCoolingDown)
-        {
-            coolDownTimer -= Time.deltaTime;
-            print("Cooling down: " + coolDownTimer + " seconds remaining.");
-
-            if (coolDownTimer < 0)
-            {
-                onDeactivate.Invoke();
-                isButtonCoolingDown = false;
-                activeLever.enabled = false;
-                deactiveLever.enabled = true;
-                if (deactiveMat != null)
-                {
-                    buttonRend.material = deactiveMat;
-                }
-            }
-
-        }
+    /// <summary>
+    /// Update is used to keep track of the cool down time for the switch.
+    /// </summary>
+    void Update()
+    {
+        CoolDownCountdown();
     }
     /// <summary>
     /// Activates when another Collider stays within the trigger area.
@@ -86,22 +87,75 @@ public class InteractLever : MonoBehaviour {
         //if player interacts with the button...
         float interact = Input.GetAxis("Submit");
 
-        if (interact > 0 && !isButtonCoolingDown)
+        if (interact > 0 && coolDownTimer < 0)
         {
-            onActivate.Invoke();
-            isButtonCoolingDown = true;
-            activeLever.enabled = true;
-            deactiveLever.enabled = false;
-            SetCoolDownTimer();
-
-            if (activeMat != null)
+            switch (isButtonActive)
             {
-                buttonRend.material = activeMat;
+                case true:
+                    Deactivate();
+                    SetCoolDownTimer();
+                    break;
+
+                case false:
+                    Activate();
+                    SetCoolDownTimer();
+                    break;
             }
         }
+
+        if (isTimed)
+        {
+            if (coolDownTimer < 0 && isButtonActive) Deactivate();
+        }
     }
+    /// <summary>
+    /// This is called to set the CoolDownTimer to the same value as CoolDownTimerMax.
+    /// </summary>
     private void SetCoolDownTimer()
     {
         coolDownTimer = coolDownTimerMax;
+    }
+    /// <summary>
+    /// This is called every frame to count down coolDownTimer if it is 
+    /// set to be higher than 0.
+    /// </summary>
+    private void CoolDownCountdown()
+    {
+        if (coolDownTimer >= 0)
+        {
+            coolDownTimer -= Time.deltaTime;
+            //print("Cooling down: " + coolDownTimer + " seconds remaining.");
+        }
+
+    }
+    /// <summary>
+    /// This invokes OnActivate and sets the switch to its Activate position.
+    /// </summary>
+    private void Activate()
+    {
+        onActivate.Invoke();
+        isButtonActive = true;
+        activeLever.enabled = true;
+        deactiveLever.enabled = false;
+
+        if (activeMat != null)
+        {
+            buttonRend.material = activeMat;
+        }
+    }
+    /// <summary>
+    /// This invokes OnDeactivate and sets the switch to its Deactivate position.
+    /// </summary>
+    private void Deactivate()
+    {
+        onDeactivate.Invoke();
+        isButtonActive = false;
+        activeLever.enabled = false;
+        deactiveLever.enabled = true;
+
+        if (deactiveMat != null)
+        {
+            buttonRend.material = deactiveMat;
+        }
     }
 }
