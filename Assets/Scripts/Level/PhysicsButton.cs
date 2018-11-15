@@ -8,6 +8,12 @@ using UnityEngine.Events;
 /// This script is meant to be used on a Trigger to signal to an object when the Trigger is activated or deactivated.
 /// </summary>
 public class PhysicsButton : MonoBehaviour {
+
+    /// <summary>
+    /// Stores a reference to the object the button is attached to.
+    /// </summary>
+    //public GameObject target;
+
     /// <summary>
     /// This UnityEvent is called when something is on top of the button.
     /// </summary>
@@ -44,6 +50,7 @@ public class PhysicsButton : MonoBehaviour {
     /// <param name="other">The collider of the object that has entered the trigger area.</param>
     private void OnTriggerEnter(Collider other)
     {
+        //print("hi");
         onActivate.Invoke();
        
         if (activeMat != null)

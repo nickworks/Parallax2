@@ -8,7 +8,6 @@ using UnityEngine.Events;
 /// at an arbitrary spawn position.
 /// </summary>
 public class HealthAndRespawn : MonoBehaviour {
-
     /// <summary>
     /// The world position this object should respawn at when it dies.
     /// </summary>
@@ -16,7 +15,11 @@ public class HealthAndRespawn : MonoBehaviour {
     /// <summary>
     /// The current health of this object. 0 is dead.
     /// </summary>
-    public float hpCurrent { get; private set; }
+    public float hpCurrent = 100;
+    /// <summary>
+    /// the player's current HP compared to the player's maximum HP, used to scale the UI healthbar
+    /// </summary>
+    public Vector3 hpPercent;
     /// <summary>
     /// The maximum health of this object.
     /// </summary>
@@ -40,6 +43,7 @@ public class HealthAndRespawn : MonoBehaviour {
     /// </summary>
     void Start () {
         SetSpawn(transform.position);
+        
 	}
     /// <summary>
     /// Sets the spawn position.
@@ -48,6 +52,7 @@ public class HealthAndRespawn : MonoBehaviour {
     public void SetSpawn(Vector3 pos)
     {
         spawnPosition = pos;
+        
     }
     /// <summary>
     /// Respawns this object at its spawn position. This resets the health to maximum.
@@ -80,5 +85,12 @@ public class HealthAndRespawn : MonoBehaviour {
         onDeath.Invoke();
         if (respawnOnDeath) Respawn();
         else if (destroyOnDeath) Destroy(gameObject);
+    }
+    /// <summary>
+    /// fills the player's HP to maximum
+    /// </summary>
+    public void FillHP()
+    {
+        hpCurrent = hpMax;
     }
 }
