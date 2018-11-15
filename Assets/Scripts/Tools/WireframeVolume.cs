@@ -27,15 +27,26 @@ public class WireframeVolume : MonoBehaviour
         }
     }
 
+    void OnValidate()
+    {
+        print("huh?");
+        transform.rotation = Quaternion.identity;
+    }
+
     /// <summary>
     /// Draws the wireframe baised on the collision bounds
     /// </summary>
     void OnDrawGizmos()
     {
+
         Mesh visualizeCollision = SetVisualisationMesh(ColliderBounds);
 
         Gizmos.color = color;
-        Gizmos.DrawWireMesh(visualizeCollision);
+        Matrix4x4 temp = Gizmos.matrix;
+        Gizmos.matrix = transform.localToWorldMatrix;// Matrix4x4.Rotate(transform.rotation) * Gizmos.matrix;
+        //Gizmos.DrawWireMesh(visualizeCollision);
+        Gizmos.DrawCube(Vector3.zero, Vector3.one);
+        Gizmos.matrix = temp;
     }
 
     /// <summary>
