@@ -329,6 +329,7 @@ public class PlayerController : MonoBehaviour {
         if (obj.tag == "Collectable")
         {
             //add one to the px2 numcollect variable
+            Px2.numCollect++;
             Destroy(obj.gameObject);
         }
         

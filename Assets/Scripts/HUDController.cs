@@ -25,7 +25,7 @@ public class HUDController : MonoBehaviour {
     /// <summary>
     /// Text element of UI, displaying player's current keys
     /// </summary>
-    public TextMesh Keycounter;
+    public Text Keycounter;
 
 	// Use this for initialization
 	void Start () {
@@ -46,7 +46,7 @@ public class HUDController : MonoBehaviour {
        playerHP.hpPercent = new Vector3(playerHP.hpCurrent / playerHP.hpMax, 1, 1);
        healthBar.rectTransform.localScale = playerHP.hpPercent;
         //update player's key number
-        Keycounter.text = "Keys: " + playerHP.hpCurrent; //+ reference to Px2's numKeys int
+        Keycounter.text = "Monay: " + Px2.numCollect; //+ reference to Px2's numKeys int
         
     }
 }
