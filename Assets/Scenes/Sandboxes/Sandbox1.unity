@@ -1375,6 +1375,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 114641624197590092, guid: 4b9153ad037296c4196d6bb1bc0bde26,
+        type: 2}
+      propertyPath: isKey
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b9153ad037296c4196d6bb1bc0bde26, type: 2}
   m_IsPrefabAsset: 0
@@ -2325,6 +2330,11 @@ Prefab:
       propertyPath: m_Name
       value: Collectable (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 114641624197590092, guid: 4b9153ad037296c4196d6bb1bc0bde26,
+        type: 2}
+      propertyPath: isCoin
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b9153ad037296c4196d6bb1bc0bde26, type: 2}
   m_IsPrefabAsset: 0
@@ -3114,6 +3124,11 @@ Prefab:
     - target: {fileID: 1986767333689058, guid: 4b9153ad037296c4196d6bb1bc0bde26, type: 2}
       propertyPath: m_Name
       value: Collectable (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114641624197590092, guid: 4b9153ad037296c4196d6bb1bc0bde26,
+        type: 2}
+      propertyPath: isCoin
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b9153ad037296c4196d6bb1bc0bde26, type: 2}

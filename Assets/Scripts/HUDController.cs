@@ -23,9 +23,13 @@ public class HUDController : MonoBehaviour {
     /// </summary>
     public Image healthBar;
     /// <summary>
+    /// Text element of UI, displaying player's current Coins
+    /// </summary>
+    public Text Coincounter;
+    /// <summary>
     /// Text element of UI, displaying player's current keys
     /// </summary>
-    public Text Keycounter;
+    public Text KeyCounter;
 
 	// Use this for initialization
 	void Start () {
@@ -45,8 +49,11 @@ public class HUDController : MonoBehaviour {
         //scale health bar
        playerHP.hpPercent = new Vector3(playerHP.hpCurrent / playerHP.hpMax, 1, 1);
        healthBar.rectTransform.localScale = playerHP.hpPercent;
+        //update player's coin number
+        Coincounter.text = "Coins: " + Px2.numCoin;
         //update player's key number
-        Keycounter.text = "Monay: " + Px2.numCollect; //+ reference to Px2's numKeys int
+        KeyCounter.text = "Keys: " + Px2.numKeys;
+
         
     }
 }
