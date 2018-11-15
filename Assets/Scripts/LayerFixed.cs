@@ -25,6 +25,10 @@ public class LayerFixed : MonoBehaviour {
     /// </summary>
     public bool ignoreCollidersWhenPhasing = false;
     /// <summary>
+    /// How much to inset this object's bounds for phase-jump collision checks. Measured in meters.
+    /// </summary>
+    public float phaseCollisionTolerance = .1f;
+    /// <summary>
     /// How much time (in seconds) before the player can phase jump again.
     /// </summary>
     private float phaseTimer = 0;
@@ -42,6 +46,8 @@ public class LayerFixed : MonoBehaviour {
             return new Vector3(transform.position.x, transform.position.y, z * separation);
         }
     }
+
+
     /// <summary>
     /// Moves the 
     /// </summary>
@@ -82,25 +88,38 @@ public class LayerFixed : MonoBehaviour {
     {
         if (phaseTimer > 0) return false;
         if (ignoreCollidersWhenPhasing) return true;
-        Collider collider = transform.GetComponent<Collider>();
+
+        Collider collider = GetComponent<CharacterController>();
+        if (!collider) collider = GetComponent<Collider>();
+
         if (collider)
         {
             float posZ = transform.position.z;
+            Bounds bounds = collider.bounds;
+            bounds.Expand(-phaseCollisionTolerance);
+
             Vector3[] origins = new Vector3[] {
                 transform.position,
-                new Vector3(collider.bounds.min.x, collider.bounds.min.y, posZ),
-                new Vector3(collider.bounds.min.x, collider.bounds.max.y, posZ),
-                new Vector3(collider.bounds.max.x, collider.bounds.min.y, posZ),
-                new Vector3(collider.bounds.max.x, collider.bounds.max.y, posZ)
+                new Vector3(bounds.min.x, bounds.min.y, posZ),
+                new Vector3(bounds.min.x, bounds.max.y, posZ),
+                new Vector3(bounds.max.x, bounds.min.y, posZ),
+                new Vector3(bounds.max.x, bounds.max.y, posZ)
             };
             foreach (Vector3 pt in origins)
             {
                 Ray ray = new Ray(pt, isGoingBack ? Vector3.forward : Vector3.back);
-                //Debug.DrawRay(ray.origin, ray.direction * separation, Color.green, 5);
+                Debug.DrawRay(ray.origin, ray.direction * separation, Color.green, 5);
                 // raycast hits another collider, so we can't phase jump safely
-                if (Physics.Raycast(ray, separation)) return false;
-            }
-        }
+                RaycastHit[] hits = Physics.RaycastAll(ray, separation);
+                foreach(RaycastHit hit in hits)
+                {
+                    if (hit.collider.isTrigger) continue; // triggers are okay to phase into
+                    print("NOOOO");
+                    return false;
+                } // end foreach for hits
+                
+            } // end foreach for pts
+        } // end if(collider)
         return true;
     }
     /// <summary>
