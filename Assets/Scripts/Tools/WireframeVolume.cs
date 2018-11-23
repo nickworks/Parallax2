@@ -10,6 +10,11 @@ public class WireframeVolume : MonoBehaviour
     /// </summary>
     public Color color = Color.cyan;
 
+    public bool showInEditor = true;
+
+    [Range(0.0f, 1.0f)]
+    public float alpha = 0.5f;
+
     /// <summary>
     /// we will use this to refrence the box collider atteched to this
     /// </summary>
@@ -38,6 +43,11 @@ public class WireframeVolume : MonoBehaviour
     /// </summary>
     void OnDrawGizmos()
     {
+        if (!showInEditor) {
+            color.a = 0;
+        } else {
+            color.a = alpha;
+        }
 
         Mesh visualizeCollision = SetVisualisationMesh(ColliderBounds);
 

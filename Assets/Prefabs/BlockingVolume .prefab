@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4215673174873600}
   - component: {fileID: 65675351581144764}
-  - component: {fileID: 114652524330402294}
   - component: {fileID: 114130593299705234}
+  - component: {fileID: 114652524330402294}
   m_Layer: 0
   m_Name: 'BlockingVolume '
   m_TagString: Untagged
@@ -35,9 +35,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1027446689285068}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 0.25}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -28.8, y: 6.4, z: -10}
+  m_LocalScale: {x: 140, y: 76.34, z: 0.25}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -65,7 +65,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec7f78919e6b7f34fad9729514e8069c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 1, b: 1, a: 1}
+  color: {r: 0, g: 1, b: 1, a: 0.5}
+  showInEditor: 1
+  alpha: 0.5
 --- !u!114 &114652524330402294
 MonoBehaviour:
   m_ObjectHideFlags: 1
