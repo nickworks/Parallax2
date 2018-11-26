@@ -33,29 +33,44 @@ public class LayerFixed : MonoBehaviour {
     /// </summary>
     public float phaseCooldown = .5f;
     /// <summary>
+    /// the z position this was previously located at 
+    /// </summary>
+    float zPrev;
+    /// <summary>
+    /// this tracks what snapToLayerInEditor was set to the last time OnValidate was called
+    /// </summary>
+    bool snapPrev = false;
+
+    /// <summary>
     /// Gets this object's projected position.
     /// </summary>
-    Vector3 targetPosition
-    {
-        get
-        {
+    Vector3 targetPosition {
+        get {
             return new Vector3(transform.position.x, transform.position.y, z * separation);
         }
     }
     /// <summary>
-    /// Moves the 
+    /// Called when a variable on this component is changed in editor. This currently changes the z position when snapToLayerInEditor is changed
     /// </summary>
-    void OnValidate()
-    {
-        if(snapToLayerInEditor) Snap();
+    void OnValidate() {
+
+        if (transform.position != targetPosition) {
+            zPrev = transform.position.z;
+        }
+
+        if (snapToLayerInEditor) {
+            Snap();
+        } else if (!snapToLayerInEditor && snapPrev) {
+            SnapBack();
+        }
+
+        snapPrev = snapToLayerInEditor;
     }
     /// <summary>
     /// Phase jump away from the camera (z+)
     /// </summary>
-    public void GoBack()
-    {
-        if (CanPhase(true))
-        {
+    public void GoBack() {
+        if (CanPhase(true)) {
             z++;
             Snap();
             phaseTimer = phaseCooldown;
@@ -64,10 +79,8 @@ public class LayerFixed : MonoBehaviour {
     /// <summary>
     /// Phase jump towards the camera (z-)
     /// </summary>
-    public void ComeForward()
-    {
-        if (CanPhase(false))
-        {
+    public void ComeForward() {
+        if (CanPhase(false)) {
             z--;
             Snap();
             phaseTimer = phaseCooldown;
@@ -78,13 +91,11 @@ public class LayerFixed : MonoBehaviour {
     /// </summary>
     /// <param name="isGoingBack">If true cast rays Forward(z+), otherwise cast Back(z-).</param>
     /// <returns>Whether or not this object can jump without phasing into other colliders.</returns>
-    public bool CanPhase(bool isGoingBack)
-    {
+    public bool CanPhase(bool isGoingBack) {
         if (phaseTimer > 0) return false;
         if (ignoreCollidersWhenPhasing) return true;
         Collider collider = transform.GetComponent<Collider>();
-        if (collider)
-        {
+        if (collider) {
             float posZ = transform.position.z;
             Vector3[] origins = new Vector3[] {
                 transform.position,
@@ -93,8 +104,7 @@ public class LayerFixed : MonoBehaviour {
                 new Vector3(collider.bounds.max.x, collider.bounds.min.y, posZ),
                 new Vector3(collider.bounds.max.x, collider.bounds.max.y, posZ)
             };
-            foreach (Vector3 pt in origins)
-            {
+            foreach (Vector3 pt in origins) {
                 Ray ray = new Ray(pt, isGoingBack ? Vector3.forward : Vector3.back);
                 //Debug.DrawRay(ray.origin, ray.direction * separation, Color.green, 5);
                 // raycast hits another collider, so we can't phase jump safely
@@ -103,26 +113,37 @@ public class LayerFixed : MonoBehaviour {
         }
         return true;
     }
+
     /// <summary>
     /// Snaps position to the current z layer.
     /// </summary>
-    void Snap()
-    {
+    void Snap() {
         transform.position = targetPosition;
     }
+
+    /// <summary>
+    /// When snapToLayerInEditor is set to false this function is called to reset the z location. It sets the z to the previous non index z location.  
+    /// If that value was not stored or set, ie. is 0, we multiply 10 by the index number and   
+    /// </summary>
+    void SnapBack() {
+        if (zPrev == 0) {
+            zPrev = z * 10;
+        }
+        transform.position = new Vector3(transform.position.x,transform.position.y,zPrev);
+    }
+
     /// <summary>
     /// Handles input and eases the object to its target layer.
     /// </summary>
-    void LateUpdate () {
+    void LateUpdate() {
 
         if (phaseTimer > 0) phaseTimer -= Time.deltaTime;
         transform.position = Vector3.Lerp(transform.position, targetPosition, Time.unscaledDeltaTime * 10);
-	}
+    }
     /// <summary>
     /// Cancels the phase cooldown timer.
     /// </summary>
-    public void CancelTimer()
-    {
+    public void CancelTimer() {
         phaseTimer = 0;
     }
 }

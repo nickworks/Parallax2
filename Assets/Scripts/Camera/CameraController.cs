@@ -9,6 +9,8 @@ using UnityEngine;
 [RequireComponent(typeof(EaseToTarget))]
 public class CameraController : MonoBehaviour {
 
+    public bool followDurringEdit = false;
+
     /// <summary>
     /// The singleton.
     /// </summary>
@@ -38,4 +40,8 @@ public class CameraController : MonoBehaviour {
             Destroy(gameObject); // there can be only one
         }
 	}
+
+    private void OnValidate() {
+        
+    }
 }
