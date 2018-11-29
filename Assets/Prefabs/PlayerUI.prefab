@@ -301,8 +301,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670832ece9f07b44f8a632541f92a30f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pawn: {fileID: 0}
+  player: {fileID: 0}
   playerHP: {fileID: 0}
+  jetpack: {fileID: 0}
   fuelBar: {fileID: 114780176469964942}
   healthBar: {fileID: 114381063054917284}
   Coincounter: {fileID: 114277107204152584}
