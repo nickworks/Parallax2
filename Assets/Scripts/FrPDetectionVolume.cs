@@ -1,9 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Runtime.Serialization;
 
 public class FrPDetectionVolume : MonoBehaviour
 {
+    [Serializable]
+    public enum PuzzleFit
+    {
+        TopLeft,
+        TopRight,
+        BottomLeft,
+        BottomRight,
+        All
+    }
+
+    [Serializable]
+    public struct PuzzlePiece
+    {
+        public GameObject piece;
+        public PuzzleFit fit;
+    }
 
     /// <summary>
     /// the volume inside of whitch we will look for the solution to our FrP puzzle
@@ -15,7 +33,7 @@ public class FrPDetectionVolume : MonoBehaviour
     /// </summary>
     Vector3 bufferMod = new Vector3(.5f, .5f, 0);
 
-
+    public PuzzlePiece[] pieces;
    
     /// <summary>
     /// we will use this to refrence the box collider atteched to this
