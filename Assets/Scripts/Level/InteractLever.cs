@@ -10,11 +10,11 @@ using UnityEngine.Events;
 public class InteractLever : MonoBehaviour
 {
     /// <summary>
-    /// This UnityEvent is called when something is on top of the button.
+    /// This UnityEvent is meant to call itself when the button is activated by the player.
     /// </summary>
     public UnityEvent onActivate;
     /// <summary>
-    /// This UnityEvent is called when the button is clear of anything pushing it down.
+    /// This UnityEvent is meant to call itself when the button is deactivated by the player, or when a set amount of time has passed.
     /// </summary>
     public UnityEvent onDeactivate;
     /// <summary>
@@ -29,7 +29,7 @@ public class InteractLever : MonoBehaviour
     public Material deactiveMat;
     /// <summary>
     /// Stores the Renderer of the button so that when activated/deactivated, 
-    /// it can change materials to reflect beign active/deactive.
+    /// it can change materials to reflect beign activated/deactivated.
     /// </summary>
     Renderer buttonRend;
     /// <summary>
@@ -38,7 +38,7 @@ public class InteractLever : MonoBehaviour
     [Range(0, 10)]
     public float coolDownTimerMax = 2;
     /// <summary>
-    /// Is this meant to be a button on a timer or not?
+    /// This stores whether or not the button has a timer.
     /// </summary>
     public bool isTimed;
     /// <summary>
@@ -46,7 +46,7 @@ public class InteractLever : MonoBehaviour
     /// </summary>
     float coolDownTimer = -1;
     /// <summary>
-    /// Stores whether or not the button is cooling down from use.
+    /// Stores whether or not the button is cooling down from player use.
     /// </summary>
     private bool isButtonActive = false;
     /// <summary>
@@ -105,6 +105,7 @@ public class InteractLever : MonoBehaviour
     }
     /// <summary>
     /// This activates when an object enters this object's trigger area.
+    /// It checks to see if the object that entered is the player.
     /// </summary>
     /// <param name="other">The collider of the object that has entered the area.</param>
     private void OnTriggerEnter(Collider other)
@@ -113,6 +114,7 @@ public class InteractLever : MonoBehaviour
     }
     /// <summary>
     /// This activates when an object exits this object's trigger area.
+    /// It checks to see if the object that exited is the player.
     /// </summary>
     /// <param name="other">The collider of the object that has exited the area.</param>
     private void OnTriggerExit(Collider other)

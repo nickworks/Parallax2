@@ -35,16 +35,16 @@ public class ButtonLight : MonoBehaviour {
 	}
 
     /// <summary>
-    /// Is called upon by a PhysicsButton when it has been pressed.
+    /// Is called upon by a PhysicsButton when it has been pressed. It changes the object's material to the stored litMat.
     /// </summary>
-    public void ButtonActivate () {
+    public void LightOn () {
         rend.material = litMat;
     }
 
     /// <summary>
-    /// Is called upon by a PhysicsButton when it is released.
+    /// Is called upon by a PhysicsButton when it is released. It changes the object's material to the stored unlitMat.
     /// </summary>
-    public void ButtonDeactivate ()
+    public void LightOff ()
     {
         rend.material = unlitMat;
     }

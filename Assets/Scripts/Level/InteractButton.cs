@@ -9,44 +9,45 @@ using UnityEngine.Events;
 /// </summary>
 public class InteractButton : MonoBehaviour {
     /// <summary>
-    /// This UnityEvent is called when something is on top of the button.
+    /// This UnityEvent is meant to call itself when the button is activated by the player.
     /// </summary>
     public UnityEvent onActivate;
     /// <summary>
-    /// This UnityEvent is called when the button is clear of anything pushing it down.
+    /// This UnityEvent is meant to call itself when the button is deactivated by the player, or when a set amount of time has passed.
     /// </summary>
     public UnityEvent onDeactivate;
     /// <summary>
-    /// The Button's activate Material. The button applies this material to itself when it is activated.
+    /// This stores the Button's activate Material. The button applies this material to itself when it is activated.
     /// </summary>
     public Material activeMat;
     /// <summary>
-    /// The Button's deactivate Material. The button applies this material to itself when it is deactivated.
+    /// This stores the Button's deactivate Material. The button applies this material to itself when it is deactivated.
     /// </summary>
     public Material deactiveMat;
     /// <summary>
-    /// Stores the Renderer of the button so that when activated/deactivated, it can change materials to reflect beign active/deactive.
+    /// This stores the Renderer of the button so that when activated/deactivated, 
+    /// it can change materials to reflect the button being activated/deactivated.
     /// </summary>
     Renderer buttonRend;
     /// <summary>
-    /// Stores the amount of time that passes (in seconds) before the button can be used again.
+    /// This stores the amount of time that passes (in seconds) before the button can be used again.
     /// </summary>
     [Range(0, 10)]
     public float coolDownTimerMax = 2;
     /// <summary>
-    /// Stores the current time the button has left to cool down.
+    /// This stores the current time the button has left to cool down.
     /// </summary>
     float coolDownTimer;
     /// <summary>
-    /// Is this meant to be a button on a timer or not?
+    /// This stores whether the button is meant to be timed or not.
     /// </summary>
     public bool isTimed;
     /// <summary>
-    /// Stores whether or not the button is cooling down from use.
+    /// This stores whether or not the button is cooling down from use.
     /// </summary>
     private bool isButtonActive = false;
     /// <summary>
-    /// Stores whether or not the player is colliding with the object.
+    /// This stores whether or not the player is colliding with the object.
     /// </summary>
     private bool isPlayerColliding = false;
 
@@ -59,7 +60,7 @@ public class InteractButton : MonoBehaviour {
         buttonRend.material = deactiveMat;
 	}
     /// <summary>
-    /// Update is used to keep track of the cool down time for the switch.
+    /// Controls the button's state to properly activate/deactivate it.
     /// </summary>
     void Update ()
     {
@@ -90,6 +91,7 @@ public class InteractButton : MonoBehaviour {
     }
     /// <summary>
     /// This activates when an object enters this object's trigger area.
+    /// It checks to see if the object that entered is the player.
     /// </summary>
     /// <param name="other">The collider of the object that has entered the area.</param>
     private void OnTriggerEnter(Collider other)
@@ -98,6 +100,7 @@ public class InteractButton : MonoBehaviour {
     }
     /// <summary>
     /// This activates when an object exits this object's trigger area.
+    /// It checks to see if the object that exited is the player.
     /// </summary>
     /// <param name="other">The collider of the object that has exited the area.</param>
     private void OnTriggerExit(Collider other)
@@ -105,15 +108,14 @@ public class InteractButton : MonoBehaviour {
         if (other.tag == "Player" && other.isTrigger) isPlayerColliding = false;
     }
     /// <summary>
-    /// This is called to set the CoolDownTimer to the same value as CoolDownTimerMax.
+    /// This is called to set the cooldownTimer to it's max value.
     /// </summary>
     private void SetCoolDownTimer()
     {
         coolDownTimer = coolDownTimerMax;
     }
     /// <summary>
-    /// This is called every frame to count down coolDownTimer if it is 
-    /// set to be higher than 0.
+    /// This is called every frame to make sure the cooldown for the button counts down.
     /// </summary>
     private void CoolDownCountdown()
     {

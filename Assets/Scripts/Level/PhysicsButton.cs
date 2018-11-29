@@ -61,6 +61,7 @@ public class PhysicsButton : MonoBehaviour {
     }
     /// <summary>
     /// Activates when another Collider enters the trigger area.
+    /// If the collider is the player, it activates the button.
     /// </summary>
     /// <param name="other">The collider of the object that has entered the trigger area.</param>
     private void OnTriggerEnter(Collider other)
@@ -70,6 +71,7 @@ public class PhysicsButton : MonoBehaviour {
 
     /// <summary>
     /// Activates when another Collider exits the trigger area.
+    /// If the collider is the player, it deactivates the button.
     /// </summary>
     /// <param name="other">The collider of the object that has exited the trigger area.</param>
     private void OnTriggerExit(Collider other)
