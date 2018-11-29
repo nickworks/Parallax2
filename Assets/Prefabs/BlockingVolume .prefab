@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114652524330402294}
   m_Layer: 0
   m_Name: 'BlockingVolume '
-  m_TagString: Untagged
+  m_TagString: BlockingVolume
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -65,9 +65,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec7f78919e6b7f34fad9729514e8069c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 1, b: 1, a: 0.5}
+  color: {r: 0, g: 1, b: 1, a: 0.134}
   showInEditor: 1
-  alpha: 0.5
+  alpha: 0.134
 --- !u!114 &114652524330402294
 MonoBehaviour:
   m_ObjectHideFlags: 1
