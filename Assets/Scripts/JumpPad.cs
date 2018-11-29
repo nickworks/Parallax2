@@ -7,34 +7,38 @@ using UnityEngine;
 /// </summary>
 public class JumpPad : MonoBehaviour {
     /// <summary>
+    /// The height the player should jump to
+    /// </summary>
+    private Vector3 jumpHeight;
+    /// <summary>
     /// Reference to the player controller
     /// </summary>
     private PlayerController playerController;
     /// <summary>
-    /// The amount of force behing the jump. Defaults to 10. Can set in engine.
+    /// A reference to the play game object
     /// </summary>
-    public float amountOfForce = 10;
-    /// <summary>
-    /// Raises the trigger enter event.
-    /// </summary>
-    /// <param name="other">The other object the player collides with</param>
+    private GameObject player;
+/// <summary>
+/// Grabs references to the player game object and the player controller script
+/// </summary>
     private void Start()
     {
-        playerController = GetComponent<PlayerController>();
+        player = GameObject.Find("Player");
+        playerController = player.GetComponent<PlayerController>();
     }
     /// <summary>
-    /// When collision happens, and the tag is jumpable, the player auto jumps
+    /// When collision happens, and the tag is player, and if the collision volume is a trigger, the player auto jumps
     /// </summary>
     /// <param name="other"></param>
-    void OnTriggerEnter(Collider other){
-
-		if(other.gameObject.CompareTag("Jumpable")){			
-			Vector3 playerPos = this.transform.position;
-            playerPos.y += amountOfForce;
-            transform.position = playerPos;
-            print(playerController.velocity);
-            playerController.ResetVelocity();
-            playerPos *= .5f;
+    void OnTriggerStay(Collider other){
+        print(playerController);
+        if (other.gameObject.tag == "Player")
+        {
+            if (other.isTrigger == true)
+            {
+                jumpHeight = new Vector3(0, 25, 0);
+                playerController.velocity += jumpHeight;
+            }
         }
 	}
 }

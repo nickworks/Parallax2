@@ -160,33 +160,16 @@ Prefab:
     - target: {fileID: 136069409110027384, guid: e0d8e80fcd4552a46ae90b302a42f57f,
         type: 2}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0d8e80fcd4552a46ae90b302a42f57f, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &335030368 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1078176212132782, guid: e0d8e80fcd4552a46ae90b302a42f57f,
-    type: 2}
-  m_PrefabInternal: {fileID: 159298012}
 --- !u!4 &335030369 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4869365403218260, guid: e0d8e80fcd4552a46ae90b302a42f57f,
     type: 2}
   m_PrefabInternal: {fileID: 159298012}
---- !u!114 &335030379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 335030368}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e78ae5ab456ca5a4e9bc7e71de8a1e0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  amountOfForce: 10
 --- !u!1001 &700997563
 Prefab:
   m_ObjectHideFlags: 0
@@ -370,6 +353,7 @@ GameObject:
   - component: {fileID: 1429607812}
   - component: {fileID: 1429607811}
   - component: {fileID: 1429607810}
+  - component: {fileID: 1429607815}
   - component: {fileID: 1429607809}
   m_Layer: 0
   m_Name: Cube (1)
@@ -475,6 +459,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1429607815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1429607808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e78ae5ab456ca5a4e9bc7e71de8a1e0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1505024933
 GameObject:
   m_ObjectHideFlags: 0
