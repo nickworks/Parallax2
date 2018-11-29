@@ -11,9 +11,9 @@ public class JumpPad : MonoBehaviour {
     /// </summary>
     private PlayerController playerController;
     /// <summary>
-    /// The amount of force behing the jump. Currently set in engine
+    /// The amount of force behing the jump. Defaults to 10. Can set in engine.
     /// </summary>
-    public float amountOfForce;
+    public float amountOfForce = 10;
     /// <summary>
     /// Raises the trigger enter event.
     /// </summary>
@@ -30,11 +30,11 @@ public class JumpPad : MonoBehaviour {
 
 		if(other.gameObject.CompareTag("Jumpable")){			
 			Vector3 playerPos = this.transform.position;
-			playerPos.y += amountOfForce;
-			transform.position = playerPos;
+            playerPos.y += amountOfForce;
+            transform.position = playerPos;
             print(playerController.velocity);
-            playerController.velocity = Vector3.zero; 
+            playerController.ResetVelocity();
             playerPos *= .5f;
-			}
+        }
 	}
 }

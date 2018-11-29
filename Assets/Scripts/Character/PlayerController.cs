@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour {
     /// <summary>
     /// The velocity we want to move the player. This is calculated each frame.
     /// </summary>
-    Vector3 velocity = Vector3.zero;
+    public Vector3 velocity = Vector3.zero;
     /// <summary>
     /// Initializes the object. Called when spawning.
     /// </summary>
@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour {
     /// The game ticks forward one frame.
     /// </summary>
     void Update() {
-       
+
 
         if (Px2.paused) return; // do nothing if game is paused...
 
@@ -160,7 +160,7 @@ public class PlayerController : MonoBehaviour {
         Move();
 
         if (jetpackFuel <= 0) jetpackFumes.SetActive(false);
-        
+
     }
     /// <summary>
     /// Checks input, asks the LayerFixed script to phase jump.
@@ -184,7 +184,7 @@ public class PlayerController : MonoBehaviour {
             if (isJetpackEnabled) jetpackFuel = 100;
             jetpackFumes.SetActive(false);
         } else // ground is NOT detected, so do this stuff:
-          {
+        {
             if (forgetTheGroundTimer > 0) // if there is a countdown timer...
             {
                 forgetTheGroundTimer -= Time.deltaTime; // count down
@@ -207,7 +207,7 @@ public class PlayerController : MonoBehaviour {
 
         // collisions affect velocity:
         if ((flags & CollisionFlags.Sides) > 0) velocity.x = 0;
-        
+
         if ((flags & CollisionFlags.Above) > 0) {
             if (velocity.y > 0) velocity.y = 0;
             isJumping = false;
@@ -258,7 +258,7 @@ public class PlayerController : MonoBehaviour {
                 isJumping = true;
                 isGrounded = false;
             } else if (airJumpsCount > 0) // otherwise, if has airjumps left, do an airjump:
-              {
+            {
                 velocity.y = jumpVelocity;
                 isJumping = true;
                 airJumpsCount--;
@@ -327,6 +327,12 @@ public class PlayerController : MonoBehaviour {
             //Ragdoll(obj.transform.position);
         }
 
-        
+
+    }
+    /// <summary>
+    /// Resets the player's velocity back to zero
+    /// </summary>
+    public void ResetVelocity() {
+        velocity = Vector3.zero;
     }
 }
