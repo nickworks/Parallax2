@@ -15,6 +15,7 @@ public class ButtonDoor : MonoBehaviour {
     /// </summary>
 	public void ButtonActivate ()
     {
+        //print("Button has been activated.");
         transform.Translate(new Vector3(0, moveDistance, 0), Space.World);
     }
     /// <summary>
@@ -22,6 +23,7 @@ public class ButtonDoor : MonoBehaviour {
     /// </summary>
     public void ButtonDeactivate ()
     {
+        //print("Button has been deactivated.");
         transform.Translate(new Vector3(0, -moveDistance, 0), Space.World);
     }
 }

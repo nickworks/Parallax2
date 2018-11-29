@@ -113,6 +113,62 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &40146696
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4897438459123854, guid: 3091e2def98eb2f4b8a1539fa1d45375, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 7.2130013
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897438459123854, guid: 3091e2def98eb2f4b8a1539fa1d45375, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897438459123854, guid: 3091e2def98eb2f4b8a1539fa1d45375, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897438459123854, guid: 3091e2def98eb2f4b8a1539fa1d45375, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897438459123854, guid: 3091e2def98eb2f4b8a1539fa1d45375, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897438459123854, guid: 3091e2def98eb2f4b8a1539fa1d45375, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897438459123854, guid: 3091e2def98eb2f4b8a1539fa1d45375, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897438459123854, guid: 3091e2def98eb2f4b8a1539fa1d45375, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114255161240926722, guid: 3091e2def98eb2f4b8a1539fa1d45375,
+        type: 2}
+      propertyPath: onActivate.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1733969541}
+    - target: {fileID: 114255161240926722, guid: 3091e2def98eb2f4b8a1539fa1d45375,
+        type: 2}
+      propertyPath: onDeactivate.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1733969541}
+    - target: {fileID: 1244790729320136, guid: 3091e2def98eb2f4b8a1539fa1d45375, type: 2}
+      propertyPath: m_Name
+      value: PhysicsButton - Light
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3091e2def98eb2f4b8a1539fa1d45375, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &160819021
 Prefab:
   m_ObjectHideFlags: 0
@@ -160,61 +216,81 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 678e1e66baf777f449959628f73c04c5, type: 2}
   m_IsPrefabAsset: 0
---- !u!1001 &212348711
+--- !u!1001 &297025202
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4908572047260030, guid: c4672e360178a9b468d32e06ba021cde, type: 2}
+    - target: {fileID: 4927708454255880, guid: 530985d453a8b2d4e938b0a4dae91e59, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 7.2130013
+      value: 28.910273
       objectReference: {fileID: 0}
-    - target: {fileID: 4908572047260030, guid: c4672e360178a9b468d32e06ba021cde, type: 2}
+    - target: {fileID: 4927708454255880, guid: 530985d453a8b2d4e938b0a4dae91e59, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.35
+      value: 1.235
       objectReference: {fileID: 0}
-    - target: {fileID: 4908572047260030, guid: c4672e360178a9b468d32e06ba021cde, type: 2}
+    - target: {fileID: 4927708454255880, guid: 530985d453a8b2d4e938b0a4dae91e59, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0.05
+      value: 0.068
       objectReference: {fileID: 0}
-    - target: {fileID: 4908572047260030, guid: c4672e360178a9b468d32e06ba021cde, type: 2}
+    - target: {fileID: 4927708454255880, guid: 530985d453a8b2d4e938b0a4dae91e59, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4908572047260030, guid: c4672e360178a9b468d32e06ba021cde, type: 2}
+    - target: {fileID: 4927708454255880, guid: 530985d453a8b2d4e938b0a4dae91e59, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4908572047260030, guid: c4672e360178a9b468d32e06ba021cde, type: 2}
+    - target: {fileID: 4927708454255880, guid: 530985d453a8b2d4e938b0a4dae91e59, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4908572047260030, guid: c4672e360178a9b468d32e06ba021cde, type: 2}
+    - target: {fileID: 4927708454255880, guid: 530985d453a8b2d4e938b0a4dae91e59, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4908572047260030, guid: c4672e360178a9b468d32e06ba021cde, type: 2}
+    - target: {fileID: 4927708454255880, guid: 530985d453a8b2d4e938b0a4dae91e59, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 13
       objectReference: {fileID: 0}
-    - target: {fileID: 114512846594041542, guid: c4672e360178a9b468d32e06ba021cde,
+    - target: {fileID: 114201449341011602, guid: 530985d453a8b2d4e938b0a4dae91e59,
         type: 2}
       propertyPath: onActivate.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1733969541}
-    - target: {fileID: 114512846594041542, guid: c4672e360178a9b468d32e06ba021cde,
+      objectReference: {fileID: 648407507}
+    - target: {fileID: 114201449341011602, guid: 530985d453a8b2d4e938b0a4dae91e59,
+        type: 2}
+      propertyPath: onActivate.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ButtonActivate
+      objectReference: {fileID: 0}
+    - target: {fileID: 114201449341011602, guid: 530985d453a8b2d4e938b0a4dae91e59,
         type: 2}
       propertyPath: onDeactivate.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1733969541}
-    - target: {fileID: 1136188712555350, guid: c4672e360178a9b468d32e06ba021cde, type: 2}
+      objectReference: {fileID: 648407507}
+    - target: {fileID: 114201449341011602, guid: 530985d453a8b2d4e938b0a4dae91e59,
+        type: 2}
+      propertyPath: onDeactivate.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ButtonDeactivate
+      objectReference: {fileID: 0}
+    - target: {fileID: 1508589675782044, guid: 530985d453a8b2d4e938b0a4dae91e59, type: 2}
       propertyPath: m_Name
-      value: PhysicsButton - Light
+      value: Interact Lever - Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 114201449341011602, guid: 530985d453a8b2d4e938b0a4dae91e59,
+        type: 2}
+      propertyPath: coolDownTimerMax
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114201449341011602, guid: 530985d453a8b2d4e938b0a4dae91e59,
+        type: 2}
+      propertyPath: isTimed
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c4672e360178a9b468d32e06ba021cde, type: 2}
+  m_SourcePrefab: {fileID: 100100000, guid: 530985d453a8b2d4e938b0a4dae91e59, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &401417738
 GameObject:
@@ -590,6 +666,20 @@ Prefab:
       propertyPath: onDeactivate.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ButtonDeactivate
       objectReference: {fileID: 0}
+    - target: {fileID: 1496747535087790, guid: 3d4efc0c0bfc8a74e9ee182305f77d08, type: 2}
+      propertyPath: m_Name
+      value: Interact Button - Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 114550060138004840, guid: 3d4efc0c0bfc8a74e9ee182305f77d08,
+        type: 2}
+      propertyPath: coolDownTimerMax
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114550060138004840, guid: 3d4efc0c0bfc8a74e9ee182305f77d08,
+        type: 2}
+      propertyPath: isTimed
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d4efc0c0bfc8a74e9ee182305f77d08, type: 2}
   m_IsPrefabAsset: 0
@@ -846,7 +936,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   litMat: {fileID: 2100000, guid: 1441e0fe7525783489b867a416abf990, type: 2}
-  unlitMat: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  unlitMat: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!135 &1733969542
 SphereCollider:
   m_ObjectHideFlags: 0

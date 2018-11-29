@@ -22,10 +22,11 @@ GameObject:
   - component: {fileID: 136069409110027384}
   - component: {fileID: 54351141933615514}
   - component: {fileID: 114757667767801140}
+  - component: {fileID: 114178122062375692}
   - component: {fileID: 143337535872060558}
   - component: {fileID: 33115414752826506}
   - component: {fileID: 114600069071056934}
-  - component: {fileID: 114500598825115964}
+  - component: {fileID: 114598519929357204}
   - component: {fileID: 114835946239516474}
   m_Layer: 0
   m_Name: Player
@@ -151,7 +152,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1078176212132782}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -28.62, y: 4.2, z: -10}
+  m_LocalPosition: {x: -8.39, y: 4.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4570431233410154}
@@ -305,6 +306,45 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114178122062375692
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1078176212132782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90e4c52779cf7544a8ccf83765e9657b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isJetpackEnabled: 1
+  thrustFalloff:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -1
+      outSlope: -1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -1
+      outSlope: -1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  maximumVelocity: 10
+  jetpackFuelMax: 3
+  jetpackFumes: {fileID: 1353453335447310}
 --- !u!114 &114187706735465378
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -316,7 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 187bc1d186b4d374db0df927ae707ce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114500598825115964
+--- !u!114 &114598519929357204
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -358,15 +398,11 @@ MonoBehaviour:
     type: 2}
   acceleration: 40
   deceleration: 40
-  maxSpeed: 10
+  maxSpeedHorizontal: 10
+  maxSpeedVertical: 10
   jumpHeight: 5
   jumpTime: 1
   airJumpsMax: 1
-  isJetpackEnabled: 1
-  maxJetpackSpeed: 5
-  jetpackFuel: 0
-  fuelPercent: {x: 0, y: 0, z: 0}
-  jetpackFumes: {fileID: 1353453335447310}
   ragdoll: {fileID: 4876709876488544}
   billboard: {fileID: 4570431233410154}
   groundTimeAmount: 0.2
