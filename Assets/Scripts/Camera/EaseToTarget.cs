@@ -5,6 +5,12 @@ using UnityEngine;
 /// Give this script a target, and it will follow the targeted object.
 /// </summary>
 public class EaseToTarget : MonoBehaviour {
+
+    /// <summary>
+    /// should the camera ease to target durring edit mode
+    /// </summary>
+    public bool snapDurringEdit = false;
+
     /// <summary>
     /// The thing to chase
     /// </summary>
@@ -21,4 +27,13 @@ public class EaseToTarget : MonoBehaviour {
 
         transform.position = Vector3.Lerp(transform.position, target.position, Time.fixedDeltaTime * moveEasing);
 	}
+
+    /// <summary>
+    /// snap the camera to the player durring edit mode
+    /// </summary>
+    private void OnValidate() {
+        if (snapDurringEdit) {
+            transform.position = target.position;
+           }
+    }
 }
