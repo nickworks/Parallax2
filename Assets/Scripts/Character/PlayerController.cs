@@ -175,7 +175,7 @@ public class PlayerController : MonoBehaviour {
             forgetTheGroundTimer = groundTimeAmount; // start the countdown timer...
             airJumpsCount = airJumpsMax;
         } else // ground is NOT detected, so do this stuff:
-          {
+        {
             if (forgetTheGroundTimer > 0) // if there is a countdown timer...
             {
                 forgetTheGroundTimer -= Time.deltaTime; // count down
@@ -198,7 +198,7 @@ public class PlayerController : MonoBehaviour {
 
         // collisions affect velocity:
         if ((flags & CollisionFlags.Sides) > 0) velocity.x = 0;
-        
+
         if ((flags & CollisionFlags.Above) > 0) {
             if (velocity.y > 0) velocity.y = 0;
             isJumping = false;
@@ -249,7 +249,7 @@ public class PlayerController : MonoBehaviour {
                 isJumping = true;
                 isGrounded = false;
             } else if (airJumpsCount > 0) // otherwise, if has airjumps left, do an airjump:
-              {
+            {
                 velocity.y = jumpVelocity;
                 isJumping = true;
                 airJumpsCount--;
@@ -319,5 +319,13 @@ public class PlayerController : MonoBehaviour {
     public Vector3 GetVelocity()
     {
         return velocity;
+
+
+    }
+    /// <summary>
+    /// Resets the player's velocity back to zero
+    /// </summary>
+    public void ResetVelocity() {
+        velocity = Vector3.zero;
     }
 }
