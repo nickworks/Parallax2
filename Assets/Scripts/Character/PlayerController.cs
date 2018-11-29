@@ -286,41 +286,13 @@ public class PlayerController : MonoBehaviour {
         if (applyDeltaTime) amount *= Time.deltaTime;
         velocity += amount;
     }
-
     /// <summary>
-    /// FIXME: respond to collision events where this object is not the instigator.
+    /// Get the player's current velocity.
     /// </summary>
-    /// <param name="info"></param>
-    void OnTriggerEnter(Collider collider) {
-        //if (collider.tag == "Danger") print("danger moved into you");
-        OnHitGameObject(collider);
-    }
-
-    /// <summary>
-    /// You've run into something. This object is the instigator of the collision.
-    /// </summary>
-    /// <param name="info"></param>
-    void OnControllerColliderHit(ControllerColliderHit info) {
-        //if (info.collider.tag == "Danger") print("you moved into danger");
-        OnHitGameObject(info.collider);
-    }
-
-    /// <summary>
-    /// What to do if colliding with another?
-    /// Checks the tag on the other collider.
-    /// </summary>
-    /// <param name="obj">The other collider</param>
-    void OnHitGameObject(Collider obj) {
-        if (obj.tag == "Danger") {
-            //Ragdoll(obj.transform.position);
-        }
-    }
-
+    /// <returns>The player's current velocity vector.</returns>
     public Vector3 GetVelocity()
     {
         return velocity;
-
-
     }
     /// <summary>
     /// Resets the player's velocity back to zero
