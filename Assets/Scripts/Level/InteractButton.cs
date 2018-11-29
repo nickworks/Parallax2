@@ -45,6 +45,10 @@ public class InteractButton : MonoBehaviour {
     /// Stores whether or not the button is cooling down from use.
     /// </summary>
     private bool isButtonActive = false;
+    /// <summary>
+    /// Stores whether or not the player is colliding with the object.
+    /// </summary>
+    private bool isPlayerColliding = false;
 
     /// <summary>
     /// Grabs the Renderer for the base of the switch and
@@ -59,40 +63,46 @@ public class InteractButton : MonoBehaviour {
     /// </summary>
     void Update ()
     {
-        CoolDownCountdown();
-    }
-
-    /// <summary>
-    /// Activates when another Collider stays within the trigger area.
-    /// </summary>
-    /// <param name="other">The collider of the object that is in the trigger area.</param>
-    private void OnTriggerStay(Collider other)
-    {
-        //TODO: prompt the player to press the interact button...
-
-        //if player interacts with the button...
-        float interact = Input.GetAxis("Submit");
-
-        if (interact > 0 && coolDownTimer < 0)
+        if (isPlayerColliding)
         {
-            switch (isButtonActive)
-            {
-                case true:
-                    Deactivate();
-                    SetCoolDownTimer();
-                    break;
+            //TODO: prompt the player to press the interact button...
 
-                case false:
-                    Activate();
-                    SetCoolDownTimer();
-                    break;
+            //if player interacts with the button...
+            float interact = Input.GetAxis("Submit");
+
+            if (interact > 0 && coolDownTimer < 0)
+            {
+                switch (isButtonActive)
+                {
+                    case true:
+                        Deactivate();
+                        SetCoolDownTimer();
+                        break;
+
+                    case false:
+                        Activate();
+                        SetCoolDownTimer();
+                        break;
+                }
             }
         }
-
-        if (isTimed)
-        {
-            if (coolDownTimer < 0 && isButtonActive) Deactivate();
-        }
+        CoolDownCountdown();
+    }
+    /// <summary>
+    /// This activates when an object enters this object's trigger area.
+    /// </summary>
+    /// <param name="other">The collider of the object that has entered the area.</param>
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player" && other.isTrigger) isPlayerColliding = true;
+    }
+    /// <summary>
+    /// This activates when an object exits this object's trigger area.
+    /// </summary>
+    /// <param name="other">The collider of the object that has exited the area.</param>
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player" && other.isTrigger) isPlayerColliding = false;
     }
     /// <summary>
     /// This is called to set the CoolDownTimer to the same value as CoolDownTimerMax.
@@ -111,6 +121,11 @@ public class InteractButton : MonoBehaviour {
         {
             coolDownTimer -= Time.deltaTime;
             //print("Cooling down: " + coolDownTimer + " seconds remaining.");
+
+            if (isTimed)
+            {
+                if (coolDownTimer < 0 && isButtonActive) Deactivate();
+            }
         }
 
     }

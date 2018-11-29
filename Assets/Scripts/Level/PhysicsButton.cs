@@ -30,11 +30,14 @@ public class PhysicsButton : MonoBehaviour {
     /// The Button's deactivate Material. The button applies this material to itself when it is deactivated.
     /// </summary>
     public Material deactiveMat;
-
     /// <summary>
     /// Stores the Renderer of the button so that when activated/deactivated, it can change materials to reflect beign active/deactive.
     /// </summary>
     Renderer buttonRend;
+    /// <summary>
+    /// Stores whether or not the player is colliding with the object.
+    /// </summary>
+    private bool isPlayerColliding = false;
 
     /// <summary>
     /// Used to store the Button's renderer after it's been instantiated.
@@ -44,30 +47,55 @@ public class PhysicsButton : MonoBehaviour {
         buttonRend = GetComponentInChildren<Renderer>();
         
     }
+
+    private void Update()
+    {
+        if(isPlayerColliding)
+        {
+            Activate();
+        }
+        else
+        {
+            Deactivate();
+        }
+    }
     /// <summary>
-    /// Activates when another Collider enters the trigger area. This sends an "Activate" message to its Target.
+    /// Activates when another Collider enters the trigger area.
     /// </summary>
     /// <param name="other">The collider of the object that has entered the trigger area.</param>
     private void OnTriggerEnter(Collider other)
     {
-        //print("hi");
+        if (other.tag == "Player" && other.isTrigger) isPlayerColliding = true;
+    }
+
+    /// <summary>
+    /// Activates when another Collider exits the trigger area.
+    /// </summary>
+    /// <param name="other">The collider of the object that has exited the trigger area.</param>
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player" && other.isTrigger) isPlayerColliding = false;
+    }
+    /// <summary>
+    /// This is called when the button is activated. It invokes the object's onActivate function.
+    /// </summary>
+    private void Activate()
+    {
         onActivate.Invoke();
-       
+
         if (activeMat != null)
         {
             buttonRend.material = activeMat;
         }
     }
-
     /// <summary>
-    /// Activates when another Collider exits the trigger area. This sends a "Deactivate" message to its Target.
+    /// This is called when the button is deactivated. It invokes the object's onDeactivate function.
     /// </summary>
-    /// <param name="other">The collider of the object that has exited the trigger area.</param>
-    private void OnTriggerExit(Collider other)
+    private void Deactivate()
     {
         onDeactivate.Invoke();
-        
-        if(deactiveMat != null)
+
+        if (deactiveMat != null)
         {
             buttonRend.material = deactiveMat;
         }
