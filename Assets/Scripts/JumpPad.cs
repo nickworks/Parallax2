@@ -7,9 +7,9 @@ using UnityEngine;
 /// </summary>
 public class JumpPad : MonoBehaviour {
     /// <summary>
-    /// The height the player should jump to
+    /// The velocity to use when bouncing the player
     /// </summary>
-    private Vector3 jumpHeight;
+    public Vector3 jumpVelocity = new Vector3(0, 35, 0);
     /// <summary>
     /// Reference to the player controller
     /// </summary>
@@ -36,8 +36,7 @@ public class JumpPad : MonoBehaviour {
         {
             if (other.isTrigger == true)
             {
-                jumpHeight = new Vector3(0, 25, 0);
-                playerController.velocity += jumpHeight;
+                playerController.velocity += jumpVelocity;
             }
         }
 	}
