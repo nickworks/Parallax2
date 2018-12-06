@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Creates a platform that falls when player jumps
+/// </summary>
 public class FallingPlatform : MonoBehaviour {
 
 	/// <summary>
