@@ -188,6 +188,7 @@ GameObject:
   - component: {fileID: 495745729}
   - component: {fileID: 495745728}
   - component: {fileID: 495745733}
+  - component: {fileID: 495745734}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -221,8 +222,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.2167634, z: 1}
+  m_Center: {x: 0, y: 0.108381845, z: 0}
 --- !u!23 &495745730
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -293,6 +294,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &495745734
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 495745727}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 1.0000001, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &700997563
 Prefab:
   m_ObjectHideFlags: 0
@@ -476,6 +489,7 @@ GameObject:
   - component: {fileID: 1505024936}
   - component: {fileID: 1505024935}
   - component: {fileID: 1505024934}
+  - component: {fileID: 1505024939}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -509,8 +523,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.2477283, z: 1}
+  m_Center: {x: 0, y: 0.123864375, z: 0}
 --- !u!23 &1505024936
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -566,6 +580,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1505024939
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1505024933}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 0.9484399, z: 1}
+  m_Center: {x: 0, y: -0.025780136, z: 0}
 --- !u!1001 &1602284567
 Prefab:
   m_ObjectHideFlags: 0
