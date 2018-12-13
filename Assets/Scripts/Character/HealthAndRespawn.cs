@@ -19,7 +19,13 @@ public class HealthAndRespawn : MonoBehaviour {
     /// <summary>
     /// the player's current HP compared to the player's maximum HP, used to scale the UI healthbar
     /// </summary>
-    public Vector3 hpPercent;
+    public float hpPercent
+    {
+        get
+        {
+            return hpCurrent / hpMax;
+        }
+    }
     /// <summary>
     /// The maximum health of this object.
     /// </summary>
