@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+[RequireComponent(typeof(BoxCollider))]
 public class FrPVertLocaton : MonoBehaviour {
 
     //public Camera sceneCam;
 
-    
+    /// <summary>
+    /// An intiger label used to make it easier ro understand which corner we are talking about
+    /// </summary>
     public enum Corners {
         TopLeft,
         TopRight,
@@ -15,34 +18,20 @@ public class FrPVertLocaton : MonoBehaviour {
         BottomRight,
     }
 
-    [HideInInspector]
-    public struct Corner {
-        public Vector3 worldSpacePosition;
-        public Corners corner;
-    }
-
     /// <summary>
     /// the locations of the front four verticies
     /// </summary>
-    public Corner[] cornerLocations = new Corner[4];
+    public Vector3[] cornerLocations = new Vector3[4];
+
 
     /// <summary>
-    /// we will use this variable to get the Mesh on tbis object
+    /// the attached box collider
     /// </summary>
-   // Mesh _mesh; //C# private C# feild
-
-    /// <summary>
-    /// The color of the wireframe applied to the mesh 
-    /// </summary>
-    public Color color = Color.cyan;
-
-    /// <summary>
-    /// get's the mesh when mesh is refrenced
-    /// </summary>
-   // public Mesh thisMesh;
-
     BoxCollider boxCollider;
 
+    /// <summary>
+    /// the bounds of the colider attached to this object
+    /// </summary>
     public Bounds bounds {//C#  property
 
         get {
@@ -59,8 +48,8 @@ public class FrPVertLocaton : MonoBehaviour {
     /// </summary>
     void Start()
     {
-       // thisMesh = GetComponent<MeshFilter>().mesh;
-        SetCorners();
+       
+        
     }
 
 
@@ -68,22 +57,30 @@ public class FrPVertLocaton : MonoBehaviour {
     /// this function is called every frame
     /// </summary>
 	void Update () {
-		
-	}
+        SetCorners();
+    }
 
+
+    /// <summary>
+    /// Sets the location of the corners of this object
+    /// </summary>
     void SetCorners() {
 
         for (int i = 0;i <=3;i++) {
-            cornerLocations[i].corner = (Corners)i;
-            print(cornerLocations[i].corner);
-            cornerLocations[i].worldSpacePosition = GetBoundsVert((Corners)i);
-           // print(cornerLocations[i].worldSpacePosition + " i " + i);
+           // cornerLocations[i].corner = (Corners)i;
+            //print(cornerLocations[i].corner);
+            cornerLocations[i] = GetBoundsVert((Corners)i);
+           // print(cornerLocations[i].worldSpacePosition);
         }
 
     }
 
+    /// <summary>
+    /// Returns the worldspace location of the desierd corner
+    /// </summary>
+    /// <param name="corner"> The corner index of the corner we want to locate according to Corners</param>
+    /// <returns>the woreldspace location of the desires corner</returns>
     Vector3 GetBoundsVert(Corners corner) {
-
 
         if (corner == Corners.TopLeft) {
             return new Vector3( bounds.min.x, bounds.max.y, bounds.min.z);

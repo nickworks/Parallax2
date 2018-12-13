@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -143,6 +143,7 @@ MonoBehaviour:
   z: 0
   snapToLayerInEditor: 0
   ignoreCollidersWhenPhasing: 0
+  phaseCollisionTolerance: 0.1
   phaseCooldown: 0.5
 --- !u!4 &64006496
 Transform:
@@ -160,6 +161,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &72115797 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1183087433783224, guid: d958d836912809441ae865b00d57c1d1,
+    type: 2}
+  m_PrefabInternal: {fileID: 372957468}
+--- !u!114 &72115804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 72115797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e445e1a2d67b4543ad21eecd5e0b52f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cornerLocations:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
 --- !u!1001 &87547689
 Prefab:
   m_ObjectHideFlags: 0
@@ -415,7 +437,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4215673174873600, guid: 5e9020a27486ee7499f5d91a322f78db, type: 2}
       propertyPath: m_LocalScale.x
-      value: -139.4
+      value: 139.4
       objectReference: {fileID: 0}
     - target: {fileID: 4215673174873600, guid: 5e9020a27486ee7499f5d91a322f78db, type: 2}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -456,6 +478,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4215673174873600, guid: 5e9020a27486ee7499f5d91a322f78db,
     type: 2}
   m_PrefabInternal: {fileID: 186126895}
+--- !u!1 &191586596 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1183087433783224, guid: d958d836912809441ae865b00d57c1d1,
+    type: 2}
+  m_PrefabInternal: {fileID: 152893914}
+--- !u!114 &191586603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 191586596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e445e1a2d67b4543ad21eecd5e0b52f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cornerLocations:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
 --- !u!1 &238051401
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,6 +530,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad8f518d7e03a8d46b3dc7c8fa854c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pieces:
+  - piece: {fileID: 72115797}
+    fit: 3
+    fRpVertLocations: {fileID: 0}
+    vertLocations: []
+    solved: 0
 --- !u!114 &238051403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,6 +550,7 @@ MonoBehaviour:
   z: 4
   snapToLayerInEditor: 0
   ignoreCollidersWhenPhasing: 0
+  phaseCollisionTolerance: 0.1
   phaseCooldown: 0.5
 --- !u!65 &238051404
 BoxCollider:
@@ -903,6 +953,27 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d958d836912809441ae865b00d57c1d1, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &421066361 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1183087433783224, guid: d958d836912809441ae865b00d57c1d1,
+    type: 2}
+  m_PrefabInternal: {fileID: 1377891963}
+--- !u!114 &421066368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 421066361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e445e1a2d67b4543ad21eecd5e0b52f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cornerLocations:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
 --- !u!1 &455372821
 GameObject:
   m_ObjectHideFlags: 0
@@ -1022,6 +1093,7 @@ MonoBehaviour:
   z: 2
   snapToLayerInEditor: 0
   ignoreCollidersWhenPhasing: 0
+  phaseCollisionTolerance: 0.1
   phaseCooldown: 0.5
 --- !u!65 &560593838
 BoxCollider:
@@ -1084,7 +1156,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 560593836}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -33.2, y: 12.5, z: 20}
+  m_LocalPosition: {x: -33.2, y: 12.5, z: 24.3}
   m_LocalScale: {x: 22, y: 22, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1101,6 +1173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad8f518d7e03a8d46b3dc7c8fa854c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pieces: []
 --- !u!1001 &566330164
 Prefab:
   m_ObjectHideFlags: 0
@@ -1507,11 +1580,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a714d7e1716ce3439496c5121490495, type: 2}
   m_IsPrefabAsset: 0
---- !u!20 &945995887 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 20561428443582006, guid: 1a714d7e1716ce3439496c5121490495,
-    type: 2}
-  m_PrefabInternal: {fileID: 945995886}
 --- !u!1 &1205532183
 GameObject:
   m_ObjectHideFlags: 0
@@ -1713,6 +1781,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad8f518d7e03a8d46b3dc7c8fa854c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pieces:
+  - piece: {fileID: 191586596}
+    fit: 1
+    fRpVertLocations: {fileID: 0}
+    vertLocations: []
+    solved: 0
 --- !u!114 &1307923520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1727,6 +1801,7 @@ MonoBehaviour:
   z: 2
   snapToLayerInEditor: 0
   ignoreCollidersWhenPhasing: 0
+  phaseCollisionTolerance: 0.1
   phaseCooldown: 0.5
 --- !u!65 &1307923521
 BoxCollider:
@@ -1825,6 +1900,7 @@ MonoBehaviour:
   z: 1
   snapToLayerInEditor: 0
   ignoreCollidersWhenPhasing: 0
+  phaseCollisionTolerance: 0.1
   phaseCooldown: 0.5
 --- !u!4 &1364409588
 Transform:
@@ -1980,6 +2056,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad8f518d7e03a8d46b3dc7c8fa854c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pieces:
+  - piece: {fileID: 1612483058}
+    fit: 2
+    fRpVertLocations: {fileID: 0}
+    vertLocations: []
+    solved: 0
 --- !u!114 &1560382723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1994,6 +2076,7 @@ MonoBehaviour:
   z: 5
   snapToLayerInEditor: 0
   ignoreCollidersWhenPhasing: 0
+  phaseCollisionTolerance: 0.1
   phaseCooldown: 0.5
 --- !u!65 &1560382724
 BoxCollider:
@@ -2185,21 +2268,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e445e1a2d67b4543ad21eecd5e0b52f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneCam: {fileID: 945995887}
-  color: {r: 0, g: 1, b: 1, a: 1}
---- !u!114 &1612483060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1612483058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e445e1a2d67b4543ad21eecd5e0b52f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneCam: {fileID: 0}
-  color: {r: 0, g: 1, b: 1, a: 1}
+  cornerLocations:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
 --- !u!1 &1907033872
 GameObject:
   m_ObjectHideFlags: 0
@@ -2231,6 +2304,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad8f518d7e03a8d46b3dc7c8fa854c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pieces:
+  - piece: {fileID: 421066361}
+    fit: 0
+    fRpVertLocations: {fileID: 0}
+    vertLocations: []
+    solved: 0
 --- !u!114 &1907033874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2245,6 +2324,7 @@ MonoBehaviour:
   z: 3
   snapToLayerInEditor: 0
   ignoreCollidersWhenPhasing: 0
+  phaseCollisionTolerance: 0.1
   phaseCooldown: 0.5
 --- !u!65 &1907033875
 BoxCollider:
@@ -2348,6 +2428,7 @@ MonoBehaviour:
   z: -1
   snapToLayerInEditor: 0
   ignoreCollidersWhenPhasing: 0
+  phaseCollisionTolerance: 0.1
   phaseCooldown: 0.5
 --- !u!4 &1930268608
 Transform:

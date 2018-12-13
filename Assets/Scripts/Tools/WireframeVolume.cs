@@ -81,6 +81,7 @@ public class WireframeVolume : MonoBehaviour
         vertices[1] = new Vector3(bounds.max.x, bounds.max.y, bounds.center.z);
         vertices[2] = new Vector3(bounds.min.x, bounds.min.y, bounds.center.z);
         vertices[3] = new Vector3(bounds.max.x, bounds.min.y, bounds.center.z);
+
         /*
         for (int i = 0; i < 4; i++)
         {
