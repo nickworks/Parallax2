@@ -27,6 +27,11 @@ public class FrPDetectionVolume : MonoBehaviour
     }
 
     /// <summary>
+    /// the leway we give the player on the puzzle
+    /// </summary>
+    public static float buffer = 8;
+
+    /// <summary>
     /// contains the information that makes p a puzzle peice
     /// </summary>
     [Serializable]
@@ -67,10 +72,7 @@ public class FrPDetectionVolume : MonoBehaviour
     /// </summary>
     LayerFixed layerFixed;
 
-    /// <summary>
-    /// the leway we give the player on the puzzle
-    /// </summary>
-    public static float buffer = 2;
+    
 
     /// <summary>
     /// used to visuaisualise the leway we give the player
@@ -120,8 +122,6 @@ public class FrPDetectionVolume : MonoBehaviour
     {
         DrawDetection();
     }
-
-
 
 
     // Use this for initialization
@@ -241,23 +241,71 @@ public class FrPDetectionVolume : MonoBehaviour
         //print("a: " + a + " b: " + b);
 
         float dist = Vector2.Distance(a, b);
-
+        print(dist);
         return dist < buffer;
     }
 
 
-
+    /// <summary>
+    /// This draws the detectoin volumes
+    /// </summary>
     void DrawDetection() {
-        
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireMesh(SetVisualisationMesh(PuzzleFit.TopLeft));
-        Gizmos.DrawWireMesh(SetVisualisationMesh(PuzzleFit.TopRight));
-        Gizmos.DrawWireMesh(SetVisualisationMesh(PuzzleFit.BottomLeft));
-        Gizmos.DrawWireMesh(SetVisualisationMesh(PuzzleFit.BottomRight));
+
+        if (PuzzleSolved())
+        {
+            Gizmos.color = Color.green;
+        }
+        else {
+            Gizmos.color = Color.red;
+        }
+
+        foreach (PuzzlePiece p in pieces)
+        {
+            switch (p.fit)
+            {
+                case PuzzleFit.TopLeft:
+                    Gizmos.DrawWireMesh(SetVisualisationMesh(PuzzleFit.TopLeft));
+                    break;
+                case PuzzleFit.TopRight:
+                    Gizmos.DrawWireMesh(SetVisualisationMesh(PuzzleFit.TopRight));
+                    break;
+                case PuzzleFit.BottomLeft:
+                    Gizmos.DrawWireMesh(SetVisualisationMesh(PuzzleFit.BottomLeft));
+                    break;
+                case PuzzleFit.BottomRight:
+                    Gizmos.DrawWireMesh(SetVisualisationMesh(PuzzleFit.BottomRight));
+                    break;
+                case PuzzleFit.FourCorners:
+                    Gizmos.DrawWireMesh(SetVisualisationMesh(PuzzleFit.TopLeft));
+                    Gizmos.DrawWireMesh(SetVisualisationMesh(PuzzleFit.TopRight));
+                    Gizmos.DrawWireMesh(SetVisualisationMesh(PuzzleFit.BottomLeft));
+                    Gizmos.DrawWireMesh(SetVisualisationMesh(PuzzleFit.BottomRight));
+                    break;
+                case PuzzleFit.BottomCorners:
+                    Gizmos.DrawWireMesh(SetVisualisationMesh(PuzzleFit.BottomLeft));
+                    Gizmos.DrawWireMesh(SetVisualisationMesh(PuzzleFit.BottomRight));
+                    break;
+                case PuzzleFit.TopCorners:
+                    Gizmos.DrawWireMesh(SetVisualisationMesh(PuzzleFit.TopLeft));
+                    Gizmos.DrawWireMesh(SetVisualisationMesh(PuzzleFit.TopRight));
+                    break;
+                case PuzzleFit.LeftCorners:
+                    Gizmos.DrawWireMesh(SetVisualisationMesh(PuzzleFit.BottomLeft));
+                    Gizmos.DrawWireMesh(SetVisualisationMesh(PuzzleFit.TopLeft));
+                    break;
+                case PuzzleFit.RightCorners:
+                    Gizmos.DrawWireMesh(SetVisualisationMesh(PuzzleFit.TopRight));
+                    Gizmos.DrawWireMesh(SetVisualisationMesh(PuzzleFit.BottomRight));
+                    break;
+                default:
+                    print("ERROR: puzzle fit out of bounds in FrPDetectionVolume");
+                    break;
+
+            }
+        }
     }
 
-    //Color 
 
 
 
