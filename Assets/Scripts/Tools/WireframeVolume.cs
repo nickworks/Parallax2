@@ -34,7 +34,7 @@ public class WireframeVolume : MonoBehaviour
 
     void OnValidate()
     {
-        print("huh?");
+        //print("huh?");
         transform.rotation = Quaternion.identity;
     }
 

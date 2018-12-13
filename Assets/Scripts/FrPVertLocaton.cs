@@ -1,20 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class FrPVertLocaton : MonoBehaviour {
 
-    public Camera sceneCam;
+    //public Camera sceneCam;
+
     
+    public enum Corners {
+        TopLeft,
+        TopRight,
+        BottomLeft,
+        BottomRight,
+    }
+
+    [HideInInspector]
+    public struct Corner {
+        public Vector3 worldSpacePosition;
+        public Corners corner;
+    }
+
     /// <summary>
     /// the locations of the front four verticies
     /// </summary>
-    Vector3[] vertLocations = new Vector3[4];
+    public Corner[] cornerLocations = new Corner[4];
 
     /// <summary>
     /// we will use this variable to get the Mesh on tbis object
     /// </summary>
-    Mesh _mesh; //C# private C# feild
+   // Mesh _mesh; //C# private C# feild
 
     /// <summary>
     /// The color of the wireframe applied to the mesh 
@@ -24,11 +39,18 @@ public class FrPVertLocaton : MonoBehaviour {
     /// <summary>
     /// get's the mesh when mesh is refrenced
     /// </summary>
-    public Mesh mesh {//C#  property
+   // public Mesh thisMesh;
+
+    BoxCollider boxCollider;
+
+    public Bounds bounds {//C#  property
 
         get {
-            if (_mesh == null) _mesh = GetComponent<MeshFilter>().mesh;// "lazy" initailisation
-            return _mesh;
+            if (boxCollider == null) {
+                boxCollider = GetComponent<BoxCollider>();
+            }
+
+            return boxCollider.bounds;
         }
     }
 
@@ -37,7 +59,8 @@ public class FrPVertLocaton : MonoBehaviour {
     /// </summary>
     void Start()
     {
-       
+       // thisMesh = GetComponent<MeshFilter>().mesh;
+        SetCorners();
     }
 
 
@@ -48,7 +71,34 @@ public class FrPVertLocaton : MonoBehaviour {
 		
 	}
 
-   // public stat
+    void SetCorners() {
+
+        for (int i = 0;i <=3;i++) {
+            cornerLocations[i].corner = (Corners)i;
+            print(cornerLocations[i].corner);
+            cornerLocations[i].worldSpacePosition = GetBoundsVert((Corners)i);
+           // print(cornerLocations[i].worldSpacePosition + " i " + i);
+        }
+
+    }
+
+    Vector3 GetBoundsVert(Corners corner) {
+
+
+        if (corner == Corners.TopLeft) {
+            return new Vector3( bounds.min.x, bounds.max.y, bounds.min.z);
+        } else if (corner == Corners.TopRight) {
+            return new Vector3( bounds.max.x, bounds.max.y, bounds.min.z);
+        } else if (corner == Corners.BottomLeft) {
+            return new Vector3(bounds.min.x, bounds.min.y, bounds.min.z);
+        } else if (corner == Corners.BottomRight) {
+            return new Vector3( bounds.max.x, bounds.min.y, bounds.min.z);
+        }
+
+        return Vector3.zero;
+    }
+
+    ///public Corner getCorner() { } 
 
 
 

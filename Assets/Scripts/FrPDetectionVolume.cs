@@ -13,7 +13,12 @@ public class FrPDetectionVolume : MonoBehaviour
         TopRight,
         BottomLeft,
         BottomRight,
-        All
+        FourCorners,
+        BottomCorners,
+        TopCorners,
+        LeftCorners,
+        RightCorners
+
     }
 
     [Serializable]
