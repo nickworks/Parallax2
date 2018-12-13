@@ -38181,6 +38181,17 @@ Prefab:
       propertyPath: yKillThreshold
       value: -50
       objectReference: {fileID: 0}
+    - target: {fileID: 114600069071056934, guid: e0d8e80fcd4552a46ae90b302a42f57f,
+        type: 2}
+      propertyPath: z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757667767801140, guid: e0d8e80fcd4552a46ae90b302a42f57f,
+        type: 2}
+      propertyPath: prefabHUD
+      value: 
+      objectReference: {fileID: 114697989399649816, guid: 78213af8883429f4a8edf66d73f427af,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0d8e80fcd4552a46ae90b302a42f57f, type: 2}
   m_IsPrefabAsset: 0
