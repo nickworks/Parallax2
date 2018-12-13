@@ -43,13 +43,11 @@ public class Jetpack : MonoBehaviour {
 
     private PlayerController player;
 
-    private AudioSource jetpackSound;
 
     void Start()
     {
         player = GetComponent<PlayerController>();
-        jetpackSound = GetComponent<AudioSource>();
-        jetpackSound.Play();
+        SoundPlayer.main.Jetpack.Play();
 
         if (isJetpackEnabled) jetpackFuelAmount = jetpackFuelMax;
     }
@@ -70,11 +68,11 @@ public class Jetpack : MonoBehaviour {
                 jetpackFuelAmount -= Time.deltaTime;
                 float thrust = GetThrustAmount();
                 player.Impulse(new Vector3(0, thrust, 0), true);
-                jetpackSound.UnPause();
+                SoundPlayer.main.Jetpack.UnPause();
             }
         } else { 
             jetpackFumes.SetActive(false);
-            jetpackSound.Pause();
+            SoundPlayer.main.Jetpack.Pause();
         }
         if (jetpackFuelAmount <= 0) jetpackFumes.SetActive(false);
     }
