@@ -56,8 +56,8 @@ public class HUDController : MonoBehaviour {
         if(playerHP) healthBar.rectTransform.localScale = new Vector3(playerHP.hpPercent, 1, 1);
         
         //update player's coin number
-        Coincounter.text = "Coins: " + Px2.numCoin;
+        if(Coincounter) Coincounter.text = "Coins: " + Px2.numCoin;
         //update player's key number
-        KeyCounter.text = "Keys: " + Px2.numKeys;
+        if(KeyCounter) KeyCounter.text = "Keys: " + Px2.numKeys;
     }
 }

@@ -43,9 +43,12 @@ public class Jetpack : MonoBehaviour {
 
     private PlayerController player;
 
+
     void Start()
     {
         player = GetComponent<PlayerController>();
+        SoundPlayer.main.Jetpack.Play();
+
         if (isJetpackEnabled) jetpackFuelAmount = jetpackFuelMax;
     }
     void Update()
@@ -53,6 +56,7 @@ public class Jetpack : MonoBehaviour {
         if (jetpackFuelAmount <= 0) jetpackFumes.SetActive(false);
         if (player.isGrounded)
         {
+            SoundPlayer.main.PlayerLanding.Play();
             jetpackFuelAmount = jetpackFuelMax;
             jetpackFumes.SetActive(false);
         }
@@ -61,13 +65,16 @@ public class Jetpack : MonoBehaviour {
         {
             if (player.airJumpsCount == 0 && jetpackFuelAmount > 0) //no jumps left, begin consuming fuel
             {
+                SoundPlayer.main.PlayerLanding.Stop();
                 jetpackFumes.SetActive(true);
                 jetpackFuelAmount -= Time.deltaTime;
                 float thrust = GetThrustAmount();
                 player.Impulse(new Vector3(0, thrust, 0), true);
+                SoundPlayer.main.Jetpack.UnPause();
             }
         } else { 
             jetpackFumes.SetActive(false);
+            SoundPlayer.main.Jetpack.Pause();
         }
         if (jetpackFuelAmount <= 0) jetpackFumes.SetActive(false);
     }

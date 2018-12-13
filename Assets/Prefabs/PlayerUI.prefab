@@ -210,7 +210,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 3a8db7d257c06f549bf9932879d278a4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -301,8 +301,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670832ece9f07b44f8a632541f92a30f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pawn: {fileID: 0}
+  player: {fileID: 0}
   playerHP: {fileID: 0}
+  jetpack: {fileID: 0}
   fuelBar: {fileID: 114780176469964942}
   healthBar: {fileID: 114381063054917284}
   Coincounter: {fileID: 114277107204152584}
@@ -326,7 +327,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 0270e0d690c3dee438d0debf8bbc9ff7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3dbd6ad7513bbc74aaec7c9085974eca, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -438,8 +439,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 54.133972, y: -91.8}
-  m_SizeDelta: {x: 240.9, y: 24.1}
+  m_AnchoredPosition: {x: 54.133972, y: -87.5}
+  m_SizeDelta: {x: 183.99, y: 24.1}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!224 &224614807685471938
 RectTransform:
@@ -474,6 +475,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 54.133972, y: -70.1}
-  m_SizeDelta: {x: 319.7, y: 19.3}
+  m_AnchoredPosition: {x: 54.133972, y: -64.35}
+  m_SizeDelta: {x: 206.43, y: 30.79}
   m_Pivot: {x: 0, y: 0.5}

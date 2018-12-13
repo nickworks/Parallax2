@@ -175,7 +175,7 @@ public class PlayerController : MonoBehaviour {
             forgetTheGroundTimer = groundTimeAmount; // start the countdown timer...
             airJumpsCount = airJumpsMax;
         } else // ground is NOT detected, so do this stuff:
-          {
+        {
             if (forgetTheGroundTimer > 0) // if there is a countdown timer...
             {
                 forgetTheGroundTimer -= Time.deltaTime; // count down
@@ -198,7 +198,7 @@ public class PlayerController : MonoBehaviour {
 
         // collisions affect velocity:
         if ((flags & CollisionFlags.Sides) > 0) velocity.x = 0;
-        
+
         if ((flags & CollisionFlags.Above) > 0) {
             if (velocity.y > 0) velocity.y = 0;
             isJumping = false;
@@ -249,7 +249,7 @@ public class PlayerController : MonoBehaviour {
                 isJumping = true;
                 isGrounded = false;
             } else if (airJumpsCount > 0) // otherwise, if has airjumps left, do an airjump:
-              {
+            {
                 velocity.y = jumpVelocity;
                 isJumping = true;
                 airJumpsCount--;
@@ -286,38 +286,18 @@ public class PlayerController : MonoBehaviour {
         if (applyDeltaTime) amount *= Time.deltaTime;
         velocity += amount;
     }
-
     /// <summary>
-    /// FIXME: respond to collision events where this object is not the instigator.
+    /// Get the player's current velocity.
     /// </summary>
-    /// <param name="info"></param>
-    void OnTriggerEnter(Collider collider) {
-        //if (collider.tag == "Danger") print("danger moved into you");
-        OnHitGameObject(collider);
-    }
-
-    /// <summary>
-    /// You've run into something. This object is the instigator of the collision.
-    /// </summary>
-    /// <param name="info"></param>
-    void OnControllerColliderHit(ControllerColliderHit info) {
-        //if (info.collider.tag == "Danger") print("you moved into danger");
-        OnHitGameObject(info.collider);
-    }
-
-    /// <summary>
-    /// What to do if colliding with another?
-    /// Checks the tag on the other collider.
-    /// </summary>
-    /// <param name="obj">The other collider</param>
-    void OnHitGameObject(Collider obj) {
-        if (obj.tag == "Danger") {
-            //Ragdoll(obj.transform.position);
-        }
-    }
-
+    /// <returns>The player's current velocity vector.</returns>
     public Vector3 GetVelocity()
     {
         return velocity;
+    }
+    /// <summary>
+    /// Resets the player's velocity back to zero
+    /// </summary>
+    public void ResetVelocity() {
+        velocity = Vector3.zero;
     }
 }
