@@ -56,6 +56,7 @@ public class Jetpack : MonoBehaviour {
         if (jetpackFuelAmount <= 0) jetpackFumes.SetActive(false);
         if (player.isGrounded)
         {
+            SoundPlayer.main.PlayerLanding.Play();
             jetpackFuelAmount = jetpackFuelMax;
             jetpackFumes.SetActive(false);
         }
@@ -64,6 +65,7 @@ public class Jetpack : MonoBehaviour {
         {
             if (player.airJumpsCount == 0 && jetpackFuelAmount > 0) //no jumps left, begin consuming fuel
             {
+                SoundPlayer.main.PlayerLanding.Stop();
                 jetpackFumes.SetActive(true);
                 jetpackFuelAmount -= Time.deltaTime;
                 float thrust = GetThrustAmount();
